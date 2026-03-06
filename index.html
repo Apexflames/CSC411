@@ -27,11 +27,12 @@ body {
 /* ── PAGE WRAPPER ── */
 .page { max-width: 850px; margin: 0 auto; background: white; }
 
-/* ── HEADER / FOOTER STRIPS ── */
+/* ── HEADER STRIP ── */
 .page-header {
   background: var(--dark);
-  color: white; padding: 7px 24px;
+  color: white; padding: 8px 16px;
   display: flex; justify-content: space-between; align-items: center;
+  flex-wrap: wrap; gap: 4px;
   font-size: 11px; font-family: 'DM Sans', sans-serif;
 }
 .page-header span:last-child { opacity: 0.7; font-style: italic; }
@@ -39,48 +40,48 @@ body {
 /* ── COVER ── */
 .cover {
   background: linear-gradient(135deg, var(--dark) 0%, #1a3a6e 60%, var(--mid) 100%);
-  min-height: 340px; display: flex; flex-direction: column;
+  min-height: 280px; display: flex; flex-direction: column;
   align-items: center; justify-content: center;
-  padding: 60px 40px; text-align: center;
+  padding: 40px 20px; text-align: center;
 }
 .cover-apex { font-size: 13px; letter-spacing: 0.25em; color: var(--light); opacity: 0.9; font-weight: 600; margin-bottom: 8px; }
-.cover h1 { font-family: 'Crimson Pro', serif; font-size: 52px; font-weight: 700; color: white; line-height: 1.1; margin-bottom: 6px; }
-.cover-sub { font-size: 18px; color: var(--light); font-weight: 500; margin-bottom: 20px; }
+.cover h1 { font-family: 'Crimson Pro', serif; font-size: clamp(28px, 7vw, 52px); font-weight: 700; color: white; line-height: 1.1; margin-bottom: 6px; }
+.cover-sub { font-size: clamp(14px, 4vw, 18px); color: var(--light); font-weight: 500; margin-bottom: 20px; }
 .cover-divider { width: 80px; height: 3px; background: var(--light); border-radius: 2px; margin: 0 auto 20px; }
-.cover-topics { font-size: 12.5px; color: rgba(189,215,238,0.85); line-height: 1.8; }
-.cover-topics strong { color: white; font-size: 13px; }
+.cover-topics { font-size: clamp(11px, 3vw, 12.5px); color: rgba(189,215,238,0.85); line-height: 1.8; }
+.cover-topics strong { color: white; font-size: clamp(12px, 3.5vw, 13px); }
 .cover-session { margin-top: 24px; font-size: 11px; color: rgba(189,215,238,0.6); letter-spacing: 0.1em; }
 
 /* ── BODY PADDING ── */
-.body { padding: 28px 40px; }
+.body { padding: 20px 16px; }
 
 /* ── HOW TO USE BOX ── */
-.how-to { background: var(--xlight); border-left: 5px solid var(--mid); padding: 14px 18px; border-radius: 0 8px 8px 0; margin-bottom: 28px; font-size: 13px; }
+.how-to { background: var(--xlight); border-left: 5px solid var(--mid); padding: 12px 14px; border-radius: 0 8px 8px 0; margin-bottom: 24px; font-size: 13px; }
 .how-to strong { color: var(--dark); }
 
 /* ── TOPIC HEADER ── */
 .topic-header {
   background: var(--dark); color: white;
-  padding: 11px 18px; margin: 36px -40px 0;
-  font-size: 17px; font-weight: 700; letter-spacing: 0.02em;
+  padding: 11px 16px; margin: 32px -16px 0;
+  font-size: clamp(14px, 4vw, 17px); font-weight: 700; letter-spacing: 0.02em;
 }
 .topic-header span { opacity: 0.7; font-size: 13px; font-weight: 400; margin-left: 10px; }
 
 /* ── SECTION HEADER ── */
 .section-h {
   background: var(--mid); color: white;
-  padding: 7px 16px; margin: 24px -40px 14px;
-  font-size: 14px; font-weight: 600;
+  padding: 7px 14px; margin: 20px -16px 12px;
+  font-size: 13.5px; font-weight: 600;
 }
 
 /* ── CONTENT BLOCKS ── */
 p { margin-bottom: 10px; font-size: 13.5px; }
-ul, ol { margin: 8px 0 12px 28px; }
+ul, ol { margin: 8px 0 12px 20px; }
 li { margin-bottom: 4px; font-size: 13.5px; }
 strong { color: var(--dark); }
 
 /* ── CALLOUT BOXES ── */
-.box { border-radius: 6px; padding: 12px 16px; margin: 14px 0; font-size: 13px; }
+.box { border-radius: 6px; padding: 12px 14px; margin: 14px 0; font-size: 13px; }
 .box-title { font-weight: 700; font-size: 12.5px; letter-spacing: 0.03em; margin-bottom: 4px; }
 .box-yellow { background: var(--yellow-l); border-left: 4px solid #f0ad00; }
 .box-yellow .box-title { color: var(--yellow-d); }
@@ -93,25 +94,38 @@ strong { color: var(--dark); }
 .box-purple { background: var(--purple-l); border-left: 4px solid #7c3aed; }
 .box-purple .box-title { color: var(--purple-d); }
 
-/* ── TABLES ── */
-table { width: 100%; border-collapse: collapse; margin: 14px 0 18px; font-size: 12.5px; }
+/* ── TABLES — responsive ── */
+.table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 14px 0 18px; }
+table { width: 100%; border-collapse: collapse; font-size: 12px; min-width: 320px; }
 th { background: var(--mid); color: white; padding: 8px 10px; text-align: left; font-weight: 600; }
-td { padding: 7px 10px; border: 1px solid var(--line); vertical-align: top; }
+td { padding: 7px 10px; border: 1px solid var(--line); vertical-align: top; color: #111 !important; }
 tr:nth-child(even) td { background: #f0f7ff; }
 
 /* ── DIAGRAM FRAME ── */
-.diagram-wrap { margin: 18px 0; }
+.diagram-wrap { margin: 16px 0; }
 .diagram-label {
   background: var(--dark); color: white;
-  font-size: 12px; font-weight: 700; padding: 6px 14px;
-  display: flex; align-items: center; gap: 10px;
+  font-size: 12px; font-weight: 700; padding: 6px 12px;
+  display: flex; align-items: center; gap: 8px;
   border-radius: 6px 6px 0 0;
+  flex-wrap: wrap;
 }
 .diagram-label .tag { background: rgba(255,255,255,0.2); padding: 2px 8px; border-radius: 4px; font-size: 11px; font-family: 'JetBrains Mono', monospace; }
-.diagram-body { border: 2px solid var(--dark); border-top: none; border-radius: 0 0 6px 6px; background: white; padding: 16px; overflow-x: auto; }
+.diagram-body {
+  border: 2px solid var(--dark); border-top: none;
+  border-radius: 0 0 6px 6px; background: white;
+  padding: 12px 8px; overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
 .diagram-rules { background: var(--xlight); border-top: 1px solid var(--light); padding: 10px 14px; font-size: 11.5px; border-radius: 0 0 6px 6px; }
 .diagram-rules strong { color: var(--dark); font-size: 11px; display: block; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.06em; }
 .rule-chip { display: inline-block; background: var(--mid); color: white; padding: 2px 8px; border-radius: 4px; font-size: 11px; margin: 2px 3px; font-family: 'JetBrains Mono', monospace; }
+
+/* ── SVG GLOBAL: force all SVG text to black ── */
+svg text {
+  font-family: 'DM Sans', sans-serif;
+  fill: #111 !important;
+}
 
 /* ── VALIDATION LIST ── */
 .val-list { counter-reset: val; padding: 0; list-style: none; }
@@ -119,9 +133,9 @@ tr:nth-child(even) td { background: #f0f7ff; }
 .val-list li::before { content: counter(val); position: absolute; left: 0; width: 22px; height: 22px; background: var(--mid); color: white; border-radius: 50%; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; top: 5px; }
 
 /* ── EXAM SECTION ── */
-.exam-q { border: 1px solid var(--line); border-radius: 8px; margin: 16px 0; overflow: hidden; }
-.exam-q-header { background: var(--mid); color: white; padding: 8px 16px; font-size: 13px; font-weight: 700; }
-.exam-q-body { padding: 12px 16px; font-size: 13px; }
+.exam-q { border: 1px solid var(--line); border-radius: 8px; margin: 14px 0; overflow: hidden; }
+.exam-q-header { background: var(--mid); color: white; padding: 8px 14px; font-size: 13px; font-weight: 700; }
+.exam-q-body { padding: 12px 14px; font-size: 13px; }
 
 /* ── COMPARISON TABLE ── */
 .cmp th { background: var(--dark); font-size: 12px; }
@@ -131,14 +145,22 @@ tr:nth-child(even) td { background: #f0f7ff; }
 .mono { font-family: 'JetBrains Mono', monospace; font-size: 12px; }
 
 /* ── PAGE BREAK ── */
-.pb { border-top: 3px solid var(--light); margin: 36px -40px; }
-
-svg text { font-family: 'DM Sans', sans-serif; }
+.pb { border-top: 3px solid var(--light); margin: 32px -16px; }
 
 @media print {
   body { background: white; }
   .page { max-width: 100%; }
   .topic-header, .section-h { margin-left: 0; margin-right: 0; }
+}
+
+/* ── MOBILE: tighten up on very small screens ── */
+@media (max-width: 480px) {
+  .body { padding: 16px 12px; }
+  .topic-header { margin-left: -12px; margin-right: -12px; }
+  .section-h { margin-left: -12px; margin-right: -12px; }
+  .pb { margin-left: -12px; margin-right: -12px; }
+  .cover { padding: 32px 16px; }
+  th, td { padding: 6px 8px; }
 }
 </style>
 </head>
@@ -232,13 +254,13 @@ svg text { font-family: 'DM Sans', sans-serif; }
   </div>
 </div>
 
-<table>
+<div class="table-wrap"><table>
   <tr><th>Symbol</th><th>Shape</th><th>Purpose</th><th>Rules</th></tr>
   <tr><td><strong>Process</strong></td><td>Rectangle with 3 sections (number | name | location)</td><td>Transforms/uses data. The 'doing' part of the system.</td><td>Must have at least 1 input AND 1 output. Named with action verb + object (e.g., 'Record Details').</td></tr>
   <tr><td><strong>Data-Flow</strong></td><td>Named arrow (directed line)</td><td>Represents data moving between elements.</td><td>Always flows to/from a process. Labelled with a meaningful name. Dashed line = flow between external entities.</td></tr>
   <tr><td><strong>Data Store</strong></td><td>Long rectangle with 2 sections (ID | Name)</td><td>Where data is stored inside the system.</td><td>Must have at least 1 input and 1 output flow. Use prefix: D=computer, M=manual, T=temporary.</td></tr>
   <tr><td><strong>External Entity</strong></td><td>Oval/ellipse with identifier</td><td>People or systems outside the system that provide or receive data.</td><td>Always connected to a process by a data-flow. Duplicated entities get a diagonal cut corner.</td></tr>
-</table>
+</table></div>
 
 <div class="box box-yellow">
   <div class="box-title">🗣️ Real-Life Example</div>
@@ -248,12 +270,12 @@ svg text { font-family: 'DM Sans', sans-serif; }
 <div class="section-h">1.3 The Three Types of DFDs — The Hierarchy</div>
 <p>DFDs are built in levels, from most general (top) to most detailed (bottom). This is called <strong>functional decomposition</strong> or <strong>levelling</strong>.</p>
 
-<table>
+<div class="table-wrap"><table>
   <tr><th>Level</th><th>Also Called</th><th>What It Shows</th><th>Key Feature</th></tr>
   <tr><td><strong>Level 0</strong></td><td>Context Diagram</td><td>The ENTIRE system as ONE single process, plus all external entities and data-flows in/out.</td><td>No data stores. No sub-processes. Shows system boundary only.</td></tr>
   <tr><td><strong>Level 1</strong></td><td>Level 1 DFD</td><td>The main subprocesses that make up the system. An 'exploded' view of the context diagram.</td><td>Shows data stores. Processes numbered 1, 2, 3…</td></tr>
   <tr><td><strong>Level 2+</strong></td><td>Level 2/3 DFD</td><td>Breaks down a single Level 1 process into its sub-processes.</td><td>Processes numbered like 2.1, 2.2, 2.3… Must BALANCE with parent.</td></tr>
-</table>
+</table></div>
 
 <div class="box box-orange">
   <div class="box-title">⚠️ Balancing Rule</div>
@@ -642,7 +664,7 @@ svg text { font-family: 'DM Sans', sans-serif; }
   </div>
 </div>
 
-<table>
+<div class="table-wrap"><table>
   <tr><th>Element</th><th>Symbol</th><th>Meaning</th><th>Example</th></tr>
   <tr><td><strong>Entity</strong></td><td>Rectangle</td><td>A 'thing' or object with independent existence in the system. Represents a TYPE, not a single instance.</td><td>employee, student, factory, book</td></tr>
   <tr><td><strong>Attribute</strong></td><td>Oval connected to entity</td><td>A property or characteristic of an entity.</td><td>name, age, ID, salary</td></tr>
@@ -650,7 +672,7 @@ svg text { font-family: 'DM Sans', sans-serif; }
   <tr><td><strong>Relationship</strong></td><td>Diamond connected to entities</td><td>A meaningful connection between two or more entities. Like a 'verb' linking 'nouns'.</td><td>employee WORKS AT factory</td></tr>
   <tr><td><strong>Weak Entity</strong></td><td>Double-bordered rectangle</td><td>An entity that cannot be uniquely identified by itself — it needs its 'owner' entity.</td><td>assembly_line needs factory to be identified (line 1 at Factory A vs line 1 at Factory B)</td></tr>
   <tr><td><strong>Identifying Relationship</strong></td><td>Double-bordered diamond</td><td>The relationship that a weak entity depends on for its identity.</td><td>factory CONTAINS assembly_line</td></tr>
-</table>
+</table></div>
 
 <div class="box box-blue">
   <div class="box-title">🔑 Key Distinction</div>
@@ -660,12 +682,12 @@ svg text { font-family: 'DM Sans', sans-serif; }
 <div class="section-h">2.3 Cardinality Ratios — How Many?</div>
 <p>Cardinality describes how many instances of one entity relate to how many instances of another. It is shown as numbers (<strong>1</strong> or <strong>N</strong>) on the lines connecting a relationship to entities.</p>
 
-<table>
+<div class="table-wrap"><table>
   <tr><th>Ratio</th><th>Meaning</th><th>Real-Life Example</th><th>Statement</th></tr>
   <tr><td><strong>1:1</strong></td><td>One-to-One</td><td>Each country has exactly ONE capital city.</td><td>Each country has 1 capital; each capital belongs to 1 country.</td></tr>
   <tr><td><strong>1:N</strong></td><td>One-to-Many</td><td>One teacher teaches MANY students.</td><td>Each teacher teaches many students; each student has one class teacher.</td></tr>
   <tr><td><strong>N:M</strong></td><td>Many-to-Many</td><td>Many students take many courses.</td><td>Each student takes many courses; each course is taken by many students.</td></tr>
-</table>
+</table></div>
 
 <!-- CARDINALITY NOTATION DIAGRAM -->
 <div class="diagram-wrap">
@@ -907,16 +929,16 @@ svg text { font-family: 'DM Sans', sans-serif; }
   A Use Case Diagram is like a restaurant menu. The restaurant (system) offers dishes (use cases), and different types of customers (actors) can order different items. A regular customer can order food, while the chef (another actor) can update the menu. The menu is the system boundary.
 </div>
 
-<table>
+<div class="table-wrap"><table>
   <tr><th>Feature</th><th>Description</th></tr>
   <tr><td><strong>Shows the WHAT</strong></td><td>What can users do with the system? (not HOW the system does it internally)</td></tr>
   <tr><td><strong>User's perspective</strong></td><td>Describes requirements from outside — what users need from the system</td></tr>
   <tr><td><strong>High-level overview</strong></td><td>Not detailed — gives the big picture of all system functions</td></tr>
   <tr><td><strong>Functional requirements</strong></td><td>Every use case = one piece of functionality the system must provide</td></tr>
-</table>
+</table></div>
 
 <div class="section-h">3.2 Use Case Diagram Notation</div>
-<table>
+<div class="table-wrap"><table>
   <tr><th>Element</th><th>Symbol</th><th>Meaning</th></tr>
   <tr><td><strong>System Boundary</strong></td><td>Large rectangle enclosing the use cases</td><td>Defines what is INSIDE the system vs. outside. Use cases go inside; actors go outside.</td></tr>
   <tr><td><strong>Actor</strong></td><td>Stick figure with name below</td><td>A user, external system, or device that interacts with the system. Represents a ROLE, not a specific person.</td></tr>
@@ -925,7 +947,7 @@ svg text { font-family: 'DM Sans', sans-serif; }
   <tr><td><strong>Include</strong></td><td>Dashed arrow labelled «include»</td><td>One use case ALWAYS includes the behaviour of another. Like calling a subroutine that always runs.</td></tr>
   <tr><td><strong>Extend</strong></td><td>Dashed arrow labelled «extend»</td><td>One use case SOMETIMES extends the behaviour of another. Optional extra behaviour.</td></tr>
   <tr><td><strong>Generalization</strong></td><td>Solid arrow with hollow triangle head</td><td>Inheritance. A child actor/use case inherits from a parent and can add more specific behaviour.</td></tr>
-</table>
+</table></div>
 
 <div class="section-h">3.3 DIAGRAM TYPE E: Use Case Diagram — ATM System</div>
 
@@ -1024,13 +1046,13 @@ svg text { font-family: 'DM Sans', sans-serif; }
 </div>
 
 <div class="section-h">3.4 Merits and Demerits of Use Case Diagrams</div>
-<table>
+<div class="table-wrap"><table>
   <tr><th>Merits</th><th>Demerits</th></tr>
   <tr><td>Clear visual overview of all system functions</td><td>Too abstract — may oversimplify complex interactions</td></tr>
   <tr><td>Easy for non-technical stakeholders to understand</td><td>Does not capture detailed business rules or logic</td></tr>
   <tr><td>Helps identify system scope and boundaries</td><td>Only a static snapshot — doesn't show time or sequence</td></tr>
   <tr><td>Guides requirements analysis from user's view</td><td>Cannot show internal system processes or data flows</td></tr>
-</table>
+</table></div>
 
 <div class="pb"></div>
 
@@ -1048,7 +1070,7 @@ svg text { font-family: 'DM Sans', sans-serif; }
 </div>
 
 <div class="section-h">4.2 Activity Diagram Notation</div>
-<table>
+<div class="table-wrap"><table>
   <tr><th>Element</th><th>Symbol</th><th>Meaning</th></tr>
   <tr><td><strong>Initial Node (Start)</strong></td><td>Solid filled circle ●</td><td>The starting point of the process.</td></tr>
   <tr><td><strong>Activity/Action</strong></td><td>Rounded rectangle</td><td>A task or step in the process (e.g., 'Enter Payment Details').</td></tr>
@@ -1057,7 +1079,7 @@ svg text { font-family: 'DM Sans', sans-serif; }
   <tr><td><strong>Fork</strong></td><td>Thick horizontal bar (1 in / multiple out)</td><td>Splits flow into PARALLEL paths. Multiple activities happen simultaneously.</td></tr>
   <tr><td><strong>Join</strong></td><td>Thick horizontal bar (multiple in / 1 out)</td><td>Merges parallel paths back together. All parallel activities must complete before continuing.</td></tr>
   <tr><td><strong>Final Node (End)</strong></td><td>Solid circle inside a ring ◎ (bullseye)</td><td>The ending point of the process.</td></tr>
-</table>
+</table></div>
 
 <div class="section-h">4.3 DIAGRAM TYPE F: Activity Diagram — Online Shopping</div>
 
@@ -1212,7 +1234,7 @@ svg text { font-family: 'DM Sans', sans-serif; }
 </div>
 
 <div class="section-h">5.3 Relationships in Class Diagrams</div>
-<table>
+<div class="table-wrap"><table>
   <tr><th>Relationship</th><th>Symbol</th><th>Meaning</th><th>Example</th></tr>
   <tr><td><strong>Association</strong></td><td>Solid line</td><td>A general connection between classes — they 'know about' each other.</td><td>Student — Course (student takes a course)</td></tr>
   <tr><td><strong>Multiplicity</strong></td><td>Numbers on association ends (1, *, 0..1, 1..*)</td><td>How many instances of one class relate to another.</td><td>1 student takes * courses</td></tr>
@@ -1220,7 +1242,7 @@ svg text { font-family: 'DM Sans', sans-serif; }
   <tr><td><strong>Aggregation</strong></td><td>Solid line with open diamond at whole</td><td>A HAS-A relationship where parts can exist independently of the whole.</td><td>Department HAS employees (employees can exist without the department)</td></tr>
   <tr><td><strong>Composition</strong></td><td>Solid line with filled diamond at whole</td><td>A STRONG HAS-A: parts CANNOT exist without the whole.</td><td>House HAS rooms (rooms cannot exist without the house)</td></tr>
   <tr><td><strong>Dependency</strong></td><td>Dashed arrow</td><td>One class uses another temporarily.</td><td>Report depends on Printer</td></tr>
-</table>
+</table></div>
 
 <div class="section-h">5.4 DIAGRAM TYPE G: Class Diagram — Library Management System</div>
 
@@ -1344,7 +1366,7 @@ svg text { font-family: 'DM Sans', sans-serif; }
 <p>All objects of the same class follow the <em>same</em> state diagram — it models their <strong>COMMON behavior</strong>.</p>
 
 <div class="section-h">6.2 State Diagram Notation</div>
-<table>
+<div class="table-wrap"><table>
   <tr><th>Element</th><th>Symbol</th><th>Meaning</th></tr>
   <tr><td><strong>State</strong></td><td>Rounded rectangle with state name</td><td>A condition or situation where an object satisfies some invariant and waits for an event.</td></tr>
   <tr><td><strong>Initial State</strong></td><td>Solid filled circle ●</td><td>The starting state — where the object begins its life.</td></tr>
@@ -1353,7 +1375,7 @@ svg text { font-family: 'DM Sans', sans-serif; }
   <tr><td><strong>Event Label</strong></td><td>Text on the transition arrow</td><td>The event that triggers the transition (e.g., 'card inserted', 'PIN entered').</td></tr>
   <tr><td><strong>Guard Condition</strong></td><td>[condition] in square brackets</td><td>A boolean condition that must be TRUE for the transition to occur.</td></tr>
   <tr><td><strong>Action/Effect</strong></td><td>/ action after event label</td><td>An action that happens WHEN the transition fires (e.g., event [guard] / action).</td></tr>
-</table>
+</table></div>
 
 <div class="section-h">6.3 DIAGRAM TYPE H: State Diagram — ATM Machine</div>
 
@@ -1450,7 +1472,7 @@ svg text { font-family: 'DM Sans', sans-serif; }
 </div>
 
 <div class="section-h">7.2 Sequence Diagram Notation</div>
-<table>
+<div class="table-wrap"><table>
   <tr><th>Element</th><th>Symbol</th><th>Meaning</th></tr>
   <tr><td><strong>Object/Actor</strong></td><td>Rectangle at top (ClassName:ObjectName)</td><td>A participant in the sequence — an object, actor, or system.</td></tr>
   <tr><td><strong>Lifeline</strong></td><td>Dashed vertical line hanging from object</td><td>Represents the object's existence over time (time flows downward).</td></tr>
@@ -1459,7 +1481,7 @@ svg text { font-family: 'DM Sans', sans-serif; }
   <tr><td><strong>Return Message</strong></td><td>Dashed arrow from receiver back to sender</td><td>The response/return value after a message is processed.</td></tr>
   <tr><td><strong>Self Message</strong></td><td>Arrow that loops back to the same lifeline</td><td>An object calling its own method.</td></tr>
   <tr><td><strong>Asynchronous Message</strong></td><td>Open arrowhead</td><td>A message sent without waiting for a response.</td></tr>
-</table>
+</table></div>
 
 <div class="section-h">7.3 DIAGRAM TYPE I: Sequence Diagram — ATM Transaction</div>
 
@@ -1607,7 +1629,7 @@ svg text { font-family: 'DM Sans', sans-serif; }
      TOPIC 8: COMPARISON TABLE
 ═══════════════════════════════════════════════ -->
 <div class="topic-header">TOPIC 8: DIAGRAM COMPARISON — QUICK REFERENCE</div>
-<table class="cmp">
+<div class="table-wrap"><table class="cmp">
   <tr><th>Diagram Type</th><th>Category</th><th>Shows</th><th>Key Symbol</th><th>When to Use</th></tr>
   <tr><td><strong>Data-Flow Diagram</strong></td><td>Structured Analysis</td><td>How data flows through processes</td><td>Processes (rect), Arrows, Data Stores (rect), External Entities (ovals)</td><td>Modeling information flow; system analysis</td></tr>
   <tr><td><strong>Entity-Relationship Diagram</strong></td><td>Data Modeling</td><td>Data structure &amp; relationships</td><td>Rectangles (entities), Ovals (attributes), Diamonds (relationships)</td><td>Designing databases; data modeling</td></tr>
@@ -1616,7 +1638,7 @@ svg text { font-family: 'DM Sans', sans-serif; }
   <tr><td><strong>Class Diagram</strong></td><td>UML Structural</td><td>Classes, attributes, operations, relationships</td><td>3-part rectangle (class), Lines with arrows</td><td>Object-oriented design; system structure</td></tr>
   <tr><td><strong>State Diagram</strong></td><td>UML Behavioral</td><td>Object states &amp; transitions</td><td>Rounded rects (states), Arrows (transitions), ● (start), ◎ (end)</td><td>Objects whose behavior depends on state</td></tr>
   <tr><td><strong>Sequence Diagram</strong></td><td>UML Behavioral</td><td>Object interactions over time</td><td>Objects at top, Lifelines (dashed vertical), Arrows (messages)</td><td>Modeling interaction scenarios / use cases</td></tr>
-</table>
+</table></div>
 
 <div class="pb"></div>
 
