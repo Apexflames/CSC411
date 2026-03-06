@@ -13,76 +13,187 @@
   --orange-d: #843C0C; --orange-l: #FCE4D6;
   --purple-d: #4B1C82; --purple-l: #EAE0F5;
   --red-d: #C00000;
-  --body: #1a1a2e; --muted: #555; --line: #d0dde8;
+  --body-color: #1a1a2e; --muted: #555; --line: #d0dde8;
 }
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+/* ── BASE ── */
 body {
   font-family: 'DM Sans', sans-serif;
-  font-size: 14px; line-height: 1.65;
-  color: var(--body);
-  background: #f5f7fa;
+  font-size: 14px; line-height: 1.7;
+  color: var(--body-color);
+  background: #e8edf5;
 }
 
-/* ── PAGE WRAPPER ── */
-.page { max-width: 850px; margin: 0 auto; background: white; }
+/* ── OUTER SHELL ── */
+.shell { max-width: 860px; margin: 0 auto; }
 
-/* ── HEADER STRIP ── */
-.page-header {
+/* ═══════════════════════════════════
+   STICKY NAV / TABLE OF CONTENTS BAR
+═══════════════════════════════════ */
+.toc-bar {
+  position: sticky; top: 0; z-index: 100;
   background: var(--dark);
-  color: white; padding: 8px 16px;
-  display: flex; justify-content: space-between; align-items: center;
-  flex-wrap: wrap; gap: 4px;
-  font-size: 11px; font-family: 'DM Sans', sans-serif;
+  padding: 0 16px;
+  display: flex; align-items: center; gap: 0;
+  overflow-x: auto; -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.3);
 }
-.page-header span:last-child { opacity: 0.7; font-style: italic; }
+.toc-bar::-webkit-scrollbar { display: none; }
+.toc-bar a {
+  color: rgba(255,255,255,0.75);
+  text-decoration: none;
+  font-size: 10.5px; font-weight: 600;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+  padding: 10px 10px;
+  border-bottom: 3px solid transparent;
+  transition: color 0.2s, border-color 0.2s;
+  flex-shrink: 0;
+}
+.toc-bar a:hover { color: white; border-bottom-color: var(--light); }
+.toc-bar .toc-brand {
+  color: white; font-weight: 800; font-size: 12px;
+  letter-spacing: 0.08em;
+  padding: 10px 14px 10px 4px;
+  border-right: 1px solid rgba(255,255,255,0.15);
+  margin-right: 6px; flex-shrink: 0;
+}
+
+/* ═══════════════════════════════════
+   PAGE CARDS — each topic is a card
+═══════════════════════════════════ */
+.page-card {
+  background: white;
+  margin: 20px 12px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 16px rgba(31,56,100,0.10);
+}
+.page-card + .page-card { margin-top: 28px; }
+
+/* Cover page card */
+.page-card.cover-card {
+  margin-top: 16px;
+  border-radius: 12px;
+  overflow: hidden;
+}
 
 /* ── COVER ── */
 .cover {
-  background: linear-gradient(135deg, var(--dark) 0%, #1a3a6e 60%, var(--mid) 100%);
-  min-height: 280px; display: flex; flex-direction: column;
+  background: linear-gradient(135deg, var(--dark) 0%, #1a3a6e 55%, var(--mid) 100%);
+  min-height: 320px;
+  display: flex; flex-direction: column;
   align-items: center; justify-content: center;
-  padding: 40px 20px; text-align: center;
+  padding: 48px 24px 40px; text-align: center;
 }
-.cover-apex { font-size: 13px; letter-spacing: 0.25em; color: var(--light); opacity: 0.9; font-weight: 600; margin-bottom: 8px; }
-.cover h1 { font-family: 'Crimson Pro', serif; font-size: clamp(28px, 7vw, 52px); font-weight: 700; color: white; line-height: 1.1; margin-bottom: 6px; }
-.cover-sub { font-size: clamp(14px, 4vw, 18px); color: var(--light); font-weight: 500; margin-bottom: 20px; }
-.cover-divider { width: 80px; height: 3px; background: var(--light); border-radius: 2px; margin: 0 auto 20px; }
-.cover-topics { font-size: clamp(11px, 3vw, 12.5px); color: rgba(189,215,238,0.85); line-height: 1.8; }
-.cover-topics strong { color: white; font-size: clamp(12px, 3.5vw, 13px); }
-.cover-session { margin-top: 24px; font-size: 11px; color: rgba(189,215,238,0.6); letter-spacing: 0.1em; }
+.cover-apex { font-size: 12px; letter-spacing: 0.3em; color: var(--light); font-weight: 700; margin-bottom: 10px; text-transform: uppercase; }
+.cover h1 { font-family: 'Crimson Pro', serif; font-size: clamp(26px, 7vw, 50px); font-weight: 700; color: white; line-height: 1.1; margin-bottom: 6px; }
+.cover-sub { font-size: clamp(13px, 4vw, 17px); color: var(--light); font-weight: 500; margin-bottom: 18px; }
+.cover-divider { width: 70px; height: 3px; background: var(--light); border-radius: 2px; margin: 0 auto 18px; opacity: 0.7; }
+.cover-topics { font-size: clamp(11px, 3vw, 12.5px); color: rgba(189,215,238,0.85); line-height: 1.9; }
+.cover-topics strong { color: white; }
+.cover-session { margin-top: 24px; font-size: 11px; color: rgba(189,215,238,0.55); letter-spacing: 0.12em; }
 
-/* ── BODY PADDING ── */
-.body { padding: 20px 16px; }
-
-/* ── HOW TO USE BOX ── */
-.how-to { background: var(--xlight); border-left: 5px solid var(--mid); padding: 12px 14px; border-radius: 0 8px 8px 0; margin-bottom: 24px; font-size: 13px; }
-.how-to strong { color: var(--dark); }
-
-/* ── TOPIC HEADER ── */
-.topic-header {
-  background: var(--dark); color: white;
-  padding: 11px 16px; margin: 32px -16px 0;
-  font-size: clamp(14px, 4vw, 17px); font-weight: 700; letter-spacing: 0.02em;
+/* Cover page info strip */
+.cover-info-strip {
+  background: var(--xlight);
+  padding: 14px 20px;
+  font-size: 12.5px;
+  color: var(--dark);
+  border-top: 3px solid var(--mid);
 }
-.topic-header span { opacity: 0.7; font-size: 13px; font-weight: 400; margin-left: 10px; }
+.cover-info-strip strong { color: var(--dark); }
 
-/* ── SECTION HEADER ── */
+/* ── PAGE HEADER (topic banner inside each card) ── */
+.page-topic-banner {
+  background: var(--dark);
+  color: white;
+  padding: 14px 20px 12px;
+  display: flex; align-items: center; gap: 14px;
+  flex-wrap: wrap;
+}
+.page-topic-banner .topic-num {
+  background: rgba(255,255,255,0.18);
+  border-radius: 50%;
+  width: 36px; height: 36px;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 800; font-size: 15px;
+  flex-shrink: 0;
+}
+.page-topic-banner .topic-title {
+  font-family: 'Crimson Pro', serif;
+  font-size: clamp(15px, 5vw, 20px);
+  font-weight: 700; line-height: 1.2;
+}
+.page-topic-banner .topic-sub {
+  font-size: 11px; opacity: 0.65; font-weight: 400;
+  display: block; margin-top: 2px;
+}
+
+/* Page number pill on banner */
+.page-num-pill {
+  margin-left: auto;
+  background: rgba(255,255,255,0.15);
+  border-radius: 20px;
+  padding: 3px 10px;
+  font-size: 10.5px; font-weight: 700;
+  letter-spacing: 0.04em;
+  flex-shrink: 0;
+}
+
+/* ── TOPIC SECTION DIVIDERS inside a card ── */
+.section-divider {
+  margin: 32px 0 0 0;
+  position: relative;
+}
+.section-divider::before {
+  content: '';
+  display: block;
+  height: 3px;
+  background: linear-gradient(90deg, var(--mid) 0%, var(--light) 100%);
+  border-radius: 2px;
+  margin-bottom: 0;
+}
+
+/* ── SECTION HEADER inside card ── */
 .section-h {
   background: var(--mid); color: white;
-  padding: 7px 14px; margin: 20px -16px 12px;
-  font-size: 13.5px; font-weight: 600;
+  padding: 8px 20px;
+  font-size: 13.5px; font-weight: 700;
+  letter-spacing: 0.01em;
 }
+/* First section-h in a card has no top margin */
+.card-body > .section-h:first-child { margin-top: 0; }
 
-/* ── CONTENT BLOCKS ── */
+/* ── CARD BODY ── */
+.card-body { padding: 20px 20px 24px; }
+
+/* ── HOW TO USE BOX ── */
+.how-to {
+  background: var(--xlight); border-left: 5px solid var(--mid);
+  padding: 13px 16px; border-radius: 0 8px 8px 0;
+  margin-bottom: 20px; font-size: 13px;
+}
+.how-to strong { color: var(--dark); }
+
+/* ── CONTENT ── */
 p { margin-bottom: 10px; font-size: 13.5px; }
-ul, ol { margin: 8px 0 12px 20px; }
-li { margin-bottom: 4px; font-size: 13.5px; }
+ul, ol { margin: 8px 0 12px 22px; }
+li { margin-bottom: 5px; font-size: 13.5px; }
 strong { color: var(--dark); }
 
+/* ── TOPIC SEPARATOR (between sub-sections inside same card) ── */
+.sub-sep {
+  margin: 28px 0 0;
+  border: none;
+  border-top: 2px dashed var(--light);
+}
+
 /* ── CALLOUT BOXES ── */
-.box { border-radius: 6px; padding: 12px 14px; margin: 14px 0; font-size: 13px; }
-.box-title { font-weight: 700; font-size: 12.5px; letter-spacing: 0.03em; margin-bottom: 4px; }
+.box { border-radius: 8px; padding: 13px 16px; margin: 14px 0; font-size: 13px; }
+.box-title { font-weight: 700; font-size: 12.5px; letter-spacing: 0.03em; margin-bottom: 5px; }
 .box-yellow { background: var(--yellow-l); border-left: 4px solid #f0ad00; }
 .box-yellow .box-title { color: var(--yellow-d); }
 .box-green { background: var(--green-l); border-left: 4px solid var(--green-m); }
@@ -94,114 +205,158 @@ strong { color: var(--dark); }
 .box-purple { background: var(--purple-l); border-left: 4px solid #7c3aed; }
 .box-purple .box-title { color: var(--purple-d); }
 
-/* ── TABLES — responsive ── */
-.table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 14px 0 18px; }
-table { width: 100%; border-collapse: collapse; font-size: 12px; min-width: 320px; }
-th { background: var(--mid); color: white; padding: 8px 10px; text-align: left; font-weight: 600; }
-td { padding: 7px 10px; border: 1px solid var(--line); vertical-align: top; color: #111 !important; }
-tr:nth-child(even) td { background: #f0f7ff; }
+/* ── TABLES ── */
+.table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 14px 0 18px; border-radius: 6px; }
+table { width: 100%; border-collapse: collapse; font-size: 12.5px; min-width: 300px; }
+th { background: var(--mid); color: white; padding: 9px 12px; text-align: left; font-weight: 700; font-size: 12px; }
+td { padding: 8px 12px; border: 1px solid var(--line); vertical-align: top; color: #111 !important; }
+tr:nth-child(even) td { background: #f4f8ff; }
 
 /* ── DIAGRAM FRAME ── */
-.diagram-wrap { margin: 16px 0; }
+.diagram-wrap { margin: 18px 0; }
 .diagram-label {
   background: var(--dark); color: white;
-  font-size: 12px; font-weight: 700; padding: 6px 12px;
+  font-size: 12px; font-weight: 700; padding: 7px 14px;
   display: flex; align-items: center; gap: 8px;
-  border-radius: 6px 6px 0 0;
-  flex-wrap: wrap;
+  border-radius: 8px 8px 0 0; flex-wrap: wrap;
 }
-.diagram-label .tag { background: rgba(255,255,255,0.2); padding: 2px 8px; border-radius: 4px; font-size: 11px; font-family: 'JetBrains Mono', monospace; }
+.diagram-label .tag {
+  background: rgba(255,255,255,0.2); padding: 2px 9px;
+  border-radius: 4px; font-size: 10.5px; font-family: 'JetBrains Mono', monospace;
+}
 .diagram-body {
   border: 2px solid var(--dark); border-top: none;
-  border-radius: 0 0 6px 6px; background: white;
-  padding: 12px 8px; overflow-x: auto;
+  border-radius: 0 0 8px 8px; background: white;
+  padding: 14px 10px; overflow-x: auto;
   -webkit-overflow-scrolling: touch;
 }
-.diagram-rules { background: var(--xlight); border-top: 1px solid var(--light); padding: 10px 14px; font-size: 11.5px; border-radius: 0 0 6px 6px; }
+.diagram-rules {
+  background: var(--xlight); border-top: 1px solid var(--light);
+  padding: 10px 14px; font-size: 11.5px;
+  border-radius: 0 0 8px 8px;
+}
 .diagram-rules strong { color: var(--dark); font-size: 11px; display: block; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.06em; }
 .rule-chip { display: inline-block; background: var(--mid); color: white; padding: 2px 8px; border-radius: 4px; font-size: 11px; margin: 2px 3px; font-family: 'JetBrains Mono', monospace; }
 
-/* ── SVG GLOBAL: force all SVG text to black ── */
-svg text {
-  font-family: 'DM Sans', sans-serif;
-  fill: #111 !important;
-}
+/* ── SVG: force all text to dark/black ── */
+svg text { font-family: 'DM Sans', sans-serif; fill: #111 !important; }
 
 /* ── VALIDATION LIST ── */
 .val-list { counter-reset: val; padding: 0; list-style: none; }
-.val-list li { counter-increment: val; padding: 5px 0 5px 32px; position: relative; border-bottom: 1px solid #eee; font-size: 13px; }
-.val-list li::before { content: counter(val); position: absolute; left: 0; width: 22px; height: 22px; background: var(--mid); color: white; border-radius: 50%; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; top: 5px; }
+.val-list li { counter-increment: val; padding: 6px 0 6px 34px; position: relative; border-bottom: 1px solid #eee; font-size: 13px; }
+.val-list li::before { content: counter(val); position: absolute; left: 0; width: 22px; height: 22px; background: var(--mid); color: white; border-radius: 50%; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; top: 6px; }
 
 /* ── EXAM SECTION ── */
 .exam-q { border: 1px solid var(--line); border-radius: 8px; margin: 14px 0; overflow: hidden; }
-.exam-q-header { background: var(--mid); color: white; padding: 8px 14px; font-size: 13px; font-weight: 700; }
-.exam-q-body { padding: 12px 14px; font-size: 13px; }
+.exam-q-header { background: var(--mid); color: white; padding: 9px 16px; font-size: 13px; font-weight: 700; line-height: 1.4; }
+.exam-q-body { padding: 12px 16px; font-size: 13px; background: white; }
 
 /* ── COMPARISON TABLE ── */
 .cmp th { background: var(--dark); font-size: 12px; }
 .cmp td { font-size: 12px; }
 
-/* ── CODE / MONO ── */
+/* ── MONO ── */
 .mono { font-family: 'JetBrains Mono', monospace; font-size: 12px; }
 
-/* ── PAGE BREAK ── */
-.pb { border-top: 3px solid var(--light); margin: 32px -16px; }
+/* ── FOOTER STRIP on each card ── */
+.card-footer {
+  background: var(--dark);
+  padding: 7px 20px;
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 10.5px; color: rgba(255,255,255,0.55);
+}
+.card-footer strong { color: rgba(255,255,255,0.85); font-weight: 700; }
 
+/* ── END CARD (good luck) ── */
+.end-card {
+  background: linear-gradient(135deg, var(--dark), var(--mid));
+  color: white; text-align: center;
+  padding: 40px 24px; border-radius: 12px;
+  margin: 28px 12px 32px;
+  box-shadow: 0 4px 20px rgba(31,56,100,0.2);
+}
+.end-card h2 { font-family: 'Crimson Pro', serif; font-size: clamp(22px, 6vw, 32px); margin-bottom: 8px; }
+.end-card p { font-size: 13px; opacity: 0.75; }
+
+/* ── PRINT ── */
 @media print {
   body { background: white; }
-  .page { max-width: 100%; }
-  .topic-header, .section-h { margin-left: 0; margin-right: 0; }
+  .toc-bar { display: none; }
+  .shell { max-width: 100%; }
+  .page-card { box-shadow: none; margin: 0; border-radius: 0; border-bottom: 3px solid var(--dark); }
+  .page-card + .page-card { page-break-before: always; }
 }
 
-/* ── MOBILE: tighten up on very small screens ── */
+/* ── SMALL SCREENS ── */
 @media (max-width: 480px) {
-  .body { padding: 16px 12px; }
-  .topic-header { margin-left: -12px; margin-right: -12px; }
-  .section-h { margin-left: -12px; margin-right: -12px; }
-  .pb { margin-left: -12px; margin-right: -12px; }
-  .cover { padding: 32px 16px; }
-  th, td { padding: 6px 8px; }
+  .page-card { margin: 14px 8px; border-radius: 10px; }
+  .card-body { padding: 16px 14px 20px; }
+  .section-h { padding: 8px 14px; font-size: 13px; }
+  .page-topic-banner { padding: 12px 16px; }
+  .page-num-pill { display: none; }
+  .toc-bar a { font-size: 10px; padding: 10px 8px; }
 }
 </style>
 </head>
 <body>
-<div class="page">
+<div class="shell">
 
-<!-- ═══ PAGE HEADER ═══ -->
-<div class="page-header">
-  <span>CSC 411 – System Analysis &amp; Design | Study Summary</span>
-  <span>Prepared for Exam – Saturday Morning Edition</span>
-</div>
+<!-- ═══ STICKY NAV ═══ -->
+<nav class="toc-bar">
+  <span class="toc-brand">CSC 411</span>
+  <a href="#cover">Cover</a>
+  <a href="#topic1">DFDs</a>
+  <a href="#topic2">ERDs</a>
+  <a href="#topic3">Use Case</a>
+  <a href="#topic4">Activity</a>
+  <a href="#topic5">Class</a>
+  <a href="#topic6">State</a>
+  <a href="#topic7">Sequence</a>
+  <a href="#topic8">Compare</a>
+  <a href="#topic9">Exam Prep</a>
+</nav>
 
-<!-- ═══ COVER ═══ -->
-<div class="cover">
-  <div class="cover-apex">APEX</div>
-  <h1>APEXHUB CSC 411 SUMMARY</h1>
-  <div class="cover-sub">System Analysis &amp; Design</div>
-  <div class="cover-divider"></div>
-  <div style="font-size:14px;font-weight:700;color:white;margin-bottom:10px;">COMPREHENSIVE EXAM STUDY SUMMARY</div>
-  <div class="cover-topics">
-    <strong>Topics Covered:</strong><br>
-    Data-Flow Diagrams (DFDs) | Entity-Relationship Diagrams (ERDs)<br>
-    Use Case Diagrams | Activity Diagrams | UML Diagrams<br>
-    Class Diagrams | State Diagrams | Sequence Diagrams<br><br>
-    <em>Compiled with Plain English Explanations &amp; Real-Life Examples</em>
+<!-- ═══════════════════════════
+     PAGE 1 — COVER
+═══════════════════════════ -->
+<div class="page-card cover-card" id="cover">
+  <div class="cover">
+    <div class="cover-apex">APEXHUB · CSC 411</div>
+    <h1>System Analysis<br>&amp; Design</h1>
+    <div class="cover-sub">Comprehensive Exam Study Summary</div>
+    <div class="cover-divider"></div>
+    <div class="cover-topics">
+      <strong>Topics Covered:</strong><br>
+      Data-Flow Diagrams (DFDs) &nbsp;|&nbsp; Entity-Relationship Diagrams (ERDs)<br>
+      Use Case Diagrams &nbsp;|&nbsp; Activity Diagrams &nbsp;|&nbsp; Class Diagrams<br>
+      State Diagrams &nbsp;|&nbsp; Sequence Diagrams &nbsp;|&nbsp; UML Comparisons<br><br>
+      <em>With Plain English Explanations, Real-Life Examples &amp; Exam Q&amp;A</em>
+    </div>
+    <div class="cover-session">2025 / 2026 Academic Session &nbsp;·&nbsp; Saturday Morning Edition</div>
   </div>
-  <div class="cover-session">2025/2026 Academic Session</div>
+  <div class="cover-info-strip">
+    <strong>📌 HOW TO USE THIS GUIDE:</strong> Each topic follows: Definition → Key Features → Diagram Rules → Plain English Example → Real-Life Application. All diagram types that could appear in the exam are covered with drawn examples. Focus on being able to <strong>DRAW</strong> each diagram type from scratch.
+  </div>
 </div>
 
-<!-- ═══ BODY ═══ -->
-<div class="body">
 
-<div class="how-to">
-  <strong>📌 HOW TO USE THIS GUIDE:</strong> Each topic follows this pattern: Definition → Key Features → Diagram Rules → Plain English Example → Real-Life Application. All diagram TYPES that could appear in the exam are covered. Focus on being able to <strong>DRAW</strong> them from scratch.
-</div>
+<!-- ═══════════════════════════════════
+     PAGE 2 — TOPIC 1
+═══════════════════════════════════ -->
+<div class="page-card" id="topic1">
 
-<!-- ══════════════════════════════════════════════
-     TOPIC 1: DATA-FLOW DIAGRAMS
-═══════════════════════════════════════════════ -->
-<div class="topic-header">TOPIC 1: DATA-FLOW DIAGRAMS (DFDs)</div>
+  <!-- Topic Banner -->
+  <div class="page-topic-banner" style="background: linear-gradient(135deg, #2E75B6 0%, #2E75B6cc 100%);">
+    <div class="topic-num">1</div>
+    <div>
+      <div class="topic-title">DATA-FLOW DIAGRAMS</div>
+      <span class="topic-sub">DFDs</span>
+    </div>
+    <div class="page-num-pill">Pages 2–5</div>
+  </div>
 
+  <!-- Card Content -->
+  <div class="card-body">
 <div class="section-h">1.1 What is a Data-Flow Diagram?</div>
 <p>A <strong>Data-Flow Diagram (DFD)</strong> models the flow of information through a system and the activities (processes) that transform that information. It is one of the most commonly used tools in system analysis.</p>
 
@@ -598,13 +753,38 @@ svg text {
   <strong>External Entities:</strong> Customer, Supplier. <strong>Processes:</strong> Create New Customer, Loan of Video, Stock Control. <strong>Data Stores:</strong> Customer File, Stock File. A customer (external entity) brings their membership card (data-flow) to 'Loan of Video' (process) which checks the Customer File (data store) and records Item on Loan in the Stock File (data store) before sending back a video loan (data-flow).
 </div>
 
-<div class="pb"></div>
+
 
 <!-- ══════════════════════════════════════════════
      TOPIC 2: ERDs
 ═══════════════════════════════════════════════ -->
-<div class="topic-header">TOPIC 2: ENTITY-RELATIONSHIP DIAGRAMS (ERDs)</div>
+  </div>
 
+  <!-- Card Footer -->
+  <div class="card-footer">
+    <span><strong>APEXHUB</strong> · CSC 411 System Analysis &amp; Design</span>
+    <span>Topic 1 of 8</span>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════════
+     PAGE 3 — TOPIC 2
+═══════════════════════════════════ -->
+<div class="page-card" id="topic2">
+
+  <!-- Topic Banner -->
+  <div class="page-topic-banner" style="background: linear-gradient(135deg, #538135 0%, #538135cc 100%);">
+    <div class="topic-num">2</div>
+    <div>
+      <div class="topic-title">ENTITY-RELATIONSHIP DIAGRAMS</div>
+      <span class="topic-sub">ERDs</span>
+    </div>
+    <div class="page-num-pill">Pages 6–9</div>
+  </div>
+
+  <!-- Card Content -->
+  <div class="card-body">
 <div class="section-h">2.1 What is an ERD?</div>
 <p>An <strong>Entity-Relationship Diagram (ERD)</strong> is a graphical tool for modeling the DATA of a system at a high level of abstraction. It shows what kinds of things (entities) exist in the system and how they relate to each other.</p>
 <p>ERDs were invented by <strong>Peter Chen in 1976</strong>. The notation used in this course is from <strong>Elmasri and Navathe</strong>.</p>
@@ -914,13 +1094,38 @@ svg text {
   For a university database: <strong>STUDENT</strong> (student_id, name, level) is related to <strong>COURSE</strong> (course_code, title, units) through an <strong>ENROLS IN</strong> relationship (N:M — many students enroll in many courses). <strong>LECTURER</strong> (staff_id, name) is related to COURSE through a <strong>TEACHES</strong> relationship (1:N — one lecturer teaches many courses). This is the ERD you would draw before building the university database system.
 </div>
 
-<div class="pb"></div>
+
 
 <!-- ══════════════════════════════════════════════
      TOPIC 3: USE CASE DIAGRAMS
 ═══════════════════════════════════════════════ -->
-<div class="topic-header">TOPIC 3: USE CASE DIAGRAMS</div>
+  </div>
 
+  <!-- Card Footer -->
+  <div class="card-footer">
+    <span><strong>APEXHUB</strong> · CSC 411 System Analysis &amp; Design</span>
+    <span>Topic 2 of 8</span>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════════
+     PAGE 4 — TOPIC 3
+═══════════════════════════════════ -->
+<div class="page-card" id="topic3">
+
+  <!-- Topic Banner -->
+  <div class="page-topic-banner" style="background: linear-gradient(135deg, #7c3aed 0%, #7c3aedcc 100%);">
+    <div class="topic-num">3</div>
+    <div>
+      <div class="topic-title">USE CASE DIAGRAMS</div>
+      <span class="topic-sub">UML Behavioral</span>
+    </div>
+    <div class="page-num-pill">Pages 10–11</div>
+  </div>
+
+  <!-- Card Content -->
+  <div class="card-body">
 <div class="section-h">3.1 What is a Use Case Diagram?</div>
 <p>A <strong>Use Case Diagram</strong> is a UML diagram that shows how users (actors) interact with a system to accomplish goals. It captures the <strong>FUNCTIONAL REQUIREMENTS</strong> of a system from the user's perspective.</p>
 
@@ -1054,13 +1259,38 @@ svg text {
   <tr><td>Guides requirements analysis from user's view</td><td>Cannot show internal system processes or data flows</td></tr>
 </table></div>
 
-<div class="pb"></div>
+
 
 <!-- ══════════════════════════════════════════════
      TOPIC 4: ACTIVITY DIAGRAMS
 ═══════════════════════════════════════════════ -->
-<div class="topic-header">TOPIC 4: ACTIVITY DIAGRAMS</div>
+  </div>
 
+  <!-- Card Footer -->
+  <div class="card-footer">
+    <span><strong>APEXHUB</strong> · CSC 411 System Analysis &amp; Design</span>
+    <span>Topic 3 of 8</span>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════════
+     PAGE 5 — TOPIC 4
+═══════════════════════════════════ -->
+<div class="page-card" id="topic4">
+
+  <!-- Topic Banner -->
+  <div class="page-topic-banner" style="background: linear-gradient(135deg, #d97706 0%, #d97706cc 100%);">
+    <div class="topic-num">4</div>
+    <div>
+      <div class="topic-title">ACTIVITY DIAGRAMS</div>
+      <span class="topic-sub">UML Behavioral</span>
+    </div>
+    <div class="page-num-pill">Pages 12–13</div>
+  </div>
+
+  <!-- Card Content -->
+  <div class="card-body">
 <div class="section-h">4.1 What is an Activity Diagram?</div>
 <p>An <strong>Activity Diagram</strong> models the FLOW OF ACTIVITIES (steps/actions) within a system or process. It shows the sequence of actions, decision points, and parallel flows involved in completing a task.</p>
 
@@ -1168,13 +1398,38 @@ svg text {
   <strong>Use Case Diagrams</strong> show WHAT users can do (high level). <strong>Activity Diagrams</strong> show HOW a process flows step-by-step (detailed workflow). Use Cases are about <em>GOALS</em>; Activity Diagrams are about <em>STEPS</em>.
 </div>
 
-<div class="pb"></div>
+
 
 <!-- ══════════════════════════════════════════════
      TOPIC 5: CLASS DIAGRAMS
 ═══════════════════════════════════════════════ -->
-<div class="topic-header">TOPIC 5: UML CLASS DIAGRAMS</div>
+  </div>
 
+  <!-- Card Footer -->
+  <div class="card-footer">
+    <span><strong>APEXHUB</strong> · CSC 411 System Analysis &amp; Design</span>
+    <span>Topic 4 of 8</span>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════════
+     PAGE 6 — TOPIC 5
+═══════════════════════════════════ -->
+<div class="page-card" id="topic5">
+
+  <!-- Topic Banner -->
+  <div class="page-topic-banner" style="background: linear-gradient(135deg, #0f766e 0%, #0f766ecc 100%);">
+    <div class="topic-num">5</div>
+    <div>
+      <div class="topic-title">UML CLASS DIAGRAMS</div>
+      <span class="topic-sub">UML Structural</span>
+    </div>
+    <div class="page-num-pill">Pages 14–16</div>
+  </div>
+
+  <!-- Card Content -->
+  <div class="card-body">
 <div class="section-h">5.1 What is a Class Diagram?</div>
 <p>A <strong>Class Diagram</strong> is a STATIC structural diagram that shows the classes in a system, their attributes, their operations (methods), and the relationships between classes. It is the most important diagram in object-oriented design.</p>
 
@@ -1348,13 +1603,38 @@ svg text {
   </div>
 </div>
 
-<div class="pb"></div>
+
 
 <!-- ══════════════════════════════════════════════
      TOPIC 6: STATE DIAGRAMS
 ═══════════════════════════════════════════════ -->
-<div class="topic-header">TOPIC 6: STATE DIAGRAMS</div>
+  </div>
 
+  <!-- Card Footer -->
+  <div class="card-footer">
+    <span><strong>APEXHUB</strong> · CSC 411 System Analysis &amp; Design</span>
+    <span>Topic 5 of 8</span>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════════
+     PAGE 7 — TOPIC 6
+═══════════════════════════════════ -->
+<div class="page-card" id="topic6">
+
+  <!-- Topic Banner -->
+  <div class="page-topic-banner" style="background: linear-gradient(135deg, #dc2626 0%, #dc2626cc 100%);">
+    <div class="topic-num">6</div>
+    <div>
+      <div class="topic-title">STATE DIAGRAMS</div>
+      <span class="topic-sub">UML Behavioral</span>
+    </div>
+    <div class="page-num-pill">Pages 17–18</div>
+  </div>
+
+  <!-- Card Content -->
+  <div class="card-body">
 <div class="section-h">6.1 What is a State Diagram?</div>
 <p>A <strong>State Diagram</strong> (also called a State Machine Diagram) models the DYNAMIC BEHAVIOR of a single object by showing all the possible states it can be in and how it transitions between those states in response to events.</p>
 
@@ -1456,13 +1736,38 @@ svg text {
   State diagrams are most useful for objects whose behavior <strong>DEPENDS ON THEIR STATE</strong> and whose state <strong>CHANGES over time</strong>. Great for: ATM machines, traffic lights, order processing systems, vending machines, phone call handling.
 </div>
 
-<div class="pb"></div>
+
 
 <!-- ══════════════════════════════════════════════
      TOPIC 7: SEQUENCE DIAGRAMS
 ═══════════════════════════════════════════════ -->
-<div class="topic-header">TOPIC 7: SEQUENCE DIAGRAMS</div>
+  </div>
 
+  <!-- Card Footer -->
+  <div class="card-footer">
+    <span><strong>APEXHUB</strong> · CSC 411 System Analysis &amp; Design</span>
+    <span>Topic 6 of 8</span>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════════
+     PAGE 8 — TOPIC 7
+═══════════════════════════════════ -->
+<div class="page-card" id="topic7">
+
+  <!-- Topic Banner -->
+  <div class="page-topic-banner" style="background: linear-gradient(135deg, #3730a3 0%, #3730a3cc 100%);">
+    <div class="topic-num">7</div>
+    <div>
+      <div class="topic-title">SEQUENCE DIAGRAMS</div>
+      <span class="topic-sub">UML Behavioral</span>
+    </div>
+    <div class="page-num-pill">Pages 19–20</div>
+  </div>
+
+  <!-- Card Content -->
+  <div class="card-body">
 <div class="section-h">7.1 What is a Sequence Diagram?</div>
 <p>A <strong>Sequence Diagram</strong> shows how objects in a system INTERACT WITH EACH OTHER over TIME. It captures the sequence of messages exchanged between objects to carry out a specific use case or scenario.</p>
 
@@ -1623,12 +1928,38 @@ svg text {
   <strong>Sequence Diagram</strong> = MULTIPLE objects interacting in ONE specific scenario from start to finish. Use sequence when asked about 'how objects interact in a use case'.
 </div>
 
-<div class="pb"></div>
+
 
 <!-- ══════════════════════════════════════════════
      TOPIC 8: COMPARISON TABLE
 ═══════════════════════════════════════════════ -->
-<div class="topic-header">TOPIC 8: DIAGRAM COMPARISON — QUICK REFERENCE</div>
+  </div>
+
+  <!-- Card Footer -->
+  <div class="card-footer">
+    <span><strong>APEXHUB</strong> · CSC 411 System Analysis &amp; Design</span>
+    <span>Topic 7 of 8</span>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════════
+     PAGE 9 — TOPIC 8
+═══════════════════════════════════ -->
+<div class="page-card" id="topic8">
+
+  <!-- Topic Banner -->
+  <div class="page-topic-banner" style="background: linear-gradient(135deg, #1F3864 0%, #1F3864cc 100%);">
+    <div class="topic-num">8</div>
+    <div>
+      <div class="topic-title">DIAGRAM COMPARISON</div>
+      <span class="topic-sub">Quick Reference</span>
+    </div>
+    <div class="page-num-pill">Page 21</div>
+  </div>
+
+  <!-- Card Content -->
+  <div class="card-body">
 <div class="table-wrap"><table class="cmp">
   <tr><th>Diagram Type</th><th>Category</th><th>Shows</th><th>Key Symbol</th><th>When to Use</th></tr>
   <tr><td><strong>Data-Flow Diagram</strong></td><td>Structured Analysis</td><td>How data flows through processes</td><td>Processes (rect), Arrows, Data Stores (rect), External Entities (ovals)</td><td>Modeling information flow; system analysis</td></tr>
@@ -1640,13 +1971,38 @@ svg text {
   <tr><td><strong>Sequence Diagram</strong></td><td>UML Behavioral</td><td>Object interactions over time</td><td>Objects at top, Lifelines (dashed vertical), Arrows (messages)</td><td>Modeling interaction scenarios / use cases</td></tr>
 </table></div>
 
-<div class="pb"></div>
+
 
 <!-- ══════════════════════════════════════════════
      EXAM PREPARATION
 ═══════════════════════════════════════════════ -->
-<div class="topic-header">EXAM PREPARATION — LIKELY QUESTIONS &amp; HOW TO APPROACH THEM</div>
+  </div>
 
+  <!-- Card Footer -->
+  <div class="card-footer">
+    <span><strong>APEXHUB</strong> · CSC 411 System Analysis &amp; Design</span>
+    <span>Topic 8 of 8</span>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════════
+     PAGE 10 — TOPIC 9
+═══════════════════════════════════ -->
+<div class="page-card" id="topic9">
+
+  <!-- Topic Banner -->
+  <div class="page-topic-banner" style="background: linear-gradient(135deg, #1F3864 0%, #1F3864cc 100%);">
+    <div class="topic-num">9</div>
+    <div>
+      <div class="topic-title">EXAM PREPARATION</div>
+      <span class="topic-sub">Likely Questions & Approach</span>
+    </div>
+    <div class="page-num-pill">Pages 22–24</div>
+  </div>
+
+  <!-- Card Content -->
+  <div class="card-body">
 <div class="section-h">Section A: Theory Questions (Short Answer)</div>
 
 <div class="exam-q">
@@ -1803,11 +2159,26 @@ svg text {
 </div>
 
 <div style="text-align:center;margin-top:36px;padding:20px 0;border-top:2px solid var(--light);">
-  <div style="font-size:18px;font-weight:700;color:var(--dark);">Good luck on Saturday! You've got this. 🎯</div>
+  <div style="font-size:18px;font-weight:700;color:var(--dark);">APEXHUB says "Good luck on Saturday!".</div>
   <div style="font-size:12px;color:var(--muted);margin-top:6px;">APEXHUB CSC 411 | System Analysis &amp; Design | APEXHUB.AAUA 2025/2026</div>
 </div>
+  </div>
 
-</div><!-- end .body -->
-</div><!-- end .page -->
+  <!-- Card Footer -->
+  <div class="card-footer">
+    <span><strong>APEXHUB</strong> · CSC 411 System Analysis &amp; Design</span>
+    <span>Topic 9 of 8</span>
+  </div>
+
+</div>
+
+<!-- ═══ END CARD ═══ -->
+<div class="end-card" id="end">
+  <h2>APEXHUB says "Good luck on Saturday!".</h2>
+  <p>APEXHUB CSC 411 &nbsp;·&nbsp; System Analysis &amp; Design &nbsp;·&nbsp; APEXHUB.AAUA 2025/2026</p>
+  <p style="margin-top:10px;font-size:11px;opacity:0.5;">Scroll back up or tap a topic in the navigation bar to review.</p>
+</div>
+
+</div><!-- end .shell -->
 </body>
 </html>
