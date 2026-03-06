@@ -1,0 +1,1791 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>APEXHUB CSC 411 – System Analysis & Design | Study Summary</title>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --dark: #1F3864; --mid: #2E75B6; --light: #BDD7EE; --xlight: #DEEAF1;
+  --green-d: #375623; --green-m: #538135; --green-l: #E2EFDA;
+  --yellow-d: #7F6000; --yellow-l: #FFF2CC;
+  --orange-d: #843C0C; --orange-l: #FCE4D6;
+  --purple-d: #4B1C82; --purple-l: #EAE0F5;
+  --red-d: #C00000;
+  --body: #1a1a2e; --muted: #555; --line: #d0dde8;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px; line-height: 1.65;
+  color: var(--body);
+  background: #f5f7fa;
+}
+
+/* ── PAGE WRAPPER ── */
+.page { max-width: 850px; margin: 0 auto; background: white; }
+
+/* ── HEADER / FOOTER STRIPS ── */
+.page-header {
+  background: var(--dark);
+  color: white; padding: 7px 24px;
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 11px; font-family: 'DM Sans', sans-serif;
+}
+.page-header span:last-child { opacity: 0.7; font-style: italic; }
+
+/* ── COVER ── */
+.cover {
+  background: linear-gradient(135deg, var(--dark) 0%, #1a3a6e 60%, var(--mid) 100%);
+  min-height: 340px; display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  padding: 60px 40px; text-align: center;
+}
+.cover-apex { font-size: 13px; letter-spacing: 0.25em; color: var(--light); opacity: 0.9; font-weight: 600; margin-bottom: 8px; }
+.cover h1 { font-family: 'Crimson Pro', serif; font-size: 52px; font-weight: 700; color: white; line-height: 1.1; margin-bottom: 6px; }
+.cover-sub { font-size: 18px; color: var(--light); font-weight: 500; margin-bottom: 20px; }
+.cover-divider { width: 80px; height: 3px; background: var(--light); border-radius: 2px; margin: 0 auto 20px; }
+.cover-topics { font-size: 12.5px; color: rgba(189,215,238,0.85); line-height: 1.8; }
+.cover-topics strong { color: white; font-size: 13px; }
+.cover-session { margin-top: 24px; font-size: 11px; color: rgba(189,215,238,0.6); letter-spacing: 0.1em; }
+
+/* ── BODY PADDING ── */
+.body { padding: 28px 40px; }
+
+/* ── HOW TO USE BOX ── */
+.how-to { background: var(--xlight); border-left: 5px solid var(--mid); padding: 14px 18px; border-radius: 0 8px 8px 0; margin-bottom: 28px; font-size: 13px; }
+.how-to strong { color: var(--dark); }
+
+/* ── TOPIC HEADER ── */
+.topic-header {
+  background: var(--dark); color: white;
+  padding: 11px 18px; margin: 36px -40px 0;
+  font-size: 17px; font-weight: 700; letter-spacing: 0.02em;
+}
+.topic-header span { opacity: 0.7; font-size: 13px; font-weight: 400; margin-left: 10px; }
+
+/* ── SECTION HEADER ── */
+.section-h {
+  background: var(--mid); color: white;
+  padding: 7px 16px; margin: 24px -40px 14px;
+  font-size: 14px; font-weight: 600;
+}
+
+/* ── CONTENT BLOCKS ── */
+p { margin-bottom: 10px; font-size: 13.5px; }
+ul, ol { margin: 8px 0 12px 28px; }
+li { margin-bottom: 4px; font-size: 13.5px; }
+strong { color: var(--dark); }
+
+/* ── CALLOUT BOXES ── */
+.box { border-radius: 6px; padding: 12px 16px; margin: 14px 0; font-size: 13px; }
+.box-title { font-weight: 700; font-size: 12.5px; letter-spacing: 0.03em; margin-bottom: 4px; }
+.box-yellow { background: var(--yellow-l); border-left: 4px solid #f0ad00; }
+.box-yellow .box-title { color: var(--yellow-d); }
+.box-green { background: var(--green-l); border-left: 4px solid var(--green-m); }
+.box-green .box-title { color: var(--green-d); }
+.box-orange { background: var(--orange-l); border-left: 4px solid #d04000; }
+.box-orange .box-title { color: var(--orange-d); }
+.box-blue { background: var(--xlight); border-left: 4px solid var(--mid); }
+.box-blue .box-title { color: var(--dark); }
+.box-purple { background: var(--purple-l); border-left: 4px solid #7c3aed; }
+.box-purple .box-title { color: var(--purple-d); }
+
+/* ── TABLES ── */
+table { width: 100%; border-collapse: collapse; margin: 14px 0 18px; font-size: 12.5px; }
+th { background: var(--mid); color: white; padding: 8px 10px; text-align: left; font-weight: 600; }
+td { padding: 7px 10px; border: 1px solid var(--line); vertical-align: top; }
+tr:nth-child(even) td { background: #f0f7ff; }
+
+/* ── DIAGRAM FRAME ── */
+.diagram-wrap { margin: 18px 0; }
+.diagram-label {
+  background: var(--dark); color: white;
+  font-size: 12px; font-weight: 700; padding: 6px 14px;
+  display: flex; align-items: center; gap: 10px;
+  border-radius: 6px 6px 0 0;
+}
+.diagram-label .tag { background: rgba(255,255,255,0.2); padding: 2px 8px; border-radius: 4px; font-size: 11px; font-family: 'JetBrains Mono', monospace; }
+.diagram-body { border: 2px solid var(--dark); border-top: none; border-radius: 0 0 6px 6px; background: white; padding: 16px; overflow-x: auto; }
+.diagram-rules { background: var(--xlight); border-top: 1px solid var(--light); padding: 10px 14px; font-size: 11.5px; border-radius: 0 0 6px 6px; }
+.diagram-rules strong { color: var(--dark); font-size: 11px; display: block; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.06em; }
+.rule-chip { display: inline-block; background: var(--mid); color: white; padding: 2px 8px; border-radius: 4px; font-size: 11px; margin: 2px 3px; font-family: 'JetBrains Mono', monospace; }
+
+/* ── VALIDATION LIST ── */
+.val-list { counter-reset: val; padding: 0; list-style: none; }
+.val-list li { counter-increment: val; padding: 5px 0 5px 32px; position: relative; border-bottom: 1px solid #eee; font-size: 13px; }
+.val-list li::before { content: counter(val); position: absolute; left: 0; width: 22px; height: 22px; background: var(--mid); color: white; border-radius: 50%; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; top: 5px; }
+
+/* ── EXAM SECTION ── */
+.exam-q { border: 1px solid var(--line); border-radius: 8px; margin: 16px 0; overflow: hidden; }
+.exam-q-header { background: var(--mid); color: white; padding: 8px 16px; font-size: 13px; font-weight: 700; }
+.exam-q-body { padding: 12px 16px; font-size: 13px; }
+
+/* ── COMPARISON TABLE ── */
+.cmp th { background: var(--dark); font-size: 12px; }
+.cmp td { font-size: 12px; }
+
+/* ── CODE / MONO ── */
+.mono { font-family: 'JetBrains Mono', monospace; font-size: 12px; }
+
+/* ── PAGE BREAK ── */
+.pb { border-top: 3px solid var(--light); margin: 36px -40px; }
+
+svg text { font-family: 'DM Sans', sans-serif; }
+
+@media print {
+  body { background: white; }
+  .page { max-width: 100%; }
+  .topic-header, .section-h { margin-left: 0; margin-right: 0; }
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- ═══ PAGE HEADER ═══ -->
+<div class="page-header">
+  <span>CSC 411 – System Analysis &amp; Design | Study Summary</span>
+  <span>Prepared for Exam – Saturday Morning Edition</span>
+</div>
+
+<!-- ═══ COVER ═══ -->
+<div class="cover">
+  <div class="cover-apex">APEX</div>
+  <h1>APEXHUB CSC 411 SUMMARY</h1>
+  <div class="cover-sub">System Analysis &amp; Design</div>
+  <div class="cover-divider"></div>
+  <div style="font-size:14px;font-weight:700;color:white;margin-bottom:10px;">COMPREHENSIVE EXAM STUDY SUMMARY</div>
+  <div class="cover-topics">
+    <strong>Topics Covered:</strong><br>
+    Data-Flow Diagrams (DFDs) | Entity-Relationship Diagrams (ERDs)<br>
+    Use Case Diagrams | Activity Diagrams | UML Diagrams<br>
+    Class Diagrams | State Diagrams | Sequence Diagrams<br><br>
+    <em>Compiled with Plain English Explanations &amp; Real-Life Examples</em>
+  </div>
+  <div class="cover-session">2025/2026 Academic Session</div>
+</div>
+
+<!-- ═══ BODY ═══ -->
+<div class="body">
+
+<div class="how-to">
+  <strong>📌 HOW TO USE THIS GUIDE:</strong> Each topic follows this pattern: Definition → Key Features → Diagram Rules → Plain English Example → Real-Life Application. All diagram TYPES that could appear in the exam are covered. Focus on being able to <strong>DRAW</strong> them from scratch.
+</div>
+
+<!-- ══════════════════════════════════════════════
+     TOPIC 1: DATA-FLOW DIAGRAMS
+═══════════════════════════════════════════════ -->
+<div class="topic-header">TOPIC 1: DATA-FLOW DIAGRAMS (DFDs)</div>
+
+<div class="section-h">1.1 What is a Data-Flow Diagram?</div>
+<p>A <strong>Data-Flow Diagram (DFD)</strong> models the flow of information through a system and the activities (processes) that transform that information. It is one of the most commonly used tools in system analysis.</p>
+
+<div class="box box-yellow">
+  <div class="box-title">🗣️ In Plain English</div>
+  Imagine water flowing through pipes in a building. The <strong>pipes</strong> are the data-flows (arrows), the <strong>taps and pumps</strong> are processes (what transforms the water), the <strong>tanks</strong> are data stores (where water is held), and the outside world — the street and river — are the external entities. A DFD maps that plumbing system for information instead of water.
+</div>
+
+<div class="box box-green">
+  <div class="box-title">✅ Key Benefit</div>
+  DFDs are used because they are accessible to both <strong>technical staff</strong> AND <strong>non-technical users/customers</strong>. Both groups can look at the same diagram and understand the system.
+</div>
+
+<div class="section-h">1.2 The Four Symbols of a DFD</div>
+
+<!-- DFD SYMBOLS DIAGRAM -->
+<div class="diagram-wrap">
+  <div class="diagram-label"><span class="tag">Symbols</span> DFD — All Four Symbols Drawn Correctly</div>
+  <div class="diagram-body">
+    <svg viewBox="0 0 760 160" width="100%">
+      <defs><marker id="s-arr" markerWidth="7" markerHeight="5" refX="7" refY="2.5" orient="auto"><polygon points="0 0,7 2.5,0 5" fill="#2E75B6"/></marker></defs>
+      <!-- Process -->
+      <rect x="20" y="30" width="150" height="68" fill="white" stroke="#2E75B6" stroke-width="2"/>
+      <rect x="20" y="30" width="26" height="68" fill="#BDD7EE" stroke="#2E75B6" stroke-width="2"/>
+      <line x1="20" y1="78" x2="170" y2="78" stroke="#2E75B6" stroke-width="1.5"/>
+      <text x="33" y="59" font-size="13" font-weight="700" fill="#1F3864" text-anchor="middle">1</text>
+      <text x="103" y="57" font-size="12" font-weight="600" fill="#1F3864" text-anchor="middle">Record</text>
+      <text x="103" y="71" font-size="12" font-weight="600" fill="#1F3864" text-anchor="middle">Details</text>
+      <text x="103" y="92" font-size="10" fill="#555" text-anchor="middle">Department</text>
+      <text x="95" y="120" font-size="12" fill="#555" text-anchor="middle" font-weight="600">PROCESS</text>
+      <text x="95" y="135" font-size="10" fill="#777" text-anchor="middle">(3-section rectangle)</text>
+      <!-- Data-flow arrow -->
+      <line x1="230" y1="64" x2="360" y2="64" stroke="#2E75B6" stroke-width="2" marker-end="url(#s-arr)"/>
+      <text x="295" y="55" font-size="11" fill="#1F3864" text-anchor="middle" font-style="italic">data name</text>
+      <text x="295" y="120" font-size="12" fill="#555" text-anchor="middle" font-weight="600">DATA-FLOW</text>
+      <text x="295" y="135" font-size="10" fill="#777" text-anchor="middle">(named directed arrow)</text>
+      <!-- Data store -->
+      <rect x="400" y="48" width="150" height="34" fill="white" stroke="#2E75B6" stroke-width="2"/>
+      <rect x="400" y="48" width="30" height="34" fill="#BDD7EE" stroke="#2E75B6" stroke-width="2"/>
+      <text x="415" y="70" font-size="11" font-weight="700" fill="#1F3864" text-anchor="middle">D1</text>
+      <text x="485" y="70" font-size="12" fill="#1F3864" text-anchor="middle">Customer File</text>
+      <text x="475" y="120" font-size="12" fill="#555" text-anchor="middle" font-weight="600">DATA STORE</text>
+      <text x="475" y="135" font-size="10" fill="#777" text-anchor="middle">(ID | Name rectangle)</text>
+      <!-- External entity (oval) -->
+      <ellipse cx="678" cy="64" rx="64" ry="28" fill="#BDD7EE" stroke="#2E75B6" stroke-width="2"/>
+      <text x="678" y="69" font-size="13" fill="#1F3864" text-anchor="middle" font-weight="600">Customer</text>
+      <text x="678" y="120" font-size="12" fill="#555" text-anchor="middle" font-weight="600">EXTERNAL ENTITY</text>
+      <text x="678" y="135" font-size="10" fill="#777" text-anchor="middle">(oval / ellipse)</text>
+    </svg>
+  </div>
+</div>
+
+<table>
+  <tr><th>Symbol</th><th>Shape</th><th>Purpose</th><th>Rules</th></tr>
+  <tr><td><strong>Process</strong></td><td>Rectangle with 3 sections (number | name | location)</td><td>Transforms/uses data. The 'doing' part of the system.</td><td>Must have at least 1 input AND 1 output. Named with action verb + object (e.g., 'Record Details').</td></tr>
+  <tr><td><strong>Data-Flow</strong></td><td>Named arrow (directed line)</td><td>Represents data moving between elements.</td><td>Always flows to/from a process. Labelled with a meaningful name. Dashed line = flow between external entities.</td></tr>
+  <tr><td><strong>Data Store</strong></td><td>Long rectangle with 2 sections (ID | Name)</td><td>Where data is stored inside the system.</td><td>Must have at least 1 input and 1 output flow. Use prefix: D=computer, M=manual, T=temporary.</td></tr>
+  <tr><td><strong>External Entity</strong></td><td>Oval/ellipse with identifier</td><td>People or systems outside the system that provide or receive data.</td><td>Always connected to a process by a data-flow. Duplicated entities get a diagonal cut corner.</td></tr>
+</table>
+
+<div class="box box-yellow">
+  <div class="box-title">🗣️ Real-Life Example</div>
+  Think of a bank. The <strong>CUSTOMER</strong> (external entity) sends a <strong>DEPOSIT REQUEST</strong> (data-flow) to the <strong>PROCESS DEPOSIT</strong> process (process), which stores the record in <strong>ACCOUNT FILE</strong> (data store) and returns a <strong>RECEIPT</strong> (data-flow) to the CUSTOMER.
+</div>
+
+<div class="section-h">1.3 The Three Types of DFDs — The Hierarchy</div>
+<p>DFDs are built in levels, from most general (top) to most detailed (bottom). This is called <strong>functional decomposition</strong> or <strong>levelling</strong>.</p>
+
+<table>
+  <tr><th>Level</th><th>Also Called</th><th>What It Shows</th><th>Key Feature</th></tr>
+  <tr><td><strong>Level 0</strong></td><td>Context Diagram</td><td>The ENTIRE system as ONE single process, plus all external entities and data-flows in/out.</td><td>No data stores. No sub-processes. Shows system boundary only.</td></tr>
+  <tr><td><strong>Level 1</strong></td><td>Level 1 DFD</td><td>The main subprocesses that make up the system. An 'exploded' view of the context diagram.</td><td>Shows data stores. Processes numbered 1, 2, 3…</td></tr>
+  <tr><td><strong>Level 2+</strong></td><td>Level 2/3 DFD</td><td>Breaks down a single Level 1 process into its sub-processes.</td><td>Processes numbered like 2.1, 2.2, 2.3… Must BALANCE with parent.</td></tr>
+</table>
+
+<div class="box box-orange">
+  <div class="box-title">⚠️ Balancing Rule</div>
+  Every data-flow that goes INTO a process in the parent diagram MUST appear in the child (lower level) diagram. No new inputs/outputs can be added without updating the parent too. This is called <strong>BALANCING</strong>.
+</div>
+
+<div class="section-h">1.4 DIAGRAM TYPE A: Context Diagram (Level 0)</div>
+<p>The context diagram presents the entire system as a single process box, showing only what information comes in and goes out.</p>
+
+<!-- CONTEXT DIAGRAM SVG -->
+<div class="diagram-wrap">
+  <div class="diagram-label"><span class="tag">Diagram Type A</span> Context Diagram (Level 0) — Hotel Booking System</div>
+  <div class="diagram-body">
+    <svg viewBox="0 0 740 340" width="100%">
+      <defs><marker id="c-arr" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><polygon points="0 0,8 3,0 6" fill="#2E75B6"/></marker></defs>
+      <!-- System boundary hint -->
+      <rect x="220" y="80" width="300" height="160" rx="4" fill="#f0f7ff" stroke="#2E75B6" stroke-width="1.5" stroke-dasharray="6,4"/>
+      <text x="370" y="100" font-size="11" fill="#94a3b8" text-anchor="middle" font-style="italic">— System Boundary —</text>
+      <!-- Single process box -->
+      <rect x="250" y="110" width="240" height="100" fill="white" stroke="#2E75B6" stroke-width="2.5"/>
+      <rect x="250" y="110" width="36" height="100" fill="#BDD7EE" stroke="#2E75B6" stroke-width="2.5"/>
+      <line x1="250" y1="170" x2="490" y2="170" stroke="#2E75B6" stroke-width="1.5"/>
+      <text x="268" y="145" font-size="15" font-weight="700" fill="#1F3864" text-anchor="middle">0</text>
+      <text x="373" y="147" font-size="13" font-weight="700" fill="#1F3864" text-anchor="middle">Hotel Booking</text>
+      <text x="373" y="163" font-size="13" font-weight="700" fill="#1F3864" text-anchor="middle">System</text>
+      <text x="373" y="194" font-size="10" fill="#555" text-anchor="middle">Whole System</text>
+      <!-- Guest -->
+      <ellipse cx="80" cy="160" rx="66" ry="30" fill="#BDD7EE" stroke="#2E75B6" stroke-width="2"/>
+      <text x="80" y="165" font-size="13" font-weight="700" fill="#1F3864" text-anchor="middle">Guest</text>
+      <!-- Payment Gateway -->
+      <ellipse cx="654" cy="160" rx="76" ry="30" fill="#BDD7EE" stroke="#2E75B6" stroke-width="2"/>
+      <text x="654" y="157" font-size="12" font-weight="700" fill="#1F3864" text-anchor="middle">Payment</text>
+      <text x="654" y="172" font-size="12" font-weight="700" fill="#1F3864" text-anchor="middle">Gateway</text>
+      <!-- Guest → System -->
+      <line x1="146" y1="148" x2="250" y2="142" stroke="#2E75B6" stroke-width="1.8" marker-end="url(#c-arr)"/>
+      <text x="198" y="136" font-size="11" fill="#1F3864" text-anchor="middle">booking request</text>
+      <line x1="146" y1="170" x2="250" y2="170" stroke="#2E75B6" stroke-width="1.8" marker-end="url(#c-arr)"/>
+      <text x="198" y="165" font-size="11" fill="#1F3864" text-anchor="middle">personal details</text>
+      <!-- System → Guest -->
+      <path d="M 310 110 Q 160 40 100 130" stroke="#2E75B6" stroke-width="1.8" fill="none" marker-end="url(#c-arr)"/>
+      <text x="184" y="53" font-size="11" fill="#1F3864" text-anchor="middle">booking confirmation</text>
+      <!-- Guest → System (payment) -->
+      <path d="M 100 190 Q 160 280 310 210" stroke="#2E75B6" stroke-width="1.8" fill="none" marker-end="url(#c-arr)"/>
+      <text x="184" y="278" font-size="11" fill="#1F3864" text-anchor="middle">payment details</text>
+      <!-- System → Payment -->
+      <line x1="490" y1="148" x2="578" y2="148" stroke="#2E75B6" stroke-width="1.8" marker-end="url(#c-arr)"/>
+      <text x="534" y="140" font-size="11" fill="#1F3864" text-anchor="middle">payment request</text>
+      <!-- Payment → System -->
+      <line x1="578" y1="172" x2="490" y2="172" stroke="#2E75B6" stroke-width="1.8" marker-end="url(#c-arr)"/>
+      <text x="534" y="190" font-size="11" fill="#1F3864" text-anchor="middle">payment confirm</text>
+      <!-- Rule labels -->
+      <text x="370" y="308" font-size="11" fill="#1F3864" text-anchor="middle" font-weight="700">Rules: 1 process only | No data stores | All external entities visible</text>
+    </svg>
+  </div>
+  <div class="diagram-rules">
+    <strong>Rules for Context Diagram</strong>
+    <span class="rule-chip">Process numbered "0"</span>
+    <span class="rule-chip">NO data stores shown</span>
+    <span class="rule-chip">All external entities shown</span>
+    <span class="rule-chip">System = single process box</span>
+  </div>
+</div>
+
+<div class="box box-blue">
+  <div class="box-title">📋 Steps to Draw a Context Diagram</div>
+  1. Identify external entities (who/what sends data in or receives data out).<br>
+  2. Identify all data-flows in and out of the system.<br>
+  3. Draw one big process box for the whole system.<br>
+  4. Draw ovals for external entities.<br>
+  5. Connect with labelled arrows.
+</div>
+
+<div class="section-h">1.5 DIAGRAM TYPE B: Level 1 DFD</div>
+<p>The Level 1 DFD explodes the context diagram's single process into the main sub-processes of the system. Data stores now appear.</p>
+
+<!-- LEVEL 1 DFD SVG -->
+<div class="diagram-wrap">
+  <div class="diagram-label"><span class="tag">Diagram Type B</span> Level 1 DFD — Estate Agency System (Course Case Study)</div>
+  <div class="diagram-body">
+    <svg viewBox="0 0 860 550" width="100%">
+      <defs><marker id="l1-arr" markerWidth="7" markerHeight="5" refX="7" refY="2.5" orient="auto"><polygon points="0 0,7 2.5,0 5" fill="#1F3864"/></marker></defs>
+      <!-- System boundary -->
+      <rect x="130" y="44" width="600" height="474" rx="4" fill="#f8fbff" stroke="#2E75B6" stroke-width="1.5" stroke-dasharray="8,4"/>
+      <text x="430" y="62" font-size="11" fill="#94a3b8" text-anchor="middle" font-style="italic">— System Boundary —</text>
+
+      <!-- External entities -->
+      <ellipse cx="52" cy="180" rx="46" ry="24" fill="#BDD7EE" stroke="#2E75B6" stroke-width="2"/>
+      <text x="52" y="185" font-size="12" font-weight="700" fill="#1F3864" text-anchor="middle">Client</text>
+      <ellipse cx="52" cy="390" rx="46" ry="24" fill="#BDD7EE" stroke="#2E75B6" stroke-width="2"/>
+      <text x="52" y="395" font-size="12" font-weight="700" fill="#1F3864" text-anchor="middle">Buyer</text>
+
+      <!-- P1: Record New Client -->
+      <rect x="155" y="148" width="140" height="62" fill="white" stroke="#2E75B6" stroke-width="2"/>
+      <rect x="155" y="148" width="28" height="62" fill="#BDD7EE" stroke="#2E75B6" stroke-width="2"/>
+      <line x1="155" y1="188" x2="295" y2="188" stroke="#2E75B6" stroke-width="1.5"/>
+      <text x="169" y="172" font-size="12" font-weight="700" fill="#1F3864" text-anchor="middle">1</text>
+      <text x="228" y="172" font-size="11" font-weight="600" fill="#1F3864" text-anchor="middle">Record New</text>
+      <text x="228" y="183" font-size="11" font-weight="600" fill="#1F3864" text-anchor="middle">Client</text>
+      <text x="228" y="200" font-size="9" fill="#555" text-anchor="middle">Front Desk</text>
+
+      <!-- P2: Record New Buyer -->
+      <rect x="155" y="360" width="140" height="62" fill="white" stroke="#2E75B6" stroke-width="2"/>
+      <rect x="155" y="360" width="28" height="62" fill="#BDD7EE" stroke="#2E75B6" stroke-width="2"/>
+      <line x1="155" y1="400" x2="295" y2="400" stroke="#2E75B6" stroke-width="1.5"/>
+      <text x="169" y="384" font-size="12" font-weight="700" fill="#1F3864" text-anchor="middle">2</text>
+      <text x="228" y="384" font-size="11" font-weight="600" fill="#1F3864" text-anchor="middle">Record New</text>
+      <text x="228" y="395" font-size="11" font-weight="600" fill="#1F3864" text-anchor="middle">Buyer</text>
+      <text x="228" y="413" font-size="9" fill="#555" text-anchor="middle">Front Desk</text>
+
+      <!-- P3: Match Properties -->
+      <rect x="360" y="252" width="140" height="62" fill="white" stroke="#2E75B6" stroke-width="2"/>
+      <rect x="360" y="252" width="28" height="62" fill="#BDD7EE" stroke="#2E75B6" stroke-width="2"/>
+      <line x1="360" y1="292" x2="500" y2="292" stroke="#2E75B6" stroke-width="1.5"/>
+      <text x="374" y="275" font-size="12" font-weight="700" fill="#1F3864" text-anchor="middle">3</text>
+      <text x="433" y="275" font-size="11" font-weight="600" fill="#1F3864" text-anchor="middle">Match</text>
+      <text x="433" y="286" font-size="11" font-weight="600" fill="#1F3864" text-anchor="middle">Properties</text>
+      <text x="433" y="304" font-size="9" fill="#555" text-anchor="middle">Agent</text>
+
+      <!-- P4: Invoice Client -->
+      <rect x="560" y="148" width="140" height="62" fill="white" stroke="#2E75B6" stroke-width="2"/>
+      <rect x="560" y="148" width="28" height="62" fill="#BDD7EE" stroke="#2E75B6" stroke-width="2"/>
+      <line x1="560" y1="188" x2="700" y2="188" stroke="#2E75B6" stroke-width="1.5"/>
+      <text x="574" y="172" font-size="12" font-weight="700" fill="#1F3864" text-anchor="middle">4</text>
+      <text x="633" y="172" font-size="11" font-weight="600" fill="#1F3864" text-anchor="middle">Invoice</text>
+      <text x="633" y="183" font-size="11" font-weight="600" fill="#1F3864" text-anchor="middle">Client</text>
+      <text x="633" y="200" font-size="9" fill="#555" text-anchor="middle">Accounts</text>
+
+      <!-- P5: Archive Sale -->
+      <rect x="560" y="360" width="140" height="62" fill="white" stroke="#2E75B6" stroke-width="2"/>
+      <rect x="560" y="360" width="28" height="62" fill="#BDD7EE" stroke="#2E75B6" stroke-width="2"/>
+      <line x1="560" y1="400" x2="700" y2="400" stroke="#2E75B6" stroke-width="1.5"/>
+      <text x="574" y="384" font-size="12" font-weight="700" fill="#1F3864" text-anchor="middle">5</text>
+      <text x="633" y="384" font-size="11" font-weight="600" fill="#1F3864" text-anchor="middle">Archive</text>
+      <text x="633" y="395" font-size="11" font-weight="600" fill="#1F3864" text-anchor="middle">Sale</text>
+      <text x="633" y="413" font-size="9" fill="#555" text-anchor="middle">Accounts</text>
+
+      <!-- Data stores -->
+      <rect x="358" y="136" width="148" height="30" fill="white" stroke="#2E75B6" stroke-width="2"/>
+      <rect x="358" y="136" width="30" height="30" fill="#BDD7EE" stroke="#2E75B6" stroke-width="2"/>
+      <text x="373" y="156" font-size="10" font-weight="700" fill="#1F3864" text-anchor="middle">D1</text>
+      <text x="433" y="156" font-size="11" fill="#1F3864" text-anchor="middle">Property File</text>
+
+      <rect x="358" y="436" width="148" height="30" fill="white" stroke="#2E75B6" stroke-width="2"/>
+      <rect x="358" y="436" width="30" height="30" fill="#BDD7EE" stroke="#2E75B6" stroke-width="2"/>
+      <text x="373" y="456" font-size="10" font-weight="700" fill="#1F3864" text-anchor="middle">D2</text>
+      <text x="433" y="456" font-size="11" fill="#1F3864" text-anchor="middle">Buyer Details</text>
+
+      <rect x="560" y="292" width="138" height="30" fill="white" stroke="#2E75B6" stroke-width="2"/>
+      <rect x="560" y="292" width="30" height="30" fill="#BDD7EE" stroke="#2E75B6" stroke-width="2"/>
+      <text x="575" y="312" font-size="10" font-weight="700" fill="#1F3864" text-anchor="middle">D3</text>
+      <text x="632" y="312" font-size="11" fill="#1F3864" text-anchor="middle">Invoices</text>
+
+      <!-- Flows -->
+      <line x1="98" y1="174" x2="155" y2="170" stroke="#1F3864" stroke-width="1.6" marker-end="url(#l1-arr)"/>
+      <text x="127" y="165" font-size="10" fill="#1F3864" text-anchor="middle">house details</text>
+
+      <line x1="295" y1="162" x2="358" y2="150" stroke="#1F3864" stroke-width="1.6" marker-end="url(#l1-arr)"/>
+      <text x="328" y="148" font-size="10" fill="#1F3864" text-anchor="middle">property details</text>
+
+      <line x1="433" y1="166" x2="433" y2="252" stroke="#1F3864" stroke-width="1.6" marker-end="url(#l1-arr)"/>
+      <text x="448" y="212" font-size="10" fill="#1F3864">properties</text>
+
+      <line x1="98" y1="390" x2="155" y2="390" stroke="#1F3864" stroke-width="1.6" marker-end="url(#l1-arr)"/>
+      <text x="127" y="383" font-size="10" fill="#1F3864" text-anchor="middle">buyer details</text>
+
+      <line x1="295" y1="408" x2="358" y2="450" stroke="#1F3864" stroke-width="1.6" marker-end="url(#l1-arr)"/>
+      <text x="330" y="438" font-size="10" fill="#1F3864" text-anchor="middle">buyer req.</text>
+
+      <line x1="433" y1="436" x2="433" y2="314" stroke="#1F3864" stroke-width="1.6" marker-end="url(#l1-arr)"/>
+      <text x="448" y="382" font-size="10" fill="#1F3864">requirements</text>
+
+      <path d="M 360 290 Q 200 340 98 406" stroke="#1F3864" stroke-width="1.6" fill="none" marker-end="url(#l1-arr)"/>
+      <text x="205" y="348" font-size="10" fill="#1F3864" text-anchor="middle">selected properties</text>
+
+      <path d="M 98 366 Q 350 82 560 170" stroke="#1F3864" stroke-width="1.6" fill="none" marker-end="url(#l1-arr)"/>
+      <text x="330" y="82" font-size="10" fill="#1F3864" text-anchor="middle">confirmation of sale</text>
+
+      <path d="M 560 162 Q 430 54 98 170" stroke="#1F3864" stroke-width="1.6" fill="none" marker-end="url(#l1-arr)"/>
+      <text x="320" y="50" font-size="10" fill="#1F3864" text-anchor="middle">invoice</text>
+
+      <line x1="630" y1="210" x2="630" y2="292" stroke="#1F3864" stroke-width="1.6" marker-end="url(#l1-arr)"/>
+      <text x="648" y="254" font-size="10" fill="#1F3864">store invoice</text>
+
+      <line x1="600" y1="292" x2="600" y2="210" stroke="#1F3864" stroke-width="1.6" marker-end="url(#l1-arr)"/>
+      <text x="544" y="254" font-size="10" fill="#1F3864" text-anchor="end">reminder</text>
+
+      <path d="M 98 204 Q 380 530 560 420" stroke="#1F3864" stroke-width="1.6" fill="none" marker-end="url(#l1-arr)"/>
+      <text x="300" y="530" font-size="10" fill="#1F3864" text-anchor="middle">payment from client</text>
+
+      <line x1="600" y1="360" x2="600" y2="322" stroke="#1F3864" stroke-width="1.6" marker-end="url(#l1-arr)"/>
+      <text x="620" y="344" font-size="10" fill="#1F3864">record payment</text>
+    </svg>
+  </div>
+  <div class="diagram-rules">
+    <strong>Note</strong>
+    Process numbers (1, 2, 3…) do <em>not</em> imply sequence! All boundary flows must match the Context Diagram (Balancing Rule).
+  </div>
+</div>
+
+<div class="section-h">1.6 DIAGRAM TYPE C: Level 2 DFD (Functional Decomposition)</div>
+<p>A Level 2 DFD zooms into one specific process from Level 1 and breaks it into its sub-steps. All data-flows into/out of the parent process must appear as boundary flows in the Level 2 diagram.</p>
+
+<!-- LEVEL 2 DFD SVG -->
+<div class="diagram-wrap">
+  <div class="diagram-label"><span class="tag">Diagram Type C</span> Level 2 DFD — Decomposing "Loan of Video" (Process 2)</div>
+  <div class="diagram-body">
+    <svg viewBox="0 0 760 400" width="100%">
+      <defs><marker id="l2-arr" markerWidth="7" markerHeight="5" refX="7" refY="2.5" orient="auto"><polygon points="0 0,7 2.5,0 5" fill="#1F3864"/></marker></defs>
+
+      <text x="380" y="20" font-size="13" font-weight="700" fill="#1F3864" text-anchor="middle">System boundary = the old Process 2 box</text>
+      <text x="380" y="36" font-size="11" fill="#64748b" text-anchor="middle">Sub-processes numbered 2.1, 2.2, 2.3 … All boundary flows identical to parent</text>
+
+      <!-- System boundary -->
+      <rect x="112" y="50" width="530" height="320" rx="4" fill="#f8fbff" stroke="#2E75B6" stroke-width="1.5" stroke-dasharray="7,4"/>
+
+      <!-- Customer (left, outside, DUPLICATE) -->
+      <ellipse cx="46" cy="155" rx="40" ry="22" fill="#BDD7EE" stroke="#2E75B6" stroke-width="2"/>
+      <text x="46" y="160" font-size="11" font-weight="700" fill="#1F3864" text-anchor="middle">Customer</text>
+      <line x1="8" y1="135" x2="24" y2="135" stroke="#2E75B6" stroke-width="2"/>
+      <line x1="8" y1="177" x2="24" y2="177" stroke="#2E75B6" stroke-width="2"/>
+      <line x1="8" y1="135" x2="8" y2="177" stroke="#2E75B6" stroke-width="2"/>
+
+      <ellipse cx="46" cy="305" rx="40" ry="22" fill="#BDD7EE" stroke="#2E75B6" stroke-width="2"/>
+      <text x="46" y="310" font-size="11" font-weight="700" fill="#1F3864" text-anchor="middle">Customer</text>
+      <line x1="8" y1="285" x2="24" y2="285" stroke="#2E75B6" stroke-width="2"/>
+      <line x1="8" y1="326" x2="24" y2="326" stroke="#2E75B6" stroke-width="2"/>
+      <line x1="8" y1="285" x2="8" y2="326" stroke="#2E75B6" stroke-width="2"/>
+
+      <!-- D1 Stock File (outside, duplicate) -->
+      <rect x="598" y="136" width="150" height="30" fill="white" stroke="#2E75B6" stroke-width="2"/>
+      <rect x="598" y="136" width="28" height="30" fill="#BDD7EE" stroke="#2E75B6" stroke-width="2"/>
+      <text x="612" y="156" font-size="10" font-weight="700" fill="#1F3864" text-anchor="middle">D1</text>
+      <text x="683" y="156" font-size="11" fill="#1F3864" text-anchor="middle">Stock File</text>
+      <line x1="598" y1="136" x2="598" y2="166" stroke="#2E75B6" stroke-width="2.5"/>
+
+      <!-- D2 Customer File (outside, duplicate) -->
+      <rect x="598" y="290" width="150" height="30" fill="white" stroke="#2E75B6" stroke-width="2"/>
+      <rect x="598" y="290" width="28" height="30" fill="#BDD7EE" stroke="#2E75B6" stroke-width="2"/>
+      <text x="612" y="310" font-size="10" font-weight="700" fill="#1F3864" text-anchor="middle">D2</text>
+      <text x="683" y="310" font-size="11" fill="#1F3864" text-anchor="middle">Customer File</text>
+      <line x1="598" y1="290" x2="598" y2="320" stroke="#2E75B6" stroke-width="2.5"/>
+
+      <!-- P2.1 -->
+      <rect x="150" y="126" width="148" height="60" fill="white" stroke="#2E75B6" stroke-width="2"/>
+      <rect x="150" y="126" width="32" height="60" fill="#BDD7EE" stroke="#2E75B6" stroke-width="2"/>
+      <line x1="150" y1="168" x2="298" y2="168" stroke="#2E75B6" stroke-width="1.5"/>
+      <text x="166" y="150" font-size="11" font-weight="700" fill="#1F3864" text-anchor="middle">2.1</text>
+      <text x="227" y="152" font-size="11" font-weight="600" fill="#1F3864" text-anchor="middle">Validate</text>
+      <text x="227" y="164" font-size="11" font-weight="600" fill="#1F3864" text-anchor="middle">Customer</text>
+      <text x="227" y="180" font-size="9" fill="#555" text-anchor="middle">Counter</text>
+
+      <!-- P2.2 -->
+      <rect x="150" y="274" width="148" height="60" fill="white" stroke="#2E75B6" stroke-width="2"/>
+      <rect x="150" y="274" width="32" height="60" fill="#BDD7EE" stroke="#2E75B6" stroke-width="2"/>
+      <line x1="150" y1="316" x2="298" y2="316" stroke="#2E75B6" stroke-width="1.5"/>
+      <text x="166" y="298" font-size="11" font-weight="700" fill="#1F3864" text-anchor="middle">2.2</text>
+      <text x="227" y="300" font-size="11" font-weight="600" fill="#1F3864" text-anchor="middle">Issue</text>
+      <text x="227" y="312" font-size="11" font-weight="600" fill="#1F3864" text-anchor="middle">Video</text>
+      <text x="227" y="328" font-size="9" fill="#555" text-anchor="middle">Counter</text>
+
+      <!-- P2.3 -->
+      <rect x="390" y="200" width="148" height="60" fill="white" stroke="#2E75B6" stroke-width="2"/>
+      <rect x="390" y="200" width="32" height="60" fill="#BDD7EE" stroke="#2E75B6" stroke-width="2"/>
+      <line x1="390" y1="242" x2="538" y2="242" stroke="#2E75B6" stroke-width="1.5"/>
+      <text x="406" y="224" font-size="11" font-weight="700" fill="#1F3864" text-anchor="middle">2.3</text>
+      <text x="467" y="226" font-size="11" font-weight="600" fill="#1F3864" text-anchor="middle">Process Late</text>
+      <text x="467" y="238" font-size="11" font-weight="600" fill="#1F3864" text-anchor="middle">Return</text>
+      <text x="467" y="254" font-size="9" fill="#555" text-anchor="middle">Accounts</text>
+
+      <!-- Flows -->
+      <line x1="86" y1="152" x2="150" y2="150" stroke="#1F3864" stroke-width="1.6" marker-end="url(#l2-arr)"/>
+      <text x="118" y="144" font-size="10" fill="#1F3864" text-anchor="middle">membership card</text>
+
+      <line x1="598" y1="305" x2="298" y2="168" stroke="#1F3864" stroke-width="1.6" marker-end="url(#l2-arr)"/>
+      <text x="470" y="228" font-size="10" fill="#1F3864" text-anchor="middle">customer details</text>
+
+      <line x1="224" y1="186" x2="224" y2="274" stroke="#1F3864" stroke-width="1.6" marker-end="url(#l2-arr)"/>
+      <text x="240" y="233" font-size="10" fill="#1F3864">loan permission</text>
+
+      <line x1="86" y1="306" x2="150" y2="306" stroke="#1F3864" stroke-width="1.6" marker-end="url(#l2-arr)"/>
+      <text x="118" y="298" font-size="10" fill="#1F3864" text-anchor="middle">payment</text>
+
+      <line x1="150" y1="322" x2="86" y2="322" stroke="#1F3864" stroke-width="1.6" marker-end="url(#l2-arr)"/>
+      <text x="118" y="338" font-size="10" fill="#1F3864" text-anchor="middle">video loan</text>
+
+      <line x1="298" y1="302" x2="598" y2="162" stroke="#1F3864" stroke-width="1.6" marker-end="url(#l2-arr)"/>
+      <text x="460" y="224" font-size="10" fill="#1F3864" text-anchor="end">item on loan</text>
+
+      <line x1="598" y1="152" x2="538" y2="224" stroke="#1F3864" stroke-width="1.6" marker-end="url(#l2-arr)"/>
+      <text x="590" y="190" font-size="10" fill="#1F3864" text-anchor="end">overdue items</text>
+    </svg>
+  </div>
+  <div class="diagram-rules">
+    <strong>Key Rules for Level 2</strong>
+    <span class="rule-chip">Processes: 2.1, 2.2, 2.3 (derived from parent number)</span>
+    <span class="rule-chip">Duplicate entities/stores get diagonal/extra-line marks</span>
+    <span class="rule-chip">Asterisk (*) in bottom-right = primitive process (cannot decompose further)</span>
+  </div>
+</div>
+
+<div class="box box-blue">
+  <div class="box-title">📌 Decompose a process when:</div>
+  (1) There are more than 6 data-flows around it, OR (2) The process name is too general/complex (e.g., 'Handle Customer Requests' — what does that really mean?). A process you cannot break down further gets an <strong>asterisk (*)</strong> in the bottom right corner.
+</div>
+
+<div class="section-h">1.7 Validation Checklist for DFDs</div>
+<p>Before submitting/drawing a DFD in the exam, ask yourself:</p>
+<ul class="val-list">
+  <li>Is every data-flow (arrow) attached to a process at one end?</li>
+  <li>Is every data-flow labelled with a meaningful noun?</li>
+  <li>Does every process have at least one input AND one output?</li>
+  <li>Is every process named with an action verb (e.g., 'Record Details', not 'Handle Stuff')?</li>
+  <li>Is every data store named in the plural (e.g., 'Customer Details', not 'Customer')?</li>
+  <li>Do duplicate entities/stores have a diagonal mark?</li>
+  <li>Do all levels BALANCE (same data-flows in/out as the parent)?</li>
+</ul>
+
+<div class="box box-yellow">
+  <div class="box-title">🗣️ Real-Life Scenario (Video Rental — the course example)</div>
+  <strong>External Entities:</strong> Customer, Supplier. <strong>Processes:</strong> Create New Customer, Loan of Video, Stock Control. <strong>Data Stores:</strong> Customer File, Stock File. A customer (external entity) brings their membership card (data-flow) to 'Loan of Video' (process) which checks the Customer File (data store) and records Item on Loan in the Stock File (data store) before sending back a video loan (data-flow).
+</div>
+
+<div class="pb"></div>
+
+<!-- ══════════════════════════════════════════════
+     TOPIC 2: ERDs
+═══════════════════════════════════════════════ -->
+<div class="topic-header">TOPIC 2: ENTITY-RELATIONSHIP DIAGRAMS (ERDs)</div>
+
+<div class="section-h">2.1 What is an ERD?</div>
+<p>An <strong>Entity-Relationship Diagram (ERD)</strong> is a graphical tool for modeling the DATA of a system at a high level of abstraction. It shows what kinds of things (entities) exist in the system and how they relate to each other.</p>
+<p>ERDs were invented by <strong>Peter Chen in 1976</strong>. The notation used in this course is from <strong>Elmasri and Navathe</strong>.</p>
+
+<div class="box box-yellow">
+  <div class="box-title">🗣️ In Plain English</div>
+  Imagine you are building a school database. The THINGS you want to track — students, courses, teachers — are <strong>ENTITIES</strong>. The CONNECTIONS between them (a student TAKES a course, a teacher TEACHES a course) are <strong>RELATIONSHIPS</strong>. The details about each thing (student ID, name, age) are <strong>ATTRIBUTES</strong>. An ERD draws all of that out visually before you write a single line of database code.
+</div>
+
+<div class="section-h">2.2 The Core Building Blocks of an ERD</div>
+
+<!-- ERD SYMBOLS DIAGRAM -->
+<div class="diagram-wrap">
+  <div class="diagram-label"><span class="tag">Symbols</span> ERD — All Core Building Blocks</div>
+  <div class="diagram-body">
+    <svg viewBox="0 0 720 170" width="100%">
+      <!-- Entity -->
+      <rect x="10" y="30" width="100" height="32" fill="white" stroke="#538135" stroke-width="2"/>
+      <text x="60" y="51" font-size="13" font-weight="700" fill="#375623" text-anchor="middle">employee</text>
+      <text x="60" y="100" font-size="11" fill="#555" text-anchor="middle" font-weight="600">ENTITY</text>
+      <text x="60" y="114" font-size="10" fill="#777" text-anchor="middle">(rectangle)</text>
+      <!-- Attribute -->
+      <ellipse cx="165" cy="46" rx="38" ry="22" fill="#E2EFDA" stroke="#538135" stroke-width="2"/>
+      <text x="165" y="51" font-size="12" fill="#375623" text-anchor="middle">name</text>
+      <text x="165" y="100" font-size="11" fill="#555" text-anchor="middle" font-weight="600">ATTRIBUTE</text>
+      <text x="165" y="114" font-size="10" fill="#777" text-anchor="middle">(oval)</text>
+      <!-- Key Attribute -->
+      <ellipse cx="262" cy="46" rx="38" ry="22" fill="#E2EFDA" stroke="#538135" stroke-width="2"/>
+      <text x="262" y="49" font-size="12" fill="#375623" text-anchor="middle">ID</text>
+      <line x1="243" y1="54" x2="281" y2="54" stroke="#375623" stroke-width="1.5"/>
+      <text x="262" y="100" font-size="11" fill="#555" text-anchor="middle" font-weight="600">KEY ATTRIB.</text>
+      <text x="262" y="114" font-size="10" fill="#777" text-anchor="middle">(underlined)</text>
+      <!-- Multi-valued -->
+      <ellipse cx="360" cy="44" rx="38" ry="20" fill="none" stroke="#538135" stroke-width="2"/>
+      <ellipse cx="360" cy="44" rx="32" ry="14" fill="#E2EFDA" stroke="#538135" stroke-width="1.5"/>
+      <text x="360" y="49" font-size="11" fill="#375623" text-anchor="middle">phone</text>
+      <text x="360" y="100" font-size="11" fill="#555" text-anchor="middle" font-weight="600">MULTI-VALUED</text>
+      <text x="360" y="114" font-size="10" fill="#777" text-anchor="middle">(double oval)</text>
+      <!-- Relationship -->
+      <polygon points="453,24 490,46 453,68 416,46" fill="#E2EFDA" stroke="#538135" stroke-width="2"/>
+      <text x="453" y="51" font-size="11" fill="#375623" text-anchor="middle" font-weight="600">works at</text>
+      <text x="453" y="100" font-size="11" fill="#555" text-anchor="middle" font-weight="600">RELATIONSHIP</text>
+      <text x="453" y="114" font-size="10" fill="#777" text-anchor="middle">(diamond)</text>
+      <!-- Weak Entity -->
+      <rect x="530" y="24" width="100" height="44" fill="none" stroke="#538135" stroke-width="2"/>
+      <rect x="536" y="30" width="88" height="32" fill="#E2EFDA" stroke="#538135" stroke-width="1.5"/>
+      <text x="580" y="51" font-size="11" fill="#375623" text-anchor="middle">assembly line</text>
+      <text x="580" y="100" font-size="11" fill="#555" text-anchor="middle" font-weight="600">WEAK ENTITY</text>
+      <text x="580" y="114" font-size="10" fill="#777" text-anchor="middle">(double border)</text>
+      <!-- Identifying Rel -->
+      <polygon points="666,120 700,145 666,170 632,145" fill="none" stroke="#538135" stroke-width="2"/>
+      <polygon points="666,128 694,145 666,162 638,145" fill="#E2EFDA" stroke="#538135" stroke-width="1.5"/>
+      <text x="666" y="150" font-size="10" fill="#375623" text-anchor="middle" font-weight="600">contains</text>
+      <text x="666" y="100" font-size="11" fill="#555" text-anchor="middle" font-weight="600">IDENTIFYING REL.</text>
+      <text x="666" y="114" font-size="10" fill="#777" text-anchor="middle">(double diamond)</text>
+    </svg>
+  </div>
+</div>
+
+<table>
+  <tr><th>Element</th><th>Symbol</th><th>Meaning</th><th>Example</th></tr>
+  <tr><td><strong>Entity</strong></td><td>Rectangle</td><td>A 'thing' or object with independent existence in the system. Represents a TYPE, not a single instance.</td><td>employee, student, factory, book</td></tr>
+  <tr><td><strong>Attribute</strong></td><td>Oval connected to entity</td><td>A property or characteristic of an entity.</td><td>name, age, ID, salary</td></tr>
+  <tr><td><strong>Key Attribute</strong></td><td>Oval with UNDERLINED label</td><td>The attribute that uniquely identifies each instance of the entity.</td><td>Employee ID (no two employees share the same ID)</td></tr>
+  <tr><td><strong>Relationship</strong></td><td>Diamond connected to entities</td><td>A meaningful connection between two or more entities. Like a 'verb' linking 'nouns'.</td><td>employee WORKS AT factory</td></tr>
+  <tr><td><strong>Weak Entity</strong></td><td>Double-bordered rectangle</td><td>An entity that cannot be uniquely identified by itself — it needs its 'owner' entity.</td><td>assembly_line needs factory to be identified (line 1 at Factory A vs line 1 at Factory B)</td></tr>
+  <tr><td><strong>Identifying Relationship</strong></td><td>Double-bordered diamond</td><td>The relationship that a weak entity depends on for its identity.</td><td>factory CONTAINS assembly_line</td></tr>
+</table>
+
+<div class="box box-blue">
+  <div class="box-title">🔑 Key Distinction</div>
+  An <strong>ENTITY</strong> is like a template or class (e.g., 'employee' represents ALL employees). An <strong>INSTANCE</strong> is one specific example (e.g., employee #47, John Doe). Attributes describe the template, not a specific person.
+</div>
+
+<div class="section-h">2.3 Cardinality Ratios — How Many?</div>
+<p>Cardinality describes how many instances of one entity relate to how many instances of another. It is shown as numbers (<strong>1</strong> or <strong>N</strong>) on the lines connecting a relationship to entities.</p>
+
+<table>
+  <tr><th>Ratio</th><th>Meaning</th><th>Real-Life Example</th><th>Statement</th></tr>
+  <tr><td><strong>1:1</strong></td><td>One-to-One</td><td>Each country has exactly ONE capital city.</td><td>Each country has 1 capital; each capital belongs to 1 country.</td></tr>
+  <tr><td><strong>1:N</strong></td><td>One-to-Many</td><td>One teacher teaches MANY students.</td><td>Each teacher teaches many students; each student has one class teacher.</td></tr>
+  <tr><td><strong>N:M</strong></td><td>Many-to-Many</td><td>Many students take many courses.</td><td>Each student takes many courses; each course is taken by many students.</td></tr>
+</table>
+
+<!-- CARDINALITY NOTATION DIAGRAM -->
+<div class="diagram-wrap">
+  <div class="diagram-label"><span class="tag">Notation</span> Cardinality &amp; Participation Notation</div>
+  <div class="diagram-body">
+    <svg viewBox="0 0 720 220" width="100%">
+      <defs>
+        <marker id="e-arr" markerWidth="0" markerHeight="0" refX="0" refY="0" orient="auto"></marker>
+      </defs>
+
+      <text x="360" y="18" font-size="13" font-weight="700" fill="#375623" text-anchor="middle">CARDINALITY NOTATION (Elmasri/Navathe style)</text>
+
+      <!-- N:1 example -->
+      <rect x="20" y="38" width="100" height="30" fill="white" stroke="#538135" stroke-width="2"/>
+      <text x="70" y="58" font-size="13" font-weight="700" fill="#375623" text-anchor="middle">employee</text>
+      <line x1="120" y1="53" x2="200" y2="53" stroke="#538135" stroke-width="2"/>
+      <text x="133" y="46" font-size="14" font-weight="700" fill="#538135">N</text>
+      <polygon points="200,38 240,53 200,68" fill="#E2EFDA" stroke="#538135" stroke-width="2"/>
+      <text x="220" y="58" font-size="11" fill="#375623" text-anchor="middle">works at</text>
+      <line x1="240" y1="53" x2="320" y2="53" stroke="#538135" stroke-width="2"/>
+      <text x="310" y="46" font-size="14" font-weight="700" fill="#538135">1</text>
+      <rect x="320" y="38" width="90" height="30" fill="white" stroke="#538135" stroke-width="2"/>
+      <text x="365" y="58" font-size="13" font-weight="700" fill="#375623" text-anchor="middle">factory</text>
+      <text x="200" y="100" font-size="11" fill="#555" text-anchor="middle">N:1 — Many employees work at one factory</text>
+
+      <!-- Total participation example (double line) -->
+      <rect x="20" y="140" width="100" height="30" fill="white" stroke="#538135" stroke-width="2"/>
+      <text x="70" y="160" font-size="13" font-weight="700" fill="#375623" text-anchor="middle">factory</text>
+      <!-- Double line (total participation) -->
+      <line x1="120" y1="151" x2="205" y2="151" stroke="#538135" stroke-width="2.5"/>
+      <line x1="120" y1="159" x2="205" y2="159" stroke="#538135" stroke-width="2.5"/>
+      <text x="133" y="142" font-size="14" font-weight="700" fill="#538135">1</text>
+      <polygon points="205,140 246,155 205,170" fill="#E2EFDA" stroke="#538135" stroke-width="2"/>
+      <text x="225" y="160" font-size="11" fill="#375623" text-anchor="middle">manages</text>
+      <!-- Single line (partial) -->
+      <line x1="246" y1="155" x2="320" y2="155" stroke="#538135" stroke-width="2"/>
+      <text x="310" y="148" font-size="14" font-weight="700" fill="#538135">1</text>
+      <rect x="320" y="140" width="100" height="30" fill="white" stroke="#538135" stroke-width="2"/>
+      <text x="370" y="160" font-size="13" font-weight="700" fill="#375623" text-anchor="middle">employee</text>
+      <text x="200" y="195" font-size="11" fill="#555" text-anchor="middle">Double line = Total Participation (factory MUST have a manager)</text>
+      <text x="200" y="210" font-size="11" fill="#555" text-anchor="middle">Single line = Partial Participation (not every employee manages)</text>
+
+      <!-- Legend -->
+      <rect x="460" y="32" width="240" height="180" rx="6" fill="#f0fdf4" stroke="#538135" stroke-width="1.5"/>
+      <text x="580" y="52" font-size="12" font-weight="700" fill="#375623" text-anchor="middle">READING CARDINALITY</text>
+      <text x="470" y="74" font-size="12" fill="#374151">• 1 = zero or one instance</text>
+      <text x="470" y="92" font-size="12" fill="#374151">• N = zero, one, or many</text>
+      <text x="470" y="110" font-size="12" fill="#374151">• N:1 → many ↔ one</text>
+      <text x="470" y="128" font-size="12" fill="#374151">• 1:1 → one ↔ one</text>
+      <text x="470" y="146" font-size="12" fill="#374151">• N:M → many ↔ many</text>
+      <line x1="470" y1="156" x2="690" y2="156" stroke="#d1fae5" stroke-width="1"/>
+      <text x="470" y="172" font-size="11" fill="#538135" font-weight="600">Double line = TOTAL participation</text>
+      <text x="470" y="188" font-size="11" fill="#375623">(every instance MUST participate)</text>
+      <text x="470" y="204" font-size="11" fill="#538135">Single line = PARTIAL participation</text>
+    </svg>
+  </div>
+</div>
+
+<div class="section-h">2.4 Advanced ERD Concepts</div>
+
+<p><strong>2.4.1 Recursive Relationships</strong></p>
+<p>A relationship between an entity and ITSELF. Used when some instances of an entity are related to other instances of the same entity.</p>
+
+<!-- RECURSIVE RELATIONSHIP -->
+<div class="diagram-wrap">
+  <div class="diagram-label"><span class="tag">§2.4.1</span> Recursive Relationship — employee SUPERVISES employee</div>
+  <div class="diagram-body">
+    <svg viewBox="0 0 460 220" width="100%">
+      <rect x="155" y="80" width="120" height="34" fill="white" stroke="#538135" stroke-width="2.5"/>
+      <text x="215" y="102" font-size="14" font-weight="700" fill="#375623" text-anchor="middle">employee</text>
+      <polygon points="215,160 255,190 215,220 175,190" fill="#E2EFDA" stroke="#538135" stroke-width="2"/>
+      <text x="215" y="195" font-size="12" fill="#375623" text-anchor="middle" font-weight="600">supervises</text>
+      <line x1="215" y1="114" x2="215" y2="160" stroke="#538135" stroke-width="2"/>
+      <text x="222" y="140" font-size="13" font-weight="700" fill="#538135">1</text>
+      <!-- Loop back from relationship to entity (recursive) -->
+      <path d="M 255 188 Q 380 188 380 97 Q 380 80 275 80" stroke="#538135" stroke-width="2" fill="none"/>
+      <polygon points="275,78 265,88 285,88" fill="#538135"/>
+      <text x="390" y="138" font-size="13" font-weight="700" fill="#538135">N</text>
+      <!-- Role labels -->
+      <text x="200" y="150" font-size="11" fill="#375623" text-anchor="end">supervisor</text>
+      <text x="358" y="108" font-size="11" fill="#375623">supervisee</text>
+      <text x="215" y="30" font-size="13" font-weight="600" fill="#375623" text-anchor="middle">One supervisor supervises many supervisees (same entity)</text>
+      <text x="215" y="48" font-size="11" fill="#555" text-anchor="middle">Real-life: an employee is supervised by one boss, but can supervise many juniors → org chart</text>
+    </svg>
+  </div>
+</div>
+
+<p><strong>2.4.2 Composite Attributes</strong></p>
+<p>An attribute that is made up of smaller sub-attributes. For example, an address is composed of street, city, and postal code.</p>
+<div class="diagram-wrap">
+  <div class="diagram-label"><span class="tag">§2.4.2</span> Composite Attribute — address</div>
+  <div class="diagram-body">
+    <svg viewBox="0 0 500 160" width="100%">
+      <rect x="20" y="64" width="100" height="32" fill="white" stroke="#538135" stroke-width="2"/>
+      <text x="70" y="85" font-size="13" font-weight="700" fill="#375623" text-anchor="middle">employee</text>
+      <line x1="120" y1="80" x2="170" y2="80" stroke="#538135" stroke-width="1.5"/>
+      <ellipse cx="215" cy="80" rx="44" ry="22" fill="#E2EFDA" stroke="#538135" stroke-width="2"/>
+      <text x="215" y="85" font-size="12" fill="#375623" text-anchor="middle">address</text>
+      <!-- sub-attributes -->
+      <line x1="215" y1="58" x2="215" y2="30" stroke="#538135" stroke-width="1.5"/>
+      <ellipse cx="215" cy="18" rx="36" ry="14" fill="#E2EFDA" stroke="#538135" stroke-width="1.5"/>
+      <text x="215" y="22" font-size="11" fill="#375623" text-anchor="middle">street</text>
+      <line x1="240" y1="64" x2="320" y2="28" stroke="#538135" stroke-width="1.5"/>
+      <ellipse cx="356" cy="18" rx="34" ry="14" fill="#E2EFDA" stroke="#538135" stroke-width="1.5"/>
+      <text x="356" y="22" font-size="11" fill="#375623" text-anchor="middle">city</text>
+      <line x1="252" y1="90" x2="340" y2="90" stroke="#538135" stroke-width="1.5"/>
+      <ellipse cx="390" cy="90" rx="46" ry="18" fill="#E2EFDA" stroke="#538135" stroke-width="1.5"/>
+      <text x="390" y="95" font-size="11" fill="#375623" text-anchor="middle">postal_code</text>
+      <text x="250" y="145" font-size="11" fill="#555" text-anchor="middle">When the KEY is composite, underline the composite attribute, not the individual sub-parts</text>
+    </svg>
+  </div>
+</div>
+
+<p><strong>2.4.3 Multi-valued Attributes</strong></p>
+<p>An attribute that can hold multiple values for one entity. Shown with a <strong>DOUBLE oval</strong>. Example: An employee can have multiple phone numbers. The 'phone' attribute would be a double oval, meaning one employee can have several phone numbers stored.</p>
+
+<div class="section-h">2.5 DIAGRAM TYPE D: Basic ERD — Factory System</div>
+
+<!-- ERD FACTORY FULL DIAGRAM -->
+<div class="diagram-wrap">
+  <div class="diagram-label"><span class="tag">Diagram Type D</span> ERD — Employee, Factory &amp; Assembly Line (Weak Entity)</div>
+  <div class="diagram-body">
+    <svg viewBox="0 0 720 500" width="100%">
+      <text x="360" y="20" font-size="13" font-weight="700" fill="#375623" text-anchor="middle">ENTITY-RELATIONSHIP DIAGRAM — FACTORY SYSTEM</text>
+
+      <!-- Employee entity -->
+      <rect x="260" y="180" width="120" height="34" fill="white" stroke="#538135" stroke-width="2.5"/>
+      <text x="320" y="202" font-size="14" font-weight="700" fill="#375623" text-anchor="middle">employee</text>
+
+      <!-- Employee attributes -->
+      <ellipse cx="188" cy="110" rx="28" ry="18" fill="#E2EFDA" stroke="#538135" stroke-width="1.5"/>
+      <text x="188" y="113" font-size="11" fill="#375623" text-anchor="middle">ID</text>
+      <line x1="188" y1="120" x2="260" y2="190" stroke="#538135" stroke-width="1.5"/>
+      <line x1="172" y1="118" x2="204" y2="118" stroke="#375623" stroke-width="1.5"/>
+
+      <ellipse cx="300" cy="108" rx="28" ry="18" fill="#E2EFDA" stroke="#538135" stroke-width="1.5"/>
+      <text x="300" y="113" font-size="11" fill="#375623" text-anchor="middle">name</text>
+      <line x1="300" y1="126" x2="300" y2="180" stroke="#538135" stroke-width="1.5"/>
+
+      <ellipse cx="390" cy="118" rx="32" ry="18" fill="#E2EFDA" stroke="#538135" stroke-width="1.5"/>
+      <text x="390" y="123" font-size="11" fill="#375623" text-anchor="middle">position</text>
+      <line x1="380" y1="136" x2="365" y2="180" stroke="#538135" stroke-width="1.5"/>
+
+      <ellipse cx="462" cy="197" rx="32" ry="18" fill="#E2EFDA" stroke="#538135" stroke-width="1.5"/>
+      <text x="462" y="202" font-size="11" fill="#375623" text-anchor="middle">pay_rate</text>
+      <line x1="430" y1="200" x2="380" y2="200" stroke="#538135" stroke-width="1.5"/>
+
+      <!-- WORKS AT relationship -->
+      <polygon points="320,280 360,310 320,340 280,310" fill="#E2EFDA" stroke="#538135" stroke-width="2"/>
+      <text x="320" y="315" font-size="12" fill="#375623" text-anchor="middle" font-weight="600">works at</text>
+      <text x="320" y="272" font-size="14" font-weight="700" fill="#538135" text-anchor="middle">N</text>
+      <text x="320" y="358" font-size="14" font-weight="700" fill="#538135" text-anchor="middle">1</text>
+      <line x1="320" y1="214" x2="320" y2="280" stroke="#538135" stroke-width="2"/>
+      <line x1="320" y1="340" x2="320" y2="380" stroke="#538135" stroke-width="2"/>
+
+      <!-- Factory entity -->
+      <rect x="260" y="380" width="120" height="34" fill="white" stroke="#538135" stroke-width="2.5"/>
+      <text x="320" y="402" font-size="14" font-weight="700" fill="#375623" text-anchor="middle">factory</text>
+
+      <!-- Factory attributes -->
+      <ellipse cx="200" cy="448" rx="28" ry="18" fill="#E2EFDA" stroke="#538135" stroke-width="1.5"/>
+      <text x="200" y="451" font-size="11" fill="#375623" text-anchor="middle">city</text>
+      <line x1="200" y1="456" x2="260" y2="400" stroke="#538135" stroke-width="1.5"/>
+      <line x1="184" y1="456" x2="216" y2="456" stroke="#375623" stroke-width="1.5"/>
+
+      <ellipse cx="400" cy="448" rx="40" ry="18" fill="#E2EFDA" stroke="#538135" stroke-width="1.5"/>
+      <text x="400" y="453" font-size="11" fill="#375623" text-anchor="middle">throughput</text>
+      <line x1="370" y1="436" x2="375" y2="414" stroke="#538135" stroke-width="1.5"/>
+
+      <!-- MANAGES relationship (1:1, total participation) -->
+      <polygon points="130,230 166,257 130,284 94,257" fill="#E2EFDA" stroke="#538135" stroke-width="2"/>
+      <text x="130" y="262" font-size="11" fill="#375623" text-anchor="middle" font-weight="600">manages</text>
+      <!-- Double line to factory (total) -->
+      <line x1="124" y1="284" x2="274" y2="392" stroke="#538135" stroke-width="2.5"/>
+      <line x1="132" y1="284" x2="282" y2="392" stroke="#538135" stroke-width="2.5"/>
+      <!-- Single line to employee -->
+      <line x1="130" y1="230" x2="200" y2="214" stroke="#538135" stroke-width="2"/>
+      <polygon points="196,208 204,214 196,220" fill="#538135"/>
+      <text x="80" y="230" font-size="13" font-weight="700" fill="#538135">1</text>
+      <text x="80" y="295" font-size="13" font-weight="700" fill="#538135">1</text>
+      <text x="50" y="322" font-size="11" fill="#555" text-anchor="middle">double line =</text>
+      <text x="50" y="336" font-size="11" fill="#555" text-anchor="middle">total particip.</text>
+
+      <!-- WEAK ENTITY: Assembly Line + CONTAINS -->
+      <text x="570" y="52" font-size="13" font-weight="700" fill="#375623" text-anchor="middle">WEAK ENTITY EXAMPLE</text>
+
+      <rect x="520" y="60" width="120" height="34" fill="white" stroke="#538135" stroke-width="2.5"/>
+      <text x="580" y="82" font-size="13" font-weight="700" fill="#375623" text-anchor="middle">factory</text>
+
+      <!-- CONTAINS identifying relationship (double diamond) -->
+      <polygon points="580,128 616,152 580,176 544,152" fill="none" stroke="#538135" stroke-width="2"/>
+      <polygon points="580,136 608,152 580,168 552,152" fill="#E2EFDA" stroke="#538135" stroke-width="1.5"/>
+      <text x="580" y="157" font-size="11" fill="#375623" text-anchor="middle" font-weight="600">contains</text>
+      <line x1="580" y1="94" x2="580" y2="128" stroke="#538135" stroke-width="2"/>
+      <text x="590" y="120" font-size="12" font-weight="700" fill="#538135">1</text>
+      <line x1="580" y1="176" x2="580" y2="202" stroke="#538135" stroke-width="2"/>
+      <text x="590" y="196" font-size="12" font-weight="700" fill="#538135">N</text>
+
+      <!-- Weak entity (double border) -->
+      <rect x="518" y="202" width="124" height="44" fill="none" stroke="#538135" stroke-width="2"/>
+      <rect x="525" y="209" width="110" height="30" fill="#E2EFDA" stroke="#538135" stroke-width="1.5"/>
+      <text x="580" y="229" font-size="12" fill="#375623" text-anchor="middle" font-weight="600">assembly line</text>
+
+      <!-- Weak key (dashed underline) -->
+      <ellipse cx="530" cy="286" rx="32" ry="18" fill="#E2EFDA" stroke="#538135" stroke-width="1.5"/>
+      <text x="530" y="289" font-size="11" fill="#375623" text-anchor="middle">number</text>
+      <line x1="512" y1="294" x2="548" y2="294" stroke="#375623" stroke-width="1.5" stroke-dasharray="4,2"/>
+      <line x1="524" y1="246" x2="524" y2="268" stroke="#538135" stroke-width="1.5"/>
+      <text x="480" y="318" font-size="10" fill="#777" text-anchor="middle">weak key</text>
+      <text x="480" y="330" font-size="10" fill="#777" text-anchor="middle">(dashed underline)</text>
+
+      <ellipse cx="635" cy="286" rx="38" ry="18" fill="#E2EFDA" stroke="#538135" stroke-width="1.5"/>
+      <text x="635" y="291" font-size="11" fill="#375623" text-anchor="middle">throughput</text>
+      <line x1="635" y1="246" x2="635" y2="268" stroke="#538135" stroke-width="1.5"/>
+    </svg>
+  </div>
+  <div class="diagram-rules">
+    <strong>Weak Key = number</strong> Full identity = factory city + line number (combined). A weak entity without its owner entity has no meaning.
+  </div>
+</div>
+
+<div class="box box-yellow">
+  <div class="box-title">🗣️ Real-Life ERD Example</div>
+  For a university database: <strong>STUDENT</strong> (student_id, name, level) is related to <strong>COURSE</strong> (course_code, title, units) through an <strong>ENROLS IN</strong> relationship (N:M — many students enroll in many courses). <strong>LECTURER</strong> (staff_id, name) is related to COURSE through a <strong>TEACHES</strong> relationship (1:N — one lecturer teaches many courses). This is the ERD you would draw before building the university database system.
+</div>
+
+<div class="pb"></div>
+
+<!-- ══════════════════════════════════════════════
+     TOPIC 3: USE CASE DIAGRAMS
+═══════════════════════════════════════════════ -->
+<div class="topic-header">TOPIC 3: USE CASE DIAGRAMS</div>
+
+<div class="section-h">3.1 What is a Use Case Diagram?</div>
+<p>A <strong>Use Case Diagram</strong> is a UML diagram that shows how users (actors) interact with a system to accomplish goals. It captures the <strong>FUNCTIONAL REQUIREMENTS</strong> of a system from the user's perspective.</p>
+
+<div class="box box-yellow">
+  <div class="box-title">🗣️ In Plain English</div>
+  A Use Case Diagram is like a restaurant menu. The restaurant (system) offers dishes (use cases), and different types of customers (actors) can order different items. A regular customer can order food, while the chef (another actor) can update the menu. The menu is the system boundary.
+</div>
+
+<table>
+  <tr><th>Feature</th><th>Description</th></tr>
+  <tr><td><strong>Shows the WHAT</strong></td><td>What can users do with the system? (not HOW the system does it internally)</td></tr>
+  <tr><td><strong>User's perspective</strong></td><td>Describes requirements from outside — what users need from the system</td></tr>
+  <tr><td><strong>High-level overview</strong></td><td>Not detailed — gives the big picture of all system functions</td></tr>
+  <tr><td><strong>Functional requirements</strong></td><td>Every use case = one piece of functionality the system must provide</td></tr>
+</table>
+
+<div class="section-h">3.2 Use Case Diagram Notation</div>
+<table>
+  <tr><th>Element</th><th>Symbol</th><th>Meaning</th></tr>
+  <tr><td><strong>System Boundary</strong></td><td>Large rectangle enclosing the use cases</td><td>Defines what is INSIDE the system vs. outside. Use cases go inside; actors go outside.</td></tr>
+  <tr><td><strong>Actor</strong></td><td>Stick figure with name below</td><td>A user, external system, or device that interacts with the system. Represents a ROLE, not a specific person.</td></tr>
+  <tr><td><strong>Use Case</strong></td><td>Oval/ellipse with name inside</td><td>A specific goal a user can achieve using the system. Represents a piece of functionality.</td></tr>
+  <tr><td><strong>Association</strong></td><td>Solid line between actor and use case</td><td>Shows that the actor participates in that use case.</td></tr>
+  <tr><td><strong>Include</strong></td><td>Dashed arrow labelled «include»</td><td>One use case ALWAYS includes the behaviour of another. Like calling a subroutine that always runs.</td></tr>
+  <tr><td><strong>Extend</strong></td><td>Dashed arrow labelled «extend»</td><td>One use case SOMETIMES extends the behaviour of another. Optional extra behaviour.</td></tr>
+  <tr><td><strong>Generalization</strong></td><td>Solid arrow with hollow triangle head</td><td>Inheritance. A child actor/use case inherits from a parent and can add more specific behaviour.</td></tr>
+</table>
+
+<div class="section-h">3.3 DIAGRAM TYPE E: Use Case Diagram — ATM System</div>
+
+<!-- USE CASE DIAGRAM SVG -->
+<div class="diagram-wrap">
+  <div class="diagram-label"><span class="tag">Diagram Type E</span> Use Case Diagram — ATM System</div>
+  <div class="diagram-body">
+    <svg viewBox="0 0 780 440" width="100%">
+      <defs>
+        <marker id="uc-a" markerWidth="7" markerHeight="5" refX="7" refY="2.5" orient="auto"><polygon points="0 0,7 2.5,0 5" fill="#7c3aed"/></marker>
+      </defs>
+      <!-- System boundary -->
+      <rect x="150" y="30" width="480" height="380" rx="6" fill="#faf5ff" stroke="#7c3aed" stroke-width="2.5"/>
+      <text x="390" y="54" font-size="14" font-weight="700" fill="#4c1d95" text-anchor="middle">ATM System</text>
+      <text x="390" y="70" font-size="10" fill="#a78bfa" text-anchor="middle">← Use cases INSIDE boundary · Actors OUTSIDE →</text>
+
+      <!-- Use cases -->
+      <ellipse cx="285" cy="130" rx="80" ry="26" fill="white" stroke="#7c3aed" stroke-width="2"/>
+      <text x="285" y="135" font-size="12" fill="#4c1d95" text-anchor="middle" font-weight="600">Withdraw Cash</text>
+
+      <ellipse cx="520" cy="130" rx="76" ry="26" fill="white" stroke="#7c3aed" stroke-width="2"/>
+      <text x="520" y="135" font-size="12" fill="#4c1d95" text-anchor="middle" font-weight="600">Deposit Funds</text>
+
+      <ellipse cx="285" cy="220" rx="76" ry="26" fill="white" stroke="#7c3aed" stroke-width="2"/>
+      <text x="285" y="225" font-size="12" fill="#4c1d95" text-anchor="middle" font-weight="600">Check Balance</text>
+
+      <ellipse cx="520" cy="220" rx="72" ry="26" fill="white" stroke="#7c3aed" stroke-width="2"/>
+      <text x="520" y="225" font-size="12" fill="#4c1d95" text-anchor="middle" font-weight="600">Change PIN</text>
+
+      <!-- Verify PIN -->
+      <ellipse cx="390" cy="330" rx="66" ry="26" fill="#ede9fe" stroke="#7c3aed" stroke-width="2.5"/>
+      <text x="390" y="335" font-size="13" fill="#4c1d95" text-anchor="middle" font-weight="700">Verify PIN</text>
+      <text x="390" y="370" font-size="10" fill="#7c3aed" text-anchor="middle">← always needed</text>
+
+      <!-- Print Receipt (extends) -->
+      <ellipse cx="210" cy="330" rx="60" ry="24" fill="white" stroke="#7c3aed" stroke-width="1.5" stroke-dasharray="4,2"/>
+      <text x="210" y="335" font-size="11" fill="#6d28d9" text-anchor="middle">Print Receipt</text>
+
+      <!-- Manage ATM Settings -->
+      <ellipse cx="550" cy="330" rx="84" ry="26" fill="white" stroke="#7c3aed" stroke-width="2"/>
+      <text x="550" y="335" font-size="11" fill="#4c1d95" text-anchor="middle" font-weight="600">Manage ATM Settings</text>
+
+      <!-- <<include>> arrows -->
+      <line x1="285" y1="156" x2="363" y2="304" stroke="#7c3aed" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#uc-a)"/>
+      <text x="298" y="240" font-size="10" fill="#7c3aed" transform="rotate(-60,298,240)">«include»</text>
+
+      <line x1="520" y1="156" x2="415" y2="304" stroke="#7c3aed" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#uc-a)"/>
+      <text x="500" y="238" font-size="10" fill="#7c3aed" transform="rotate(55,500,238)">«include»</text>
+
+      <line x1="285" y1="246" x2="352" y2="306" stroke="#7c3aed" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#uc-a)"/>
+      <text x="297" y="284" font-size="10" fill="#7c3aed">«include»</text>
+
+      <line x1="520" y1="246" x2="445" y2="306" stroke="#7c3aed" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#uc-a)"/>
+      <text x="465" y="285" font-size="10" fill="#7c3aed" text-anchor="end">«include»</text>
+
+      <!-- <<extend>> arrow (Print Receipt → Withdraw Cash) -->
+      <line x1="210" y1="306" x2="210" y2="156" stroke="#7c3aed" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#uc-a)"/>
+      <text x="165" y="234" font-size="10" fill="#7c3aed" text-anchor="middle">«extend»</text>
+      <text x="155" y="248" font-size="10" fill="#7c3aed" text-anchor="middle">(optional)</text>
+
+      <!-- CUSTOMER stick figure -->
+      <circle cx="66" cy="175" r="14" fill="#ede9fe" stroke="#7c3aed" stroke-width="2"/>
+      <text x="66" y="180" font-size="15" text-anchor="middle">👤</text>
+      <line x1="66" y1="189" x2="66" y2="226" stroke="#7c3aed" stroke-width="2"/>
+      <line x1="46" y1="208" x2="86" y2="208" stroke="#7c3aed" stroke-width="2"/>
+      <line x1="66" y1="226" x2="48" y2="252" stroke="#7c3aed" stroke-width="2"/>
+      <line x1="66" y1="226" x2="84" y2="252" stroke="#7c3aed" stroke-width="2"/>
+      <text x="66" y="268" font-size="12" fill="#4c1d95" text-anchor="middle" font-weight="700">Customer</text>
+
+      <!-- BANK ADMIN stick figure -->
+      <circle cx="710" cy="255" r="14" fill="#ede9fe" stroke="#7c3aed" stroke-width="2"/>
+      <text x="710" y="260" font-size="15" text-anchor="middle">👤</text>
+      <line x1="710" y1="269" x2="710" y2="306" stroke="#7c3aed" stroke-width="2"/>
+      <line x1="692" y1="288" x2="728" y2="288" stroke="#7c3aed" stroke-width="2"/>
+      <line x1="710" y1="306" x2="694" y2="332" stroke="#7c3aed" stroke-width="2"/>
+      <line x1="710" y1="306" x2="726" y2="332" stroke="#7c3aed" stroke-width="2"/>
+      <text x="710" y="348" font-size="11" fill="#4c1d95" text-anchor="middle" font-weight="700">Bank Admin</text>
+
+      <!-- Association lines -->
+      <line x1="80" y1="200" x2="205" y2="135" stroke="#7c3aed" stroke-width="1.8"/>
+      <line x1="80" y1="218" x2="209" y2="222" stroke="#7c3aed" stroke-width="1.8"/>
+      <line x1="634" y1="332" x2="696" y2="280" stroke="#7c3aed" stroke-width="1.8"/>
+
+      <!-- KEY RULES box inside diagram -->
+      <rect x="160" y="398" width="460" height="32" rx="4" fill="#ede9fe" stroke="#c4b5fd" stroke-width="1"/>
+      <text x="390" y="412" font-size="11" fill="#4c1d95" text-anchor="middle" font-weight="700">Key Rules: Use cases INSIDE rectangle · Actors OUTSIDE · «include» = always · «extend» = optional</text>
+      <text x="390" y="425" font-size="10" fill="#6d28d9" text-anchor="middle">Generalization = solid arrow with hollow triangle pointing to parent</text>
+    </svg>
+  </div>
+</div>
+
+<div class="box box-blue">
+  <div class="box-title">📌 Include vs. Extend — Easy Way to Remember</div>
+  <strong>INCLUDE = mandatory helper.</strong> Like how 'Log In' is INCLUDED in almost every banking function — you always have to log in first.<br>
+  <strong>EXTEND = optional add-on.</strong> Like 'Print Receipt' EXTENDS 'Withdraw Cash' — you can withdraw without a receipt, but the option exists.
+</div>
+
+<div class="section-h">3.4 Merits and Demerits of Use Case Diagrams</div>
+<table>
+  <tr><th>Merits</th><th>Demerits</th></tr>
+  <tr><td>Clear visual overview of all system functions</td><td>Too abstract — may oversimplify complex interactions</td></tr>
+  <tr><td>Easy for non-technical stakeholders to understand</td><td>Does not capture detailed business rules or logic</td></tr>
+  <tr><td>Helps identify system scope and boundaries</td><td>Only a static snapshot — doesn't show time or sequence</td></tr>
+  <tr><td>Guides requirements analysis from user's view</td><td>Cannot show internal system processes or data flows</td></tr>
+</table>
+
+<div class="pb"></div>
+
+<!-- ══════════════════════════════════════════════
+     TOPIC 4: ACTIVITY DIAGRAMS
+═══════════════════════════════════════════════ -->
+<div class="topic-header">TOPIC 4: ACTIVITY DIAGRAMS</div>
+
+<div class="section-h">4.1 What is an Activity Diagram?</div>
+<p>An <strong>Activity Diagram</strong> models the FLOW OF ACTIVITIES (steps/actions) within a system or process. It shows the sequence of actions, decision points, and parallel flows involved in completing a task.</p>
+
+<div class="box box-yellow">
+  <div class="box-title">🗣️ In Plain English</div>
+  An activity diagram is like a detailed recipe or flowchart. For example, baking a cake: Start → Gather ingredients → Mix ingredients → [Decision: oven ready?] → Yes: Bake → Cool → Serve → End. You can also show that while the cake bakes, you can clean up (parallel activity — <strong>fork and join</strong>).
+</div>
+
+<div class="section-h">4.2 Activity Diagram Notation</div>
+<table>
+  <tr><th>Element</th><th>Symbol</th><th>Meaning</th></tr>
+  <tr><td><strong>Initial Node (Start)</strong></td><td>Solid filled circle ●</td><td>The starting point of the process.</td></tr>
+  <tr><td><strong>Activity/Action</strong></td><td>Rounded rectangle</td><td>A task or step in the process (e.g., 'Enter Payment Details').</td></tr>
+  <tr><td><strong>Transition</strong></td><td>Arrow between activities</td><td>Shows the flow of control — what happens next.</td></tr>
+  <tr><td><strong>Decision Node (Branch)</strong></td><td>Diamond shape ◇</td><td>A decision point where the flow splits based on a condition. Outgoing arrows labelled with conditions.</td></tr>
+  <tr><td><strong>Fork</strong></td><td>Thick horizontal bar (1 in / multiple out)</td><td>Splits flow into PARALLEL paths. Multiple activities happen simultaneously.</td></tr>
+  <tr><td><strong>Join</strong></td><td>Thick horizontal bar (multiple in / 1 out)</td><td>Merges parallel paths back together. All parallel activities must complete before continuing.</td></tr>
+  <tr><td><strong>Final Node (End)</strong></td><td>Solid circle inside a ring ◎ (bullseye)</td><td>The ending point of the process.</td></tr>
+</table>
+
+<div class="section-h">4.3 DIAGRAM TYPE F: Activity Diagram — Online Shopping</div>
+
+<!-- ACTIVITY DIAGRAM SVG -->
+<div class="diagram-wrap">
+  <div class="diagram-label"><span class="tag">Diagram Type F</span> Activity Diagram — Online Shopping Process</div>
+  <div class="diagram-body">
+    <svg viewBox="0 0 620 760" width="100%">
+      <defs><marker id="act-a" markerWidth="7" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0,7 3,0 6" fill="#92400e"/></marker></defs>
+
+      <!-- Initial -->
+      <circle cx="310" cy="32" r="16" fill="#b45309"/>
+      <text x="340" y="37" font-size="12" fill="#b45309" font-weight="600">Start</text>
+      <line x1="310" y1="48" x2="310" y2="70" stroke="#b45309" stroke-width="2" marker-end="url(#act-a)"/>
+
+      <rect x="196" y="70" width="228" height="36" rx="18" fill="white" stroke="#d97706" stroke-width="2"/>
+      <text x="310" y="93" font-size="13" fill="#78350f" text-anchor="middle" font-weight="600">Login to Website</text>
+      <line x1="310" y1="106" x2="310" y2="128" stroke="#b45309" stroke-width="2" marker-end="url(#act-a)"/>
+
+      <rect x="196" y="128" width="228" height="36" rx="18" fill="white" stroke="#d97706" stroke-width="2"/>
+      <text x="310" y="151" font-size="13" fill="#78350f" text-anchor="middle" font-weight="600">Browse Products</text>
+      <line x1="310" y1="164" x2="310" y2="186" stroke="#b45309" stroke-width="2" marker-end="url(#act-a)"/>
+
+      <rect x="196" y="186" width="228" height="36" rx="18" fill="white" stroke="#d97706" stroke-width="2"/>
+      <text x="310" y="209" font-size="13" fill="#78350f" text-anchor="middle" font-weight="600">Add Item to Cart</text>
+      <line x1="310" y1="222" x2="310" y2="244" stroke="#b45309" stroke-width="2" marker-end="url(#act-a)"/>
+
+      <!-- Decision: Discount Code? -->
+      <polygon points="310,244 358,276 310,308 262,276" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
+      <text x="310" y="274" font-size="12" fill="#78350f" text-anchor="middle">Discount</text>
+      <text x="310" y="287" font-size="12" fill="#78350f" text-anchor="middle">Code?</text>
+
+      <line x1="262" y1="276" x2="130" y2="276" stroke="#b45309" stroke-width="2" marker-end="url(#act-a)"/>
+      <text x="196" y="266" font-size="12" fill="#b45309" text-anchor="middle">[Yes]</text>
+      <rect x="50" y="258" width="82" height="36" rx="18" fill="white" stroke="#d97706" stroke-width="2"/>
+      <text x="91" y="275" font-size="12" fill="#78350f" text-anchor="middle">Apply</text>
+      <text x="91" y="288" font-size="12" fill="#78350f" text-anchor="middle">Discount</text>
+      <line x1="91" y1="294" x2="91" y2="370" stroke="#b45309" stroke-width="2"/>
+      <line x1="91" y1="370" x2="250" y2="370" stroke="#b45309" stroke-width="2" marker-end="url(#act-a)"/>
+
+      <line x1="310" y1="308" x2="310" y2="342" stroke="#b45309" stroke-width="2" marker-end="url(#act-a)"/>
+      <text x="320" y="328" font-size="12" fill="#b45309">[No]</text>
+
+      <rect x="196" y="342" width="228" height="36" rx="18" fill="white" stroke="#d97706" stroke-width="2"/>
+      <text x="310" y="358" font-size="12" fill="#78350f" text-anchor="middle" font-weight="600">Proceed to Checkout</text>
+      <line x1="310" y1="378" x2="310" y2="398" stroke="#b45309" stroke-width="2" marker-end="url(#act-a)"/>
+
+      <!-- FORK BAR -->
+      <rect x="160" y="398" width="300" height="8" rx="2" fill="#b45309"/>
+      <text x="478" y="406" font-size="11" fill="#b45309" font-weight="600">FORK</text>
+
+      <!-- Left: Process Payment -->
+      <line x1="234" y1="406" x2="234" y2="428" stroke="#b45309" stroke-width="2" marker-end="url(#act-a)"/>
+      <rect x="120" y="428" width="228" height="36" rx="18" fill="white" stroke="#d97706" stroke-width="2"/>
+      <text x="234" y="451" font-size="12" fill="#78350f" text-anchor="middle" font-weight="600">Process Payment</text>
+      <line x1="234" y1="464" x2="234" y2="534" stroke="#b45309" stroke-width="2"/>
+
+      <!-- Right: Send Confirmation Email -->
+      <line x1="396" y1="406" x2="396" y2="428" stroke="#b45309" stroke-width="2" marker-end="url(#act-a)"/>
+      <rect x="285" y="428" width="220" height="36" rx="18" fill="white" stroke="#d97706" stroke-width="2"/>
+      <text x="395" y="444" font-size="12" fill="#78350f" text-anchor="middle" font-weight="600">Send Confirmation</text>
+      <text x="395" y="457" font-size="12" fill="#78350f" text-anchor="middle" font-weight="600">Email</text>
+      <line x1="396" y1="464" x2="396" y2="534" stroke="#b45309" stroke-width="2"/>
+
+      <!-- JOIN BAR -->
+      <line x1="234" y1="534" x2="396" y2="534" stroke="#b45309" stroke-width="2"/>
+      <rect x="160" y="534" width="300" height="8" rx="2" fill="#b45309"/>
+      <text x="478" y="542" font-size="11" fill="#b45309" font-weight="600">JOIN</text>
+
+      <line x1="310" y1="542" x2="310" y2="564" stroke="#b45309" stroke-width="2" marker-end="url(#act-a)"/>
+
+      <rect x="196" y="564" width="228" height="36" rx="18" fill="#fef3c7" stroke="#d97706" stroke-width="2.5"/>
+      <text x="310" y="587" font-size="13" fill="#78350f" text-anchor="middle" font-weight="700">Order Confirmed</text>
+      <line x1="310" y1="600" x2="310" y2="624" stroke="#b45309" stroke-width="2" marker-end="url(#act-a)"/>
+
+      <!-- Final node (bullseye) -->
+      <circle cx="310" cy="656" r="18" fill="none" stroke="#b45309" stroke-width="2.5"/>
+      <circle cx="310" cy="656" r="10" fill="#b45309"/>
+      <text x="338" y="661" font-size="12" fill="#b45309" font-weight="600">End</text>
+    </svg>
+  </div>
+</div>
+
+<div class="box box-blue">
+  <div class="box-title">🔑 Key Distinction from Use Case Diagrams</div>
+  <strong>Use Case Diagrams</strong> show WHAT users can do (high level). <strong>Activity Diagrams</strong> show HOW a process flows step-by-step (detailed workflow). Use Cases are about <em>GOALS</em>; Activity Diagrams are about <em>STEPS</em>.
+</div>
+
+<div class="pb"></div>
+
+<!-- ══════════════════════════════════════════════
+     TOPIC 5: CLASS DIAGRAMS
+═══════════════════════════════════════════════ -->
+<div class="topic-header">TOPIC 5: UML CLASS DIAGRAMS</div>
+
+<div class="section-h">5.1 What is a Class Diagram?</div>
+<p>A <strong>Class Diagram</strong> is a STATIC structural diagram that shows the classes in a system, their attributes, their operations (methods), and the relationships between classes. It is the most important diagram in object-oriented design.</p>
+
+<div class="box box-yellow">
+  <div class="box-title">🗣️ In Plain English</div>
+  A class is like a blueprint or cookie cutter. The CLASS 'Dog' defines what ALL dogs have in common: a name (attribute), a breed (attribute), and the ability to bark() (operation/method). An OBJECT is a specific dog — like your dog 'Bingo'. The class diagram shows all the blueprints and how they connect.
+</div>
+
+<p>Created by combining the work of three researchers: <strong>Grady Booch</strong> (BOOCH), <strong>James Rumbaugh</strong> (OMT), and <strong>Ivar Jacobsen</strong> (OOSE) in the mid-1990s.</p>
+
+<div class="section-h">5.2 Class Diagram Notation</div>
+
+<!-- CLASS NOTATION SVG -->
+<div class="diagram-wrap">
+  <div class="diagram-label"><span class="tag">Notation</span> Class Notation — 3-Compartment Rectangle</div>
+  <div class="diagram-body">
+    <svg viewBox="0 0 640 180" width="100%">
+      <!-- Generic notation -->
+      <rect x="20" y="20" width="190" height="140" fill="white" stroke="#0f766e" stroke-width="2.5"/>
+      <rect x="20" y="20" width="190" height="36" fill="#ccfbf1" stroke="#0f766e" stroke-width="2.5"/>
+      <text x="115" y="44" font-size="15" font-weight="700" fill="#134e4a" text-anchor="middle">ClassName</text>
+      <line x1="20" y1="90" x2="210" y2="90" stroke="#0f766e" stroke-width="1.5"/>
+      <text x="30" y="76" font-size="12" fill="#374151">- attribute1 : type</text>
+      <text x="30" y="90" font-size="12" fill="#374151">- attribute2 : type</text>
+      <text x="30" y="116" font-size="12" fill="#374151">+ operation1()</text>
+      <text x="30" y="132" font-size="12" fill="#374151">- operation2()</text>
+      <text x="30" y="148" font-size="12" fill="#374151"># operation3()</text>
+      <!-- Labels -->
+      <text x="225" y="44" font-size="11" fill="#0f766e">← Name compartment (bold, centred)</text>
+      <text x="225" y="78" font-size="11" fill="#0f766e">← Attributes compartment</text>
+      <text x="225" y="92" font-size="11" fill="#777">   - = private, + = public, # = protected</text>
+      <text x="225" y="120" font-size="11" fill="#0f766e">← Operations compartment</text>
+      <text x="225" y="134" font-size="11" fill="#777">   (methods / behaviours)</text>
+
+      <!-- Concrete example: Student -->
+      <rect x="20" y="20" width="190" height="140" fill="white" stroke="#0f766e" stroke-width="2.5" x="370"/>
+    </svg>
+  </div>
+</div>
+
+<!-- CLASS EXAMPLE: Student -->
+<div class="diagram-wrap">
+  <div class="diagram-label"><span class="tag">Example</span> Class: Student</div>
+  <div class="diagram-body">
+    <svg viewBox="0 0 360 170" width="100%">
+      <rect x="80" y="20" width="200" height="130" fill="white" stroke="#0f766e" stroke-width="2.5"/>
+      <rect x="80" y="20" width="200" height="34" fill="#ccfbf1" stroke="#0f766e" stroke-width="2.5"/>
+      <text x="180" y="43" font-size="15" font-weight="700" fill="#134e4a" text-anchor="middle">Student</text>
+      <line x1="80" y1="88" x2="280" y2="88" stroke="#0f766e" stroke-width="1.5"/>
+      <text x="94" y="74" font-size="13" fill="#1e293b">- studentID</text>
+      <text x="94" y="88" font-size="11" fill="#555"> </text>
+      <text x="94" y="104" font-size="13" fill="#374151">+ enroll()</text>
+      <text x="94" y="120" font-size="13" fill="#374151">+ getGrades()</text>
+      <text x="94" y="136" font-size="13" fill="#374151">+ payFees()</text>
+    </svg>
+  </div>
+</div>
+
+<div class="section-h">5.3 Relationships in Class Diagrams</div>
+<table>
+  <tr><th>Relationship</th><th>Symbol</th><th>Meaning</th><th>Example</th></tr>
+  <tr><td><strong>Association</strong></td><td>Solid line</td><td>A general connection between classes — they 'know about' each other.</td><td>Student — Course (student takes a course)</td></tr>
+  <tr><td><strong>Multiplicity</strong></td><td>Numbers on association ends (1, *, 0..1, 1..*)</td><td>How many instances of one class relate to another.</td><td>1 student takes * courses</td></tr>
+  <tr><td><strong>Generalization (Inheritance)</strong></td><td>Solid line with hollow triangle pointing to parent</td><td>A child class IS-A type of parent class. Inherits attributes and operations.</td><td>Car IS-A Vehicle</td></tr>
+  <tr><td><strong>Aggregation</strong></td><td>Solid line with open diamond at whole</td><td>A HAS-A relationship where parts can exist independently of the whole.</td><td>Department HAS employees (employees can exist without the department)</td></tr>
+  <tr><td><strong>Composition</strong></td><td>Solid line with filled diamond at whole</td><td>A STRONG HAS-A: parts CANNOT exist without the whole.</td><td>House HAS rooms (rooms cannot exist without the house)</td></tr>
+  <tr><td><strong>Dependency</strong></td><td>Dashed arrow</td><td>One class uses another temporarily.</td><td>Report depends on Printer</td></tr>
+</table>
+
+<div class="section-h">5.4 DIAGRAM TYPE G: Class Diagram — Library Management System</div>
+
+<!-- CLASS DIAGRAM SVG -->
+<div class="diagram-wrap">
+  <div class="diagram-label"><span class="tag">Diagram Type G</span> Class Diagram — Library Management System</div>
+  <div class="diagram-body">
+    <svg viewBox="0 0 780 520" width="100%">
+      <defs>
+        <marker id="cls-gen" markerWidth="12" markerHeight="10" refX="0" refY="5" orient="auto"><polygon points="12,0 0,5 12,10" fill="white" stroke="#0f766e" stroke-width="1.5"/></marker>
+        <marker id="cls-a" markerWidth="7" markerHeight="5" refX="7" refY="2.5" orient="auto"><polygon points="0 0,7 2.5,0 5" fill="#0f766e"/></marker>
+      </defs>
+
+      <text x="390" y="20" font-size="14" font-weight="700" fill="#134e4a" text-anchor="middle">CLASS DIAGRAM — LIBRARY MANAGEMENT SYSTEM</text>
+
+      <!-- Member -->
+      <rect x="30" y="200" width="170" height="130" fill="white" stroke="#0f766e" stroke-width="2"/>
+      <rect x="30" y="200" width="170" height="30" fill="#ccfbf1" stroke="#0f766e" stroke-width="2"/>
+      <text x="115" y="220" font-size="14" font-weight="700" fill="#134e4a" text-anchor="middle">Member</text>
+      <line x1="30" y1="256" x2="200" y2="256" stroke="#0f766e" stroke-width="1.5"/>
+      <text x="40" y="244" font-size="11" fill="#1e293b">- memberID (PK)</text>
+      <text x="40" y="272" font-size="11" fill="#374151">+ borrow()</text>
+      <text x="40" y="286" font-size="11" fill="#374151">+ returnBook()</text>
+      <text x="40" y="300" font-size="11" fill="#374151">+ payFine()</text>
+      <text x="40" y="314" font-size="11" fill="#374151">+ checkBalance()</text>
+
+      <!-- Book -->
+      <rect x="310" y="200" width="170" height="130" fill="white" stroke="#0f766e" stroke-width="2"/>
+      <rect x="310" y="200" width="170" height="30" fill="#ccfbf1" stroke="#0f766e" stroke-width="2"/>
+      <text x="395" y="220" font-size="14" font-weight="700" fill="#134e4a" text-anchor="middle">Book</text>
+      <line x1="310" y1="256" x2="480" y2="256" stroke="#0f766e" stroke-width="1.5"/>
+      <text x="320" y="244" font-size="11" fill="#1e293b">- ISBN (PK)</text>
+      <text x="320" y="272" font-size="11" fill="#374151">+ getDetails()</text>
+      <text x="320" y="286" font-size="11" fill="#374151">+ isAvailable()</text>
+      <text x="320" y="300" font-size="11" fill="#374151">+ checkout()</text>
+      <text x="320" y="314" font-size="11" fill="#374151">+ returnToShelf()</text>
+
+      <!-- Association line Member — borrows — Book -->
+      <line x1="200" y1="265" x2="310" y2="265" stroke="#0f766e" stroke-width="2"/>
+      <text x="255" y="257" font-size="12" fill="#0f766e" text-anchor="middle" font-weight="600">borrows</text>
+      <text x="205" y="282" font-size="13" font-weight="700" fill="#134e4a">1</text>
+      <text x="300" y="282" font-size="13" font-weight="700" fill="#134e4a">N</text>
+
+      <!-- Student (subclass of Member) -->
+      <rect x="30" y="400" width="160" height="80" fill="white" stroke="#0f766e" stroke-width="2"/>
+      <rect x="30" y="400" width="160" height="30" fill="#ccfbf1" stroke="#0f766e" stroke-width="2"/>
+      <text x="110" y="420" font-size="14" font-weight="700" fill="#134e4a" text-anchor="middle">Student</text>
+      <line x1="30" y1="430" x2="190" y2="430" stroke="#0f766e" stroke-width="1.5"/>
+      <text x="40" y="448" font-size="11" fill="#1e293b">- studentID</text>
+      <text x="40" y="468" font-size="11" fill="#374151">+ getRecord()</text>
+
+      <!-- Staff (subclass of Member) -->
+      <rect x="210" y="400" width="160" height="80" fill="white" stroke="#0f766e" stroke-width="2"/>
+      <rect x="210" y="400" width="160" height="30" fill="#ccfbf1" stroke="#0f766e" stroke-width="2"/>
+      <text x="290" y="420" font-size="14" font-weight="700" fill="#134e4a" text-anchor="middle">Staff</text>
+      <line x1="210" y1="430" x2="370" y2="430" stroke="#0f766e" stroke-width="1.5"/>
+      <text x="220" y="448" font-size="11" fill="#1e293b">- staffID</text>
+      <text x="220" y="468" font-size="11" fill="#374151">+ accessArchive()</text>
+
+      <!-- Generalization lines from Student/Staff to Member -->
+      <line x1="110" y1="400" x2="80" y2="330" stroke="#0f766e" stroke-width="2" marker-end="url(#cls-gen)"/>
+      <line x1="290" y1="400" x2="150" y2="330" stroke="#0f766e" stroke-width="2" marker-end="url(#cls-gen)"/>
+      <text x="175" y="388" font-size="11" fill="#0f766e" text-anchor="middle" font-style="italic">Generalization (IS-A)</text>
+
+      <!-- Librarian -->
+      <rect x="570" y="200" width="180" height="130" fill="white" stroke="#0f766e" stroke-width="2"/>
+      <rect x="570" y="200" width="180" height="30" fill="#ccfbf1" stroke="#0f766e" stroke-width="2"/>
+      <text x="660" y="220" font-size="14" font-weight="700" fill="#134e4a" text-anchor="middle">Librarian</text>
+      <line x1="570" y1="256" x2="750" y2="256" stroke="#0f766e" stroke-width="1.5"/>
+      <text x="580" y="244" font-size="11" fill="#1e293b">- staffID (PK)</text>
+      <text x="580" y="272" font-size="11" fill="#374151">+ addBook()</text>
+      <text x="580" y="286" font-size="11" fill="#374151">+ registerMember()</text>
+      <text x="580" y="300" font-size="11" fill="#374151">+ generateReport()</text>
+      <text x="580" y="314" font-size="11" fill="#374151">+ removeBook()</text>
+
+      <!-- Librarian manages Book (1:N) -->
+      <line x1="570" y1="270" x2="480" y2="270" stroke="#0f766e" stroke-width="2" marker-end="url(#cls-a)"/>
+      <text x="524" y="262" font-size="11" fill="#0f766e" text-anchor="middle">manages</text>
+      <text x="576" y="285" font-size="12" font-weight="700" fill="#134e4a">1</text>
+      <text x="484" y="285" font-size="12" font-weight="700" fill="#134e4a">N</text>
+
+      <!-- Library AGGREGATION Section -->
+      <rect x="560" y="390" width="200" height="110" rx="6" fill="#f0fdfa" stroke="#0f766e" stroke-width="1.5"/>
+      <text x="660" y="410" font-size="12" font-weight="700" fill="#134e4a" text-anchor="middle">RELATIONSHIP TYPES</text>
+      <!-- Aggregation symbol (open diamond) -->
+      <line x1="578" y1="430" x2="640" y2="430" stroke="#0f766e" stroke-width="2"/>
+      <polygon points="578,427 568,430 578,433" fill="white" stroke="#0f766e" stroke-width="1.5"/>
+      <text x="645" y="434" font-size="11" fill="#374151">Aggregation (open ◇)</text>
+      <!-- Composition symbol (filled diamond) -->
+      <line x1="578" y1="455" x2="640" y2="455" stroke="#0f766e" stroke-width="2"/>
+      <polygon points="578,452 568,455 578,458" fill="#0f766e" stroke="#0f766e" stroke-width="1"/>
+      <text x="645" y="459" font-size="11" fill="#374151">Composition (filled ◆)</text>
+      <!-- Generalization -->
+      <line x1="578" y1="480" x2="640" y2="480" stroke="#0f766e" stroke-width="2" marker-end="url(#cls-gen)"/>
+      <text x="645" y="484" font-size="11" fill="#374151">Generalization (△)</text>
+    </svg>
+  </div>
+  <div class="diagram-rules">
+    <strong>Key Rules</strong>
+    <span class="rule-chip">Aggregation (open ◇): parts CAN exist without the whole</span>
+    <span class="rule-chip">Composition (filled ◆): parts CANNOT exist without the whole</span>
+    <span class="rule-chip">Multiplicity shown on both ends of association lines</span>
+  </div>
+</div>
+
+<div class="pb"></div>
+
+<!-- ══════════════════════════════════════════════
+     TOPIC 6: STATE DIAGRAMS
+═══════════════════════════════════════════════ -->
+<div class="topic-header">TOPIC 6: STATE DIAGRAMS</div>
+
+<div class="section-h">6.1 What is a State Diagram?</div>
+<p>A <strong>State Diagram</strong> (also called a State Machine Diagram) models the DYNAMIC BEHAVIOR of a single object by showing all the possible states it can be in and how it transitions between those states in response to events.</p>
+
+<div class="box box-yellow">
+  <div class="box-title">🗣️ In Plain English</div>
+  Think about your mobile phone. It can be: <strong>OFF, LOCKED, ACTIVE, ON A CALL, CHARGING</strong>. Each of these is a STATE. When you press the power button, you transition from OFF to LOCKED. When you unlock it, you go from LOCKED to ACTIVE. Events (pressing buttons, receiving calls) cause transitions between states. A state diagram draws all of this out.
+</div>
+
+<p>All objects of the same class follow the <em>same</em> state diagram — it models their <strong>COMMON behavior</strong>.</p>
+
+<div class="section-h">6.2 State Diagram Notation</div>
+<table>
+  <tr><th>Element</th><th>Symbol</th><th>Meaning</th></tr>
+  <tr><td><strong>State</strong></td><td>Rounded rectangle with state name</td><td>A condition or situation where an object satisfies some invariant and waits for an event.</td></tr>
+  <tr><td><strong>Initial State</strong></td><td>Solid filled circle ●</td><td>The starting state — where the object begins its life.</td></tr>
+  <tr><td><strong>Final State</strong></td><td>Bullseye (solid circle inside ring) ◎</td><td>The terminating state — the object's life ends here.</td></tr>
+  <tr><td><strong>Transition</strong></td><td>Arrow between states</td><td>A change from one state to another triggered by an event.</td></tr>
+  <tr><td><strong>Event Label</strong></td><td>Text on the transition arrow</td><td>The event that triggers the transition (e.g., 'card inserted', 'PIN entered').</td></tr>
+  <tr><td><strong>Guard Condition</strong></td><td>[condition] in square brackets</td><td>A boolean condition that must be TRUE for the transition to occur.</td></tr>
+  <tr><td><strong>Action/Effect</strong></td><td>/ action after event label</td><td>An action that happens WHEN the transition fires (e.g., event [guard] / action).</td></tr>
+</table>
+
+<div class="section-h">6.3 DIAGRAM TYPE H: State Diagram — ATM Machine</div>
+
+<!-- STATE DIAGRAM SVG -->
+<div class="diagram-wrap">
+  <div class="diagram-label"><span class="tag">Diagram Type H</span> State Diagram — ATM Machine</div>
+  <div class="diagram-body">
+    <svg viewBox="0 0 620 580" width="100%">
+      <defs><marker id="st-a" markerWidth="7" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0,7 3,0 6" fill="#b91c1c"/></marker></defs>
+
+      <!-- Initial state -->
+      <circle cx="310" cy="32" r="16" fill="#b91c1c"/>
+      <line x1="310" y1="48" x2="310" y2="72" stroke="#b91c1c" stroke-width="2" marker-end="url(#st-a)"/>
+
+      <!-- Card Inserted -->
+      <rect x="208" y="72" width="204" height="40" rx="10" fill="white" stroke="#b91c1c" stroke-width="2"/>
+      <text x="310" y="97" font-size="14" fill="#7f1d1d" text-anchor="middle" font-weight="600">Card Inserted</text>
+      <line x1="310" y1="112" x2="310" y2="136" stroke="#b91c1c" stroke-width="2" marker-end="url(#st-a)"/>
+      <text x="324" y="128" font-size="11" fill="#b91c1c">'PIN entered'</text>
+
+      <!-- Guard split at PIN -->
+      <text x="168" y="154" font-size="11" fill="#b91c1c" text-anchor="middle">[PIN correct]</text>
+      <text x="460" y="154" font-size="11" fill="#b91c1c" text-anchor="middle">[PIN wrong]</text>
+      <line x1="310" y1="136" x2="200" y2="166" stroke="#b91c1c" stroke-width="2" marker-end="url(#st-a)"/>
+      <line x1="310" y1="136" x2="420" y2="166" stroke="#b91c1c" stroke-width="2" marker-end="url(#st-a)"/>
+
+      <!-- Active -->
+      <rect x="100" y="166" width="200" height="40" rx="10" fill="white" stroke="#b91c1c" stroke-width="2"/>
+      <text x="200" y="191" font-size="14" fill="#7f1d1d" text-anchor="middle" font-weight="600">Active</text>
+      <line x1="200" y1="206" x2="200" y2="230" stroke="#b91c1c" stroke-width="2" marker-end="url(#st-a)"/>
+      <text x="214" y="222" font-size="11" fill="#b91c1c">'select transaction'</text>
+
+      <!-- Error -->
+      <rect x="320" y="166" width="200" height="40" rx="10" fill="#fee2e2" stroke="#b91c1c" stroke-width="2"/>
+      <text x="420" y="191" font-size="14" fill="#7f1d1d" text-anchor="middle" font-weight="600">Error</text>
+      <line x1="420" y1="206" x2="420" y2="300" stroke="#b91c1c" stroke-width="2" marker-end="url(#st-a)"/>
+      <text x="440" y="256" font-size="11" fill="#b91c1c">'too many</text>
+      <text x="440" y="270" font-size="11" fill="#b91c1c">attempts'</text>
+
+      <!-- Processing -->
+      <rect x="100" y="230" width="200" height="40" rx="10" fill="white" stroke="#b91c1c" stroke-width="2"/>
+      <text x="200" y="255" font-size="14" fill="#7f1d1d" text-anchor="middle" font-weight="600">Processing</text>
+      <line x1="200" y1="270" x2="200" y2="294" stroke="#b91c1c" stroke-width="2" marker-end="url(#st-a)"/>
+      <text x="214" y="286" font-size="11" fill="#b91c1c">'transaction complete'</text>
+
+      <!-- Blocked -->
+      <rect x="320" y="300" width="200" height="40" rx="10" fill="#fee2e2" stroke="#b91c1c" stroke-width="2.5"/>
+      <text x="420" y="325" font-size="14" fill="#7f1d1d" text-anchor="middle" font-weight="700">Blocked</text>
+
+      <!-- Dispensing -->
+      <rect x="100" y="294" width="200" height="40" rx="10" fill="white" stroke="#b91c1c" stroke-width="2"/>
+      <text x="200" y="319" font-size="14" fill="#7f1d1d" text-anchor="middle" font-weight="600">Dispensing</text>
+      <line x1="200" y1="334" x2="200" y2="358" stroke="#b91c1c" stroke-width="2" marker-end="url(#st-a)"/>
+      <text x="214" y="350" font-size="11" fill="#b91c1c">'card ejected'</text>
+
+      <!-- Idle -->
+      <rect x="100" y="358" width="200" height="40" rx="10" fill="#fee2e2" stroke="#b91c1c" stroke-width="2"/>
+      <text x="200" y="383" font-size="14" fill="#7f1d1d" text-anchor="middle" font-weight="600">Idle / Done</text>
+      <line x1="200" y1="398" x2="200" y2="422" stroke="#b91c1c" stroke-width="2" marker-end="url(#st-a)"/>
+
+      <!-- Final state (bullseye) -->
+      <circle cx="310" cy="452" r="18" fill="none" stroke="#b91c1c" stroke-width="2.5"/>
+      <circle cx="310" cy="452" r="10" fill="#b91c1c"/>
+      <line x1="200" y1="422" x2="295" y2="438" stroke="#b91c1c" stroke-width="2" marker-end="url(#st-a)"/>
+
+      <!-- Notation box -->
+      <rect x="30" y="494" width="560" height="72" rx="6" fill="#fff5f5" stroke="#fca5a5" stroke-width="1.5"/>
+      <text x="310" y="512" font-size="13" font-weight="700" fill="#7f1d1d" text-anchor="middle">NOTATION: event [guard condition] / action</text>
+      <text x="310" y="530" font-size="12" fill="#374151" text-anchor="middle">Example: "PIN entered [attempts &lt; 3] / display welcome"</text>
+      <text x="310" y="548" font-size="11" fill="#374151" text-anchor="middle">State = rounded rectangle · ● = initial state · ◎ = final state (bullseye)</text>
+      <text x="310" y="562" font-size="11" fill="#555" text-anchor="middle">Guards in [square brackets] · Actions after / · All state names must be UNIQUE</text>
+    </svg>
+  </div>
+</div>
+
+<div class="box box-blue">
+  <div class="box-title">📌 When to Use State Diagrams</div>
+  State diagrams are most useful for objects whose behavior <strong>DEPENDS ON THEIR STATE</strong> and whose state <strong>CHANGES over time</strong>. Great for: ATM machines, traffic lights, order processing systems, vending machines, phone call handling.
+</div>
+
+<div class="pb"></div>
+
+<!-- ══════════════════════════════════════════════
+     TOPIC 7: SEQUENCE DIAGRAMS
+═══════════════════════════════════════════════ -->
+<div class="topic-header">TOPIC 7: SEQUENCE DIAGRAMS</div>
+
+<div class="section-h">7.1 What is a Sequence Diagram?</div>
+<p>A <strong>Sequence Diagram</strong> shows how objects in a system INTERACT WITH EACH OTHER over TIME. It captures the sequence of messages exchanged between objects to carry out a specific use case or scenario.</p>
+
+<div class="box box-yellow">
+  <div class="box-title">🗣️ In Plain English</div>
+  Imagine a phone call. You (Customer object) call the bank's automated system (ATM object). The bank asks for your PIN. You enter it. The bank verifies it with the database (Database object). The database says 'correct'. The bank shows your balance. You hang up. A sequence diagram maps this conversation from <strong>top to bottom in time order</strong>.
+</div>
+
+<div class="section-h">7.2 Sequence Diagram Notation</div>
+<table>
+  <tr><th>Element</th><th>Symbol</th><th>Meaning</th></tr>
+  <tr><td><strong>Object/Actor</strong></td><td>Rectangle at top (ClassName:ObjectName)</td><td>A participant in the sequence — an object, actor, or system.</td></tr>
+  <tr><td><strong>Lifeline</strong></td><td>Dashed vertical line hanging from object</td><td>Represents the object's existence over time (time flows downward).</td></tr>
+  <tr><td><strong>Activation Bar</strong></td><td>Narrow rectangle on lifeline</td><td>Shows the period when an object is active (executing a method).</td></tr>
+  <tr><td><strong>Message</strong></td><td>Solid arrow from sender to receiver</td><td>A message/method call sent from one object to another.</td></tr>
+  <tr><td><strong>Return Message</strong></td><td>Dashed arrow from receiver back to sender</td><td>The response/return value after a message is processed.</td></tr>
+  <tr><td><strong>Self Message</strong></td><td>Arrow that loops back to the same lifeline</td><td>An object calling its own method.</td></tr>
+  <tr><td><strong>Asynchronous Message</strong></td><td>Open arrowhead</td><td>A message sent without waiting for a response.</td></tr>
+</table>
+
+<div class="section-h">7.3 DIAGRAM TYPE I: Sequence Diagram — ATM Transaction</div>
+
+<!-- SEQUENCE DIAGRAM SVG -->
+<div class="diagram-wrap">
+  <div class="diagram-label"><span class="tag">Diagram Type I</span> Sequence Diagram — ATM Transaction</div>
+  <div class="diagram-body">
+    <svg viewBox="0 0 760 560" width="100%">
+      <defs>
+        <marker id="seq-a" markerWidth="7" markerHeight="5" refX="7" refY="2.5" orient="auto"><polygon points="0 0,7 2.5,0 5" fill="#3730a3"/></marker>
+        <marker id="seq-d" markerWidth="7" markerHeight="5" refX="7" refY="2.5" orient="auto"><polygon points="0 0,7 2.5,0 5" fill="#6366f1"/></marker>
+      </defs>
+
+      <text x="380" y="18" font-size="13" font-weight="700" fill="#1e1b4b" text-anchor="middle">SEQUENCE DIAGRAM — ATM TRANSACTION</text>
+      <text x="380" y="34" font-size="11" fill="#64748b" text-anchor="middle">Time flows DOWNWARD · Solid arrow = message · Dashed arrow = return</text>
+
+      <!-- Objects -->
+      <rect x="20" y="48" width="100" height="28" fill="#e0e7ff" stroke="#3730a3" stroke-width="2"/>
+      <text x="70" y="67" font-size="12" fill="#1e1b4b" text-anchor="middle" font-weight="700">:Customer</text>
+
+      <rect x="200" y="48" width="120" height="28" fill="#e0e7ff" stroke="#3730a3" stroke-width="2"/>
+      <text x="260" y="67" font-size="12" fill="#1e1b4b" text-anchor="middle" font-weight="700">:ATM Machine</text>
+
+      <rect x="400" y="48" width="115" height="28" fill="#e0e7ff" stroke="#3730a3" stroke-width="2"/>
+      <text x="458" y="67" font-size="12" fill="#1e1b4b" text-anchor="middle" font-weight="700">:Bank Server</text>
+
+      <rect x="594" y="48" width="108" height="28" fill="#e0e7ff" stroke="#3730a3" stroke-width="2"/>
+      <text x="648" y="67" font-size="12" fill="#1e1b4b" text-anchor="middle" font-weight="700">:Database</text>
+
+      <!-- Lifelines -->
+      <line x1="70" y1="76" x2="70" y2="540" stroke="#3730a3" stroke-width="1.5" stroke-dasharray="5,4"/>
+      <line x1="260" y1="76" x2="260" y2="540" stroke="#3730a3" stroke-width="1.5" stroke-dasharray="5,4"/>
+      <line x1="458" y1="76" x2="458" y2="540" stroke="#3730a3" stroke-width="1.5" stroke-dasharray="5,4"/>
+      <line x1="648" y1="76" x2="648" y2="540" stroke="#3730a3" stroke-width="1.5" stroke-dasharray="5,4"/>
+
+      <!-- Activation bars -->
+      <rect x="66" y="96" width="8" height="380" fill="#c7d2fe" stroke="#3730a3" stroke-width="1"/>
+      <rect x="256" y="108" width="8" height="360" fill="#c7d2fe" stroke="#3730a3" stroke-width="1"/>
+      <rect x="454" y="126" width="8" height="200" fill="#c7d2fe" stroke="#3730a3" stroke-width="1"/>
+      <rect x="644" y="142" width="8" height="80" fill="#c7d2fe" stroke="#3730a3" stroke-width="1"/>
+
+      <!-- M1: login -->
+      <line x1="74" y1="106" x2="256" y2="106" stroke="#3730a3" stroke-width="1.8" marker-end="url(#seq-a)"/>
+      <text x="163" y="98" font-size="11" fill="#1e1b4b" text-anchor="middle" font-weight="500">login</text>
+
+      <!-- M2: verify credentials -->
+      <line x1="264" y1="126" x2="454" y2="126" stroke="#3730a3" stroke-width="1.8" marker-end="url(#seq-a)"/>
+      <text x="360" y="118" font-size="11" fill="#1e1b4b" text-anchor="middle">verify credentials</text>
+
+      <!-- M3: check DB -->
+      <line x1="462" y1="142" x2="644" y2="142" stroke="#3730a3" stroke-width="1.8" marker-end="url(#seq-a)"/>
+      <text x="554" y="134" font-size="11" fill="#1e1b4b" text-anchor="middle">check DB</text>
+
+      <!-- R1: result -->
+      <line x1="644" y1="162" x2="462" y2="162" stroke="#6366f1" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#seq-d)"/>
+      <text x="554" y="156" font-size="11" fill="#6366f1" text-anchor="middle">result: found</text>
+
+      <!-- R2: credentials OK -->
+      <line x1="454" y1="178" x2="264" y2="178" stroke="#6366f1" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#seq-d)"/>
+      <text x="360" y="172" font-size="11" fill="#6366f1" text-anchor="middle">credentials OK</text>
+
+      <!-- R3: welcome -->
+      <line x1="256" y1="196" x2="74" y2="196" stroke="#6366f1" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#seq-d)"/>
+      <text x="163" y="189" font-size="11" fill="#6366f1" text-anchor="middle">welcome message</text>
+
+      <!-- Section label -->
+      <line x1="20" y1="218" x2="710" y2="218" stroke="#e2e8f0" stroke-width="1.5" stroke-dasharray="4,4"/>
+      <text x="380" y="232" font-size="10" fill="#94a3b8" text-anchor="middle" font-style="italic">[ user enters PIN ]</text>
+
+      <!-- M4: enter PIN -->
+      <line x1="74" y1="244" x2="256" y2="244" stroke="#3730a3" stroke-width="1.8" marker-end="url(#seq-a)"/>
+      <text x="163" y="236" font-size="11" fill="#1e1b4b" text-anchor="middle" font-weight="500">enter PIN</text>
+
+      <!-- M5: validate PIN -->
+      <line x1="264" y1="262" x2="454" y2="262" stroke="#3730a3" stroke-width="1.8" marker-end="url(#seq-a)"/>
+      <text x="360" y="254" font-size="11" fill="#1e1b4b" text-anchor="middle">validate PIN</text>
+
+      <!-- R4: PIN correct -->
+      <line x1="454" y1="278" x2="264" y2="278" stroke="#6366f1" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#seq-d)"/>
+      <text x="360" y="272" font-size="11" fill="#6366f1" text-anchor="middle">PIN correct</text>
+
+      <!-- Section label 2 -->
+      <line x1="20" y1="300" x2="710" y2="300" stroke="#e2e8f0" stroke-width="1.5" stroke-dasharray="4,4"/>
+      <text x="380" y="314" font-size="10" fill="#94a3b8" text-anchor="middle" font-style="italic">[ user selects cash withdrawal ]</text>
+
+      <!-- M6: select cash -->
+      <line x1="74" y1="326" x2="256" y2="326" stroke="#3730a3" stroke-width="1.8" marker-end="url(#seq-a)"/>
+      <text x="163" y="318" font-size="11" fill="#1e1b4b" text-anchor="middle">select cash withdrawal</text>
+
+      <!-- M7: debit account -->
+      <line x1="264" y1="346" x2="454" y2="346" stroke="#3730a3" stroke-width="1.8" marker-end="url(#seq-a)"/>
+      <text x="360" y="338" font-size="11" fill="#1e1b4b" text-anchor="middle">debit account</text>
+
+      <!-- M8: update DB -->
+      <line x1="462" y1="364" x2="644" y2="364" stroke="#3730a3" stroke-width="1.8" marker-end="url(#seq-a)"/>
+      <text x="554" y="356" font-size="11" fill="#1e1b4b" text-anchor="middle">update balance</text>
+
+      <!-- R5: DB confirmed -->
+      <line x1="644" y1="384" x2="462" y2="384" stroke="#6366f1" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#seq-d)"/>
+      <text x="554" y="378" font-size="11" fill="#6366f1" text-anchor="middle">confirmed</text>
+
+      <!-- R6: success -->
+      <line x1="454" y1="402" x2="264" y2="402" stroke="#6366f1" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#seq-d)"/>
+      <text x="360" y="396" font-size="11" fill="#6366f1" text-anchor="middle">transaction success</text>
+
+      <!-- R7: dispense cash -->
+      <line x1="256" y1="422" x2="74" y2="422" stroke="#6366f1" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#seq-d)"/>
+      <text x="163" y="415" font-size="11" fill="#6366f1" text-anchor="middle">dispense cash</text>
+
+      <!-- R8: eject card -->
+      <line x1="256" y1="444" x2="74" y2="444" stroke="#6366f1" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#seq-d)"/>
+      <text x="163" y="437" font-size="11" fill="#6366f1" text-anchor="middle">eject card</text>
+
+      <!-- TIME ARROW -->
+      <line x1="720" y1="76" x2="720" y2="460" stroke="#94a3b8" stroke-width="1.8"/>
+      <polygon points="720,460 714,444 726,444" fill="#94a3b8"/>
+      <text x="738" y="160" font-size="12" fill="#94a3b8" font-weight="700">T</text>
+      <text x="738" y="175" font-size="12" fill="#94a3b8" font-weight="700">I</text>
+      <text x="738" y="190" font-size="12" fill="#94a3b8" font-weight="700">M</text>
+      <text x="738" y="205" font-size="12" fill="#94a3b8" font-weight="700">E</text>
+      <text x="738" y="228" font-size="14" fill="#94a3b8">↓</text>
+
+      <!-- Legend -->
+      <rect x="20" y="480" width="680" height="52" rx="6" fill="#eef2ff" stroke="#c7d2fe" stroke-width="1.5"/>
+      <line x1="36" y1="504" x2="96" y2="504" stroke="#3730a3" stroke-width="2" marker-end="url(#seq-a)"/>
+      <text x="106" y="508" font-size="11" fill="#374151">= message (method call)</text>
+      <line x1="260" y1="504" x2="320" y2="504" stroke="#6366f1" stroke-width="2" stroke-dasharray="5,3" marker-end="url(#seq-d)"/>
+      <text x="330" y="508" font-size="11" fill="#374151">= return message</text>
+      <rect x="490" y="496" width="8" height="18" fill="#c7d2fe" stroke="#3730a3" stroke-width="1"/>
+      <text x="504" y="508" font-size="11" fill="#374151">= activation bar</text>
+      <text x="350" y="525" font-size="11" fill="#374151" text-anchor="middle">Objects at TOP · Lifelines = dashed vertical lines · Time flows DOWNWARD</text>
+    </svg>
+  </div>
+</div>
+
+<div class="box box-blue">
+  <div class="box-title">📌 Sequence vs. State Diagram</div>
+  <strong>State Diagram</strong> = ONE object across all its possible situations over its whole life.<br>
+  <strong>Sequence Diagram</strong> = MULTIPLE objects interacting in ONE specific scenario from start to finish. Use sequence when asked about 'how objects interact in a use case'.
+</div>
+
+<div class="pb"></div>
+
+<!-- ══════════════════════════════════════════════
+     TOPIC 8: COMPARISON TABLE
+═══════════════════════════════════════════════ -->
+<div class="topic-header">TOPIC 8: DIAGRAM COMPARISON — QUICK REFERENCE</div>
+<table class="cmp">
+  <tr><th>Diagram Type</th><th>Category</th><th>Shows</th><th>Key Symbol</th><th>When to Use</th></tr>
+  <tr><td><strong>Data-Flow Diagram</strong></td><td>Structured Analysis</td><td>How data flows through processes</td><td>Processes (rect), Arrows, Data Stores (rect), External Entities (ovals)</td><td>Modeling information flow; system analysis</td></tr>
+  <tr><td><strong>Entity-Relationship Diagram</strong></td><td>Data Modeling</td><td>Data structure &amp; relationships</td><td>Rectangles (entities), Ovals (attributes), Diamonds (relationships)</td><td>Designing databases; data modeling</td></tr>
+  <tr><td><strong>Use Case Diagram</strong></td><td>UML Behavioral</td><td>User-system interactions</td><td>Stick figures (actors), Ovals (use cases), System boundary rectangle</td><td>Capturing functional requirements</td></tr>
+  <tr><td><strong>Activity Diagram</strong></td><td>UML Behavioral</td><td>Workflow / process steps</td><td>Rounded rects (activities), Diamonds (decisions), Bars (fork/join)</td><td>Modeling business processes or use case steps</td></tr>
+  <tr><td><strong>Class Diagram</strong></td><td>UML Structural</td><td>Classes, attributes, operations, relationships</td><td>3-part rectangle (class), Lines with arrows</td><td>Object-oriented design; system structure</td></tr>
+  <tr><td><strong>State Diagram</strong></td><td>UML Behavioral</td><td>Object states &amp; transitions</td><td>Rounded rects (states), Arrows (transitions), ● (start), ◎ (end)</td><td>Objects whose behavior depends on state</td></tr>
+  <tr><td><strong>Sequence Diagram</strong></td><td>UML Behavioral</td><td>Object interactions over time</td><td>Objects at top, Lifelines (dashed vertical), Arrows (messages)</td><td>Modeling interaction scenarios / use cases</td></tr>
+</table>
+
+<div class="pb"></div>
+
+<!-- ══════════════════════════════════════════════
+     EXAM PREPARATION
+═══════════════════════════════════════════════ -->
+<div class="topic-header">EXAM PREPARATION — LIKELY QUESTIONS &amp; HOW TO APPROACH THEM</div>
+
+<div class="section-h">Section A: Theory Questions (Short Answer)</div>
+
+<div class="exam-q">
+  <div class="exam-q-header">Q1 — Define a Data-Flow Diagram and state its four main elements.</div>
+  <div class="exam-q-body">
+    <strong>Answer Guide:</strong> A DFD is a graphical representation of data flowing through a system. Four elements: (1) <em>Process</em> — transforms data, shown as rectangle; (2) <em>Data-Flow</em> — named arrow showing movement of data; (3) <em>Data Store</em> — rectangle where data is held; (4) <em>External Entity</em> — oval for things outside the system that send/receive data.
+  </div>
+</div>
+
+<div class="exam-q">
+  <div class="exam-q-header">Q2 — Distinguish between a Context Diagram (Level 0) and a Level 1 DFD.</div>
+  <div class="exam-q-body">
+    <strong>Answer Guide:</strong> Context Diagram = the whole system as ONE process, no data stores, shows only external entities and boundary flows. Level 1 = explodes the context into main sub-processes, adds data stores, shows detailed data flows. Both must BALANCE (same external data flows).
+  </div>
+</div>
+
+<div class="exam-q">
+  <div class="exam-q-header">Q3 — What is meant by 'balancing' in levelled DFDs?</div>
+  <div class="exam-q-body">
+    <strong>Answer Guide:</strong> Balancing means every data-flow entering/leaving a parent process must appear as a boundary flow in the child (lower-level) diagram that decomposes it. No new inputs/outputs can appear without updating the parent.
+  </div>
+</div>
+
+<div class="exam-q">
+  <div class="exam-q-header">Q4 — State and explain the rules for drawing processes in a DFD.</div>
+  <div class="exam-q-body">
+    <strong>Answer Guide:</strong> Rules: (1) Named with action verb + object (e.g., 'Record Customer'). (2) Must have at least one input AND one output. (3) Cannot act as source or sink alone. (4) Only processes that transform data are shown. (5) Process boxes have three sections: number, name, location.
+  </div>
+</div>
+
+<div class="exam-q">
+  <div class="exam-q-header">Q5 — Define an Entity in an ERD. How is it different from an instance?</div>
+  <div class="exam-q-body">
+    <strong>Answer Guide:</strong> An entity represents a TYPE of thing (e.g., 'employee' represents ALL employees). An instance is ONE specific example (e.g., employee #5, Amaka). The entity is drawn as a rectangle with the type name; instances are rows in the actual database table.
+  </div>
+</div>
+
+<div class="exam-q">
+  <div class="exam-q-header">Q6 — Explain the three cardinality ratios in an ERD with examples.</div>
+  <div class="exam-q-body">
+    <strong>Answer Guide:</strong> 1:1 — one country has one capital (one-to-one). 1:N — one department has many employees (one-to-many). N:M — many students take many courses (many-to-many). Shown as 1 or N on the line connecting relationship to entity.
+  </div>
+</div>
+
+<div class="exam-q">
+  <div class="exam-q-header">Q7 — What is a weak entity? How is it represented in an ERD?</div>
+  <div class="exam-q-body">
+    <strong>Answer Guide:</strong> A weak entity cannot be uniquely identified by its own attributes — it needs to be identified together with a related 'owner' entity. Represented by a <strong>DOUBLE-BORDERED rectangle</strong>. Its key is a partial/weak key (shown with DASHED underline). The identifying relationship is shown as a <strong>DOUBLE DIAMOND</strong>.
+  </div>
+</div>
+
+<div class="exam-q">
+  <div class="exam-q-header">Q8 — Distinguish between «include» and «extend» relationships in Use Case Diagrams.</div>
+  <div class="exam-q-body">
+    <strong>Answer Guide:</strong> <em>«include»</em>: One use case ALWAYS triggers another as a mandatory sub-behavior (e.g., 'Withdraw Cash' always «includes» 'Verify PIN'). <em>«extend»</em>: One use case OPTIONALLY extends another — it only happens under certain conditions (e.g., 'Print Receipt' «extends» 'Withdraw Cash' — not every user wants a receipt).
+  </div>
+</div>
+
+<div class="exam-q">
+  <div class="exam-q-header">Q9 — What is a State Diagram? When is it most appropriate to use one?</div>
+  <div class="exam-q-body">
+    <strong>Answer Guide:</strong> A state diagram models the dynamic behavior of ONE object across all possible states during its lifetime. Most appropriate for: objects whose behavior depends on their current state (ATM machines, traffic lights, phone systems, online orders). It shows states, transitions, events, and guards.
+  </div>
+</div>
+
+<div class="exam-q">
+  <div class="exam-q-header">Q10 — Explain the purpose and components of a Sequence Diagram.</div>
+  <div class="exam-q-body">
+    <strong>Answer Guide:</strong> Purpose: to show how objects in a system interact over time in a specific scenario. Components: Objects/Actors (top), Lifelines (dashed vertical lines), Activation bars (rectangles on lifelines), Messages (solid arrows), Return messages (dashed arrows). Time flows downward.
+  </div>
+</div>
+
+<div class="section-h">Section B: Diagram Drawing Questions</div>
+
+<div class="exam-q">
+  <div class="exam-q-header">Q11 — Draw an ERD for a university: students, courses, lecturers.</div>
+  <div class="exam-q-body">
+    <strong>Approach:</strong> Entities: STUDENT, COURSE, LECTURER. Relationships: STUDENT ENROLS IN COURSE (N:M). LECTURER TEACHES COURSE (1:N). Attributes: Student (studentID-key, name, level). Course (courseCode-key, title, units). Lecturer (staffID-key, name, department). Draw rectangles, diamonds, ovals with cardinality ratios on lines.
+  </div>
+</div>
+
+<div class="exam-q">
+  <div class="exam-q-header">Q12 — Draw a Context Diagram for a hotel booking system.</div>
+  <div class="exam-q-body">
+    <strong>Approach:</strong> Draw one large process box labelled 'Hotel Booking System' (number 0). Draw ovals for: GUEST, PAYMENT GATEWAY. Add labelled arrows: Guest → system (booking request, personal details), System → Guest (booking confirmation, receipt), System → Payment Gateway (payment request), Payment Gateway → System (payment confirmation).
+  </div>
+</div>
+
+<div class="exam-q">
+  <div class="exam-q-header">Q13 — From the hotel booking context diagram, draw a Level 1 DFD with at least three processes and two data stores.</div>
+  <div class="exam-q-body">
+    <strong>Approach:</strong> Processes: 1. Register Guest, 2. Process Booking, 3. Handle Payment. Data stores: D1 Guest File, D2 Booking File. Show all the same external entity flows from the context diagram. Add flows between processes and data stores. Number processes 1, 2, 3.
+  </div>
+</div>
+
+<div class="exam-q">
+  <div class="exam-q-header">Q14 — Draw a Use Case Diagram for an Online Library Management System.</div>
+  <div class="exam-q-body">
+    <strong>Approach:</strong> System boundary rectangle labelled 'Library System'. Actors: Student (outside left), Librarian (outside right). Use Cases inside: Search Book, Borrow Book, Return Book, Pay Fine, Register Member, Add Book, Remove Book. Show associations. 'Borrow Book' «includes» 'Verify Member'. 'Pay Fine' «extends» 'Return Book'.
+  </div>
+</div>
+
+<div class="exam-q">
+  <div class="exam-q-header">Q15 — Draw a State Diagram for an online order in an e-commerce system.</div>
+  <div class="exam-q-body">
+    <strong>Approach:</strong> States: Order Placed → Payment Pending → Payment Confirmed → Processing → Shipped → Delivered → [Final State]. Also show: Payment Failed (from Payment Pending), Cancelled (from Order Placed or Processing). Transitions labelled with events. Start with ● initial, end with ◎ bullseye.
+  </div>
+</div>
+
+<div class="exam-q">
+  <div class="exam-q-header">Q16 — Draw a Class Diagram for a simple school management system with at least three classes and four relationships.</div>
+  <div class="exam-q-body">
+    <strong>Approach:</strong> Classes: School, Student, Teacher, Course, Classroom. Relationships: School CONTAINS Classrooms (Composition — filled diamond). Student TAKES Course (Association, N:M). Teacher TEACHES Course (Association, 1:N). Student and Teacher generalize from Person (Generalization — hollow triangle). Show attributes and multiplicities.
+  </div>
+</div>
+
+<div class="exam-q">
+  <div class="exam-q-header">Q17 — What are the four types of DFDs and explain functional decomposition?</div>
+  <div class="exam-q-body">
+    <strong>Approach:</strong> Four models: (1) Current Physical DFD — how things work NOW physically. (2) Current Logical DFD — logical view of current system. (3) Required Logical DFD — what the new system SHOULD do. (4) Required Physical DFD — how the new system WILL be built. Functional decomposition = breaking a high-level process into sub-processes at lower levels, managed through the parent-child hierarchy of DFD levels.
+  </div>
+</div>
+
+<div class="section-h">Section C: Scenario-Based Questions</div>
+
+<div class="exam-q">
+  <div class="exam-q-header">Q18 — Pharmacy dispensing system: identify external entities, data stores, processes, and draw the context diagram.</div>
+  <div class="exam-q-body">
+    <strong>Approach:</strong> Read the scenario carefully. External entities = any person or system OUTSIDE the pharmacy (e.g., Doctor, Patient, Insurance Company, Drug Supplier). Data stores = where records are kept inside (Patient File, Prescription File, Drug Stock). Processes = actions done by the system (Receive Prescription, Dispense Drug, Manage Stock). Context diagram = one process box, all external entities as ovals, all boundary data-flows as arrows.
+  </div>
+</div>
+
+<div class="exam-q">
+  <div class="exam-q-header">Q19 — Estate agent handles property listings and matches buyers. Draw a Level 1 DFD.</div>
+  <div class="exam-q-body">
+    <strong>Approach:</strong> External entities: Client (property owner), Buyer. Processes: 1. Record New Client, 2. Record New Buyer, 3. Match Properties, 4. Invoice Client, 5. Archive Sale. Data stores: D1 Property File, D2 Buyer Details, D3 Invoices. Flows: property details from Client → Process 1 → D1. Buyer details from Buyer → Process 2 → D2. D1 + D2 → Process 3 → selected properties to Buyer. <strong>This is the Estate Agency case study from the course!</strong>
+  </div>
+</div>
+
+<div class="exam-q">
+  <div class="exam-q-header">Q20 — Describe the difference between Aggregation and Composition with examples.</div>
+  <div class="exam-q-body">
+    <strong>Answer Guide:</strong> <em>AGGREGATION (open diamond)</em>: A whole-part relationship where the PART can exist independently of the whole. Example: A Department HAS Employees. If the department is deleted, the employees still exist. <em>COMPOSITION (filled diamond)</em>: A strong whole-part relationship where the PART CANNOT exist without the whole. Example: A House HAS Rooms. If the house is demolished, the rooms cease to exist.
+  </div>
+</div>
+
+<div class="box box-purple" style="margin-top:28px;">
+  <div class="box-title" style="color:var(--purple-d);">🎯 EXAM DAY STRATEGY</div>
+  <strong>1.</strong> For diagram drawing questions — always <strong>label ALL elements</strong>. Use correct symbols.<br>
+  <strong>2.</strong> For DFDs — check balancing between levels. Every external data-flow must appear on both the context and Level 1.<br>
+  <strong>3.</strong> For ERDs — mark your key attributes with an <strong>underline</strong>. Use double borders for weak entities.<br>
+  <strong>4.</strong> For all UML diagrams — remember what goes <strong>INSIDE</strong> vs. <strong>OUTSIDE</strong> boundaries.<br>
+  <strong>5.</strong> For sequence diagrams — time flows <strong>downward</strong>. Draw lifelines as dashed vertical lines.
+</div>
+
+<div style="text-align:center;margin-top:36px;padding:20px 0;border-top:2px solid var(--light);">
+  <div style="font-size:18px;font-weight:700;color:var(--dark);">Good luck on Saturday! You've got this. 🎯</div>
+  <div style="font-size:12px;color:var(--muted);margin-top:6px;">APEXHUB CSC 411 | System Analysis &amp; Design | APEXHUB.AAUA 2025/2026</div>
+</div>
+
+</div><!-- end .body -->
+</div><!-- end .page -->
+</body>
+</html>
